@@ -1,0 +1,148 @@
+﻿<!-- Developer: Leo Brandenburg -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Adminpanel</title>
+		<meta charset="utf-8">
+		<meta name="author" content="Leo Brandenburg">
+		<link rel="shortcut icon" type="image/x-icon" href="img/logo.png">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- JavaScript -->
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> <!-- jQuery -->
+		<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> <!-- Übersetzer -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> <!-- Bootstrap -->
+		<script src="js/general.js"></script> <!-- alles eigene -->
+		<script src="js/admin.js"></script> <!-- alles eigene -->
+
+		<!-- CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> <!-- Bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"> <!-- Bootstrap -->
+		<link rel="stylesheet" href="css/own.css">
+	</head>
+	<body>
+		<div class="jumbotron center-block own-box-admin text-center">
+			<div class="pull-right">
+				<form method="post" action="">
+					<!-- <a id="Profile" data-toggle="modal" data-target="#modalProfile" class="btn btn-primary">
+						<span class="glyphicon glyphicon-user"></span> Profile
+					</a>-->
+					<button type="submit" name="logout" class="btn btn-danger">
+						<span class="glyphicon glyphicon-log-out"></span> Logout
+					</button>
+				</form>
+			</div>
+			<a href="./?admin"><img src="img/logo.png" width="100px" height="100px" class="logoSetCenterLogout" /></a>
+			<hr class="own-hr" />
+			<h2>Adminpanel</h2>
+			<div id="google_translate_element" style="text-align: right;"></div>
+		</div>
+		<div class="center-block own-box-admin"> <!-- wird onload dynamisch mit .js generiert -->
+			<noscript>Please activate JavaScript</noscript>
+			<div id="divFormButtonNewUser" class="">
+				<button onclick="showFormNewUser();" class="btn btn-primary">
+					<span class="glyphicon glyphicon-plus-sign"></span> Add User
+				</button>
+			</div>
+			<div id="divFormNewUser" class="hide">
+				<form id="formNewUser" name="formNewUser" method="post" action="" onsubmit="return createNewUser();">
+					<div class="row">
+						<div class="col-md-1"></div>
+						<div class="col-md-11">
+							<div class="form-group">
+								<button onclick="return hideFormNewUser();" class="btn btn-danger">
+									<span class="glyphicon glyphicon-remove"></span> Abort
+								</button>
+								<button onclick=" return resetFormNewUser();" type="reset" class="btn btn-warning">
+									<span class="glyphicon glyphicon-repeat"></span> Reset
+								</button>
+								<button type="submit" class="btn btn-success">
+									<span class="glyphicon glyphicon-plus-sign"></span> Confirm
+								</button>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<label>UserName*:</label>
+						</div>
+						<div class="col-md-10">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+									<input id="formUserName" name="formUserName" class="form-control" maxlength="255" required autofocus />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<label>Password*:</label>
+						</div>
+						<div class="col-md-10">
+							<div class="form-group" id="divFormPassword">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+									<input type="password" id="formPassword" name="formPassword" class="form-control" maxlength="255" required />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<label>Confirm password*:</label>
+						</div>
+						<div class="col-md-10">
+							<div class="form-group" id="divFormPasswordConfirm">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+									<input type="password" id="formPasswordConfirm" name="formPasswordConfirm" class="form-control" maxlength="255" required />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<label>Members Role*:</label>
+						</div>
+						<div class="col-md-10">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+									<select id="selectMemberRole" name="selectMemberRole" class="form-control" required />
+										<option>test</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<label>Email:</label>
+						</div>
+						<div class="col-md-10">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+									<input id="formEmail" name="formEmail" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" maxlength="255" />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-1">
+							*) required
+						</div>
+					</div>
+					<div id='formNewUser-divErrorPwNoMatch' class="alert alert-danger hide">
+						<b>Error!</b> New passwords do not match.
+					</div>
+					<div id='formNewUser-divErrorUserExists' class="alert alert-danger hide">
+						<b>Error!</b> User exists already
+					</div>
+				</form>
+			</div>
+			<br/><br/>
+			<table class="table table-striped table-hover">
+				<thead>
+					<th>Id</th>
+					<th>UserName</th>
+					<th>Password</th>
+					<th>Members Roll</th>
+					<th>Email</th>
+					<th>Action</th>
+				</thead>
+				<tbody id="userTable">
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>
