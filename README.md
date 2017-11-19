@@ -1,0 +1,1 @@
+Hier entsteht die Entwicklung und Implementierung einer Internetplattform für studentische Auslandsaufenthalte
