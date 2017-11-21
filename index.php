@@ -9,8 +9,7 @@ if (isset($_REQUEST['createReport']))
 	}
 	else
 	{
-		session_destroy();
-		include_once('html/login.html');
+		logout();
 	}
 }
 else if (isset($_REQUEST['admin']))
@@ -23,18 +22,23 @@ else if (isset($_REQUEST['admin']))
 		}
 		else
 		{
-			session_destroy();
-			include_once('html/login.html');
+			logout();
 		}
 	}
 	else
 	{
-		session_destroy();
-		include_once('html/login.html');
+		logout();
 	}
 }
 else
 {
 	include_once('html/viewReports.html');
+}
+
+function logout()
+{
+	unset($_SESSION['StAusAuf_Id']);
+	unset($_SESSION['StAusAuf_memberRole']);
+	include_once('html/login.html');
 }
 ?>
