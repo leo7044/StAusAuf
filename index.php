@@ -24,13 +24,13 @@ else if (isset($_REQUEST['admin']))
 		else
 		{
 			session_destroy();
-			include_once('html/loginAdmin.html');
+			include_once('html/login.html');
 		}
 	}
 	else
 	{
 		session_destroy();
-		include_once('html/loginAdmin.html');
+		include_once('html/login.html');
 	}
 }
 else

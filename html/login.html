@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Reports - Login</title>
+		<title>Login</title>
 		<meta charset="utf-8">
 		<meta name="author" content="Leo Brandenburg">
 		<link rel="shortcut icon" type="image/x-icon" href="img/logo.png">
@@ -21,14 +21,14 @@
 	</head>
 	<body>
 		<div class="jumbotron center-block own-box text-center">
-			<a href="./?createReport"><img src="img/logo.png" width="100px" height="100px" /></a>
+			<img src="img/logo.png" onclick="location.reload();" style="cursor: pointer;" width="100px" height="100px" />
 			<hr class="own-hr" />
 			<h2>Login to create a report</h2>
 			<div id="google_translate_element" style="text-align: right;"></div>
 		</div>
 		<div class="center-block own-box">
 			<noscript>Please activate JavaScript</noscript>
-			<form method="post" action="./?createReport" name="formLogin" id="formLogin" onsubmit="return login();">
+			<form method="post" name="formLogin" id="formLogin">
 				<h3>Login</h3>
 				<div class="form-group">
 					<div class="input-group" title="Please enter your Username.">
@@ -44,6 +44,9 @@
 				</div>
 				<div id='formLogin-divErrorPw' class="alert alert-danger hide">
 					<b>Login failed!</b> Wrong Username or Password.
+				</div>
+				<div id='formLogin-divErrorPermission' class="alert alert-danger hide">
+					<b>Login failed!</b> You do not have the permission to login.
 				</div>
 				<div id='formLogin-divErrorDb' class="alert alert-danger hide">
 					<b>Error!</b> Database is not available.

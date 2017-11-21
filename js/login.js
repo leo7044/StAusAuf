@@ -1,5 +1,36 @@
 ﻿/* Developer: Leo Brandenburg */
 
+$(document).ready(function() {
+	getGetParas();
+	initializeForm();
+	$('#formLogin-divError').hide();
+});
+
+// initialisiert das Formular (richtige ZielPage)
+function initializeForm()
+{
+	if ($_GET().createReport)
+	{
+		document.title = 'Create - Login';
+		document.formLogin.action = './?createReport';
+		document.formLogin.onsubmit =
+		function()
+		{
+			return login();
+		}
+	}
+	else if ($_GET().admin)
+	{
+		document.title = 'Admin - Login';
+		document.formLogin.action = './?admin';
+		document.formLogin.onsubmit =
+		function()
+		{
+			return login(true);
+		}
+	}
+}
+
 //Login
 function login(isAdminLogin)
 {
