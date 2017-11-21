@@ -283,7 +283,10 @@ function checkInputFormCreateReport()
 	var success = saveFormReportInDb(NickName, Country, city, dateRange, highlight, attention, frame_textreport);
 	if (success == 'ReportSpeicherung erfolgreich')
 	{
+		uploadFilesAvatar(affectedIdWhenUpload);
+		uploadFilesGallery(affectedIdWhenUpload);
 		// hide button and link to report or whatever // nicht mehr nötig, weil auf nächste Seite weitergeleitet
+		return false;
 		return true; // vielleicht ein true returnen, um Bilder zu speichern wegen $_FILES?
 	}
 	else
@@ -361,6 +364,67 @@ function saveFormReportInDb(NickName, Country, city, dateRange, highlight, atten
 	});
 	$.ajaxSetup({async: true});
 	// console.log(returnValue); // Debug
+	return returnValue;
+}
+
+// lädt Avatar-Bild mittels AJAX hoch
+function uploadFilesAvatar(id)
+{
+	var returnValue = false;
+	var form_data = new FormData();
+	for (var i = 0; i < $('#FileInputUploadAvatar').prop('files').length; i++)
+	{
+		var file_data = $('#FileInputUploadAvatar').prop('files')[i];
+		form_data.append('fileAvatar' + i, file_data);
+	}
+	form_data.append('id', id);
+	form_data.append('action', 'fileAjaxUploadAvatar');
+	$.ajaxSetup({async: false});
+	$.ajax({
+		url: './php/manageBackend.php', // point to server-side PHP script
+		dataType: 'text',  // what to expect back from the PHP script, if anything
+		cache: false,
+		contentType: false,
+		processData: false,
+		data: form_data,
+		type: 'post',
+		success: function(data)
+		{
+			console.log(data);
+			returnValue = true;
+		}
+	});
+	$.ajaxSetup({async: true});
+	return returnValue;
+}
+
+// lädt Gallery mittels AJAX hoch
+function uploadFilesGallery(id)
+{
+	var returnValue = false;
+	var form_data = new FormData();
+	for (var i = 0; i < $('#FileInputUploadGallery').prop('files').length; i++)
+	{
+		var file_data = $('#FileInputUploadGallery').prop('files')[i];
+		form_data.append('fileGallery' + i, file_data);
+	}
+	form_data.append('id', id);
+	form_data.append('action', 'fileAjaxUploadGallery');
+	$.ajaxSetup({async: false});
+	$.ajax({
+		url: './php/manageBackend.php', // point to server-side PHP script
+		dataType: 'text',  // what to expect back from the PHP script, if anything
+		cache: false,
+		contentType: false,
+		processData: false,
+		data: form_data,
+		type: 'post',
+		success: function(data)
+		{
+			returnValue = true;
+		}
+	});
+	$.ajaxSetup({async: true});
 	return returnValue;
 }
 

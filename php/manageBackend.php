@@ -144,6 +144,49 @@ if (!$conn->connect_error)
 			}
 			break;
 		}
+		case 'fileAjaxUploadAvatar':
+		{
+			$Id = $_post['id'];
+			$allowedFileTypes = array('jpg', 'png', 'gif'); // diese Dateiendungen werden akzeptiert - ggf. noch anzupassen
+			$dirUpload = '../img_upload';
+			$pathNewPics = "$dirUpload/$Id";
+			mkdir("$pathNewPics", 0755, true);
+			$pathThumbAvatar = "$pathNewPics/thumb_Avatar/";
+			$pathBigAvatar = "$pathNewPics/big_Avatar/";
+			mkdir("$pathThumbAvatar", 0755, true);
+			mkdir("$pathBigAvatar", 0755, true);
+			foreach($_FILES as $key => $value)
+			{
+				$tmpName = $value['tmp_name'];
+				$name = $value['name'];
+				move_uploaded_file($tmpName, $pathThumbAvatar . $name);
+				copy($pathThumbAvatar . $name, $pathBigAvatar . $name);
+				resizeImage($pathThumbAvatar . $name, 160, 160);
+				resizeImage($pathBigAvatar . $name, 1920, 1080);
+			}
+			break;
+		}
+		case 'fileAjaxUploadGallery':
+		{
+			$Id = $_post['id'];
+			$allowedFileTypes = array('jpg', 'png', 'gif'); // diese Dateiendungen werden akzeptiert - ggf. noch anzupassen
+			$dirUpload = '../img_upload';
+			$pathNewPics = "$dirUpload/$Id";
+			$pathThumbGallery = "$pathNewPics/thumb_Gallery/";
+			$pathBigGallery = "$pathNewPics/big_Gallery/";
+			mkdir("$pathThumbGallery", 0755, true);
+			mkdir("$pathBigGallery", 0755, true);
+			foreach($_FILES as $key => $value)
+			{
+				$tmpName = $value['tmp_name'];
+				$name = $value['name'];
+				move_uploaded_file($tmpName, $pathThumbGallery . $name);
+				copy($pathThumbGallery . $name, $pathBigGallery . $name);
+				resizeImage($pathThumbGallery . $name, 160, 160);
+				resizeImage($pathBigGallery . $name, 1920, 1080);
+			}
+			break;
+		}
 		case 'getReportData':
 		{
 			$result = $conn->query("SELECT * FROM `reports` WHERE `showRow`=true ORDER BY `ID` ASC");
@@ -387,5 +430,58 @@ function updateProfile($conn, $Id, $oldPw, $newPw, $email)
 		$returnValue = "success Change";
 	}
 	return $returnValue;
+}
+
+// verkleinert ggf. hochgeladene Bilder
+function resizeImage($filePath, $maxWidth, $maxHeight)
+{
+	$imageInfo = getimagesize($filePath); 
+	$width = $widthOrig = $imageInfo[0];
+	$height = $heightOrig = $imageInfo[1];
+	switch ($imageInfo['mime'])
+	{
+		case 'image/jpeg':
+		{
+			$imageCreateFunction = 'imagecreatefromjpeg';
+			$imageSaveFunction = 'imagejpeg';
+			break;
+		}
+		case 'image/png':
+		{
+			$imageCreateFunction = 'imagecreatefrompng';
+			$imageSaveFunction = 'imagepng';
+			break;
+		}
+		case 'image/gif':
+		{
+			$imageCreateFunction = 'imagecreatefromgif';
+			$imageSaveFunction = 'imagegif';
+			break;
+		}
+		default:
+		{
+			return 'not touched because wrong FileType'; // tritt aber nie auf, weil in if-Zweig abgefragt, aber man weiß nie, wozu es noch gut ist
+			break;
+		}
+	}
+	$origImage = $imageCreateFunction($filePath);
+	if ($widthOrig > $maxWidth|| $heightOrig > $maxHeight)
+	{
+		$ratioWidth = $widthOrig / $maxWidth;
+		$ratioHeight = $heightOrig / $maxHeight;
+		if ($ratioWidth >= $ratioHeight)
+		{
+			$width = $widthOrig / $ratioWidth;
+			$height = $heightOrig / $ratioWidth;
+		}
+		else
+		{
+			$width = $widthOrig / $ratioHeight;
+			$height = $heightOrig / $ratioHeight;
+		}
+	}
+	$destinationImage = imagecreatetruecolor($width, $height);
+	imagecopyresampled($destinationImage, $origImage, 0, 0, 0, 0, $width, $height, $widthOrig, $heightOrig);
+	$imageSaveFunction($destinationImage, $filePath);
 }
 ?>
