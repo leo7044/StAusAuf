@@ -17,11 +17,11 @@ if (isset($_SESSION['StAusAuf_Id']))
 	$allowedFileTypes = array('jpg', 'png', 'gif'); // diese Dateiendungen werden akzeptiert - ggf. noch anzupassen
 	$dirUpload = '../img_upload';
 	$pathNewPics = "$dirUpload/$Id";
-	mkdir("$pathNewPics", 0700);
+	mkdir("$pathNewPics", 0755, true);
 	$pathThumbAvatar = "$pathNewPics/thumb_Avatar";
 	$pathBigAvatar = "$pathNewPics/big_Avatar";
-	mkdir("$pathThumbAvatar", 0700);
-	mkdir("$pathBigAvatar", 0700);
+	mkdir("$pathThumbAvatar", 0755, true);
+	mkdir("$pathBigAvatar", 0755, true);
 	if(isset($_FILES["FileInputUploadAvatar"]))
 	{
 		foreach ($_FILES["FileInputUploadAvatar"]["error"] as $key => $error)
@@ -43,8 +43,8 @@ if (isset($_SESSION['StAusAuf_Id']))
 	}
 	$pathBigGallery = "$pathNewPics/big_Gallery";
 	$pathThumbGallery = "$pathNewPics/thumb_Gallery";
-	mkdir("$pathBigGallery", 0700);
-	mkdir("$pathThumbGallery", 0700);
+	mkdir("$pathBigGallery", 0755, true);
+	mkdir("$pathThumbGallery", 0755, true);
 	if(isset($_FILES["FileInputUploadGallery"]))
 	{
 		foreach ($_FILES["FileInputUploadGallery"]["error"] as $key => $error)
