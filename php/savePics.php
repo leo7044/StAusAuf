@@ -3,9 +3,9 @@
 // gespeicherte Bildergröße ist noch anzupassen
 include_once('config.php'); // Datenbankanbindung
 session_start(); // starten der PHP-Session
-if (isset($_SESSION['Id']))
+if (isset($_SESSION['StAusAuf_Id']))
 {
-	$userId = $_SESSION['Id'];
+	$userId = $_SESSION['StAusAuf_Id'];
 	$result = $conn->query("SELECT MAX(Id) AS Id FROM `reports` WHERE userId='$userId';");
 	$Id = 0;
 	while ($zeile = $result->fetch_assoc())

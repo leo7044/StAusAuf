@@ -60,7 +60,7 @@ if (!$conn->connect_error)
 		}
 		case 'getOwnUser':
 		{
-			$Id = $_SESSION['Id'];
+			$Id = $_SESSION['StAusAuf_Id'];
 			$result = $conn->query("SELECT `Id`, `UserName`, `MemberRole` FROM `login` WHERE Id='$Id'");
 			$output = array();
 			$output = $result->fetch_all(MYSQLI_ASSOC);
@@ -69,7 +69,7 @@ if (!$conn->connect_error)
 		}
 		case 'getOwnEmail':
 		{
-			$Id = $_SESSION['Id'];
+			$Id = $_SESSION['StAusAuf_Id'];
 			$email = getOwnEmail($conn, $Id);
 			if ($email)
 			{
@@ -83,7 +83,7 @@ if (!$conn->connect_error)
 		}
 		case 'updateProfile':
 		{
-			$Id = $_SESSION['Id'];
+			$Id = $_SESSION['StAusAuf_Id'];
 			$oldPw = md5($_post['oldPw']);
 			$newPw = md5($_post['newPw']);
 			$email = $_post['email'];
@@ -100,7 +100,7 @@ if (!$conn->connect_error)
 		}
 		case 'updateEmail':
 		{
-			$Id = $_SESSION['Id'];
+			$Id = $_SESSION['StAusAuf_Id'];
 			$email = $_post['email'];
 			$Id = updateEmail($conn, $Id, $email);
 			if ($Id)
@@ -115,7 +115,7 @@ if (!$conn->connect_error)
 		}
 		case 'saveFormReport':
 		{
-			$Id = $_SESSION['Id'];
+			$Id = $_SESSION['StAusAuf_Id'];
 			if ($Id)
 			{
 				$reportName = $_post['reportName'];
@@ -201,10 +201,10 @@ if (!$conn->connect_error)
 		// Admin
 		case 'deleteReport':
 		{
-			$Id = $_SESSION['Id'];
+			$Id = $_SESSION['StAusAuf_Id'];
 			$reportIdToDelete = $_post['reportIdToDelete'];
 			setMemberRole($conn);
-			if ($_SESSION['memberRole'] >= 1)
+			if ($_SESSION['StAusAuf_memberRole'] >= 1)
 			{
 				$conn-> query("UPDATE `reports` SET `showRow`=0 WHERE `Id`='$reportIdToDelete'");
 				/* Bilder verschieben notwendig? Grund: es wird mit dem Ordnernamen zugegriffen, nicht über den Index */
@@ -214,7 +214,7 @@ if (!$conn->connect_error)
 		case 'getUserData':
 		{
 			setMemberRole($conn);
-			if ($_SESSION['memberRole'] >= 1)
+			if ($_SESSION['StAusAuf_memberRole'] >= 1)
 			{
 				$result = $conn->query("SELECT `Id`, `UserName`, `MemberRole`, `Email` FROM `login` ORDER BY UserName ASC;");
 				$output = array();
@@ -227,13 +227,13 @@ if (!$conn->connect_error)
 		{
 			$userIdToDelete = $_post['userIdToDelete'];
 			setMemberRole($conn);
-			if ($_SESSION['memberRole'] >= 1)
+			if ($_SESSION['StAusAuf_memberRole'] >= 1)
 			{
 				$result = $conn->query("SELECT `MemberRole` FROM `login` WHERE `Id`='$userIdToDelete';");
 				while ($zeile = $result->fetch_assoc())
 				{
 					$otherMemberRole = $zeile['MemberRole'];
-					if ($_SESSION['memberRole'] >= $otherMemberRole)
+					if ($_SESSION['StAusAuf_memberRole'] >= $otherMemberRole)
 					{
 						$conn->query("DELETE FROM `login` WHERE `Id`='$userIdToDelete';");
 					}
@@ -249,12 +249,12 @@ if (!$conn->connect_error)
 			setMemberRole($conn);
 			$otherMemberRole = $_post['memberRole'];
 			$email = $_post['email'];
-			if ($_SESSION['memberRole'] >= 1)
+			if ($_SESSION['StAusAuf_memberRole'] >= 1)
 			{
 				$result = $conn->query("SELECT * FROM `login` WHERE `Id`='$userIdToUpdate';");
 				while ($zeile = $result->fetch_assoc())
 				{
-					if ($_SESSION['memberRole'] >= $otherMemberRole)
+					if ($_SESSION['StAusAuf_memberRole'] >= $otherMemberRole)
 					{
 						if ($password != '')
 						{
@@ -285,7 +285,7 @@ if (!$conn->connect_error)
 			setMemberRole($conn);
 			$otherMemberRole = $_post['memberRole'];
 			$email = $_post['email'];
-			if ($_SESSION['memberRole'] >= 1 && $_SESSION['memberRole'] >= $otherMemberRole)
+			if ($_SESSION['StAusAuf_memberRole'] >= 1 && $_SESSION['StAusAuf_memberRole'] >= $otherMemberRole)
 			{
 				$conn->query("INSERT INTO `login`(`UserName`, `Password`, `MemberRole`, `Email`) VALUES ('$userName', '$password', '$otherMemberRole', '$email');");
 				$userAnswer = array();
@@ -331,11 +331,11 @@ function replaceChars($str)
 // überprüft immer wieder die MemberRole
 function setMemberRole($conn)
 {
-	$Id = $_SESSION['Id'];
+	$Id = $_SESSION['StAusAuf_Id'];
 	$result = $conn->query("SELECT `MemberRole` FROM `login` WHERE `Id`='$Id';");
 	while ($zeile = $result->fetch_assoc())
 	{
-		$_SESSION['memberRole'] = $zeile['MemberRole'];
+		$_SESSION['StAusAuf_memberRole'] = $zeile['MemberRole'];
 	}
 }
 
@@ -347,7 +347,7 @@ function checkLogin($conn, $UserName, $Password)
 	while ($zeile = $result->fetch_assoc())
 	{
 		$MemberRole = $zeile['MemberRole'];
-		$_SESSION['Id'] = $zeile['Id'];
+		$_SESSION['StAusAuf_Id'] = $zeile['Id'];
 		setMemberRole($conn);
 	}
 	return $MemberRole;
