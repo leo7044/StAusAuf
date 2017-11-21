@@ -285,8 +285,8 @@ function checkInputFormCreateReport()
 	{
 		uploadFilesAvatar(affectedIdWhenUpload);
 		uploadFilesGallery(affectedIdWhenUpload);
+		document.formCreateReport.action = './?Id=' + affectedIdWhenUpload + '&success=true';
 		// hide button and link to report or whatever // nicht mehr nötig, weil auf nächste Seite weitergeleitet
-		return false;
 		return true; // vielleicht ein true returnen, um Bilder zu speichern wegen $_FILES?
 	}
 	else
