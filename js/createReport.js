@@ -21,13 +21,14 @@ $(document).ready(function(){
 	changeCss('div-Internship', 'form-group');
 	$("#FileInputUploadAvatar").fileinput({ // FileUploadAvatar
         showUpload: false, // Zeile 674 in "fileinput.js" bearbeitet, showUpload auf false gesetzt; Zeile 3.797 in "fileinput.js" bearbeitet, um "Remove"-Button rot einzufärben
-		uploadUrl: 'img_public',
+		// uploadUrl: 'img_public',
 		allowedFileTypes: ["image"],
 		// allowedFileTypes: ['jpg', 'png', 'gif'],
         // maxFileSize: 1024,
 		// maxFilePreviewSize: 1024,
-        overwriteInitial: true,
-		defaultPreviewContent: '<img src="img/default_avatar_male.jpg" alt="Your Avatar" style="width:160px"><h6 class="text-muted">Drag & drop an avatar-picture here</h6>'
+		overwriteInitial: true,
+		removeClass: "btn btn-danger"
+		// defaultPreviewContent: '<img src="img/default_avatar_male.jpg" alt="Your Avatar" style="width:160px"><h6 class="text-muted">Drag & drop an avatar-picture here</h6>'
     });
 	$("#FileInputUploadGallery").fileinput({ // FileUploadGallery
 		showUpload: false,
@@ -37,6 +38,7 @@ $(document).ready(function(){
 		browseClass: "btn btn-success",
         browseLabel: "Pick Images",
         browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+		removeClass: "btn btn-danger",
         // maxFileSize: 1024,
 		// maxFilePreviewSize: 1024,
 		maxFileCount: 20,
