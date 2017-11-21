@@ -129,19 +129,18 @@ if (!$conn->connect_error)
 				$internship = $_post['internship'];
 				$commentBox = $_post['commentBox'];
 				$conn->query("INSERT INTO `reports`(`userId`, `reportName`, `nickName`, `country`, `city`, `dateRange`, `highlight`, `attention`, `lecture`, `internship`, `commentBox`, `showRow`) VALUES ('$Id', '$reportName', '$nickName', '$country', '$city', '$dateRange', '$highlight', '$attention', '$lecture', '$internship', '$commentBox', true);");
-				$Id = mysqli_insert_id($conn);
-				if ($Id)
+				$userAnswer = array();
+				if ($conn->affected_rows > 0)
 				{
-					echo 'ReportSpeicherung erfolgreich';
+					$userAnswer[0] = mysqli_insert_id($conn);
+					$userAnswer[1] = 'ReportSpeicherung erfolgreich';
 				}
 				else
 				{
-					echo 'ReportSpeicherung fehlgeschlagen';				
+					$userAnswer[0] = 0;
+					$userAnswer[1] = 'ReportSpeicherung fehlgeschlagen';
 				}
-			}
-			else
-			{
-				echo 'ReportSpeicherung fehlgeschlagen';				
+				echo json_encode($userAnswer);
 			}
 			break;
 		}

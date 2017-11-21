@@ -6,6 +6,7 @@ var countryData = null;
 var currentSelectedCountry = '';
 var currentSelectedLanguage = '';
 // var msDropDownCountries = '';
+var affectedIdWhenUpload = '';
 
 // zum Laden der Seite ausführen
 $(document).ready(function(){
@@ -337,12 +338,13 @@ function saveFormReportInDb(NickName, Country, city, dateRange, highlight, atten
 		if (data.responseText != 'noDatabase')
 		{
 			// Bilder speichern (http://php.net/manual/de/function.imagecopyresized.php)
-			if (data.responseText == 'ReportSpeicherung erfolgreich')
+			if (data[1] == 'ReportSpeicherung erfolgreich')
 			{
 				// erfolgreich (eventuelle returnValue für große Funktion?)
+				affectedIdWhenUpload = data[0];
 				returnValue = 'ReportSpeicherung erfolgreich';
 			}
-			else if (data.responseText == 'ReportSpeicherung fehlgeschlagen')
+			else if (data[1] == 'ReportSpeicherung fehlgeschlagen')
 			{
 				// Meldung, nicht erfolgreich beim speichern
 				returnValue = 'ReportSpeicherung fehlgeschlagen';
