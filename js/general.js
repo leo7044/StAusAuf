@@ -1,13 +1,27 @@
 /* Developer: Leo Brandenburg */
-// Voraussetzung für alle eigenen .js-Dateien
+// Voraussetzung fÃ¼r alle eigenen .js-Dateien
 
-// verändert CSS-Klassen
+var objectLanguages = null;
+
+$(document).ready(function() {
+    try // fÃ¼r den Fall der FÃ¤lle, weil direkt aufs DOM durchgegriffen wird
+    {
+        objectLanguages = getLanguages();
+        prepareLanguageSelection();
+    }
+    catch(e)
+    {
+        console.log(e);
+    }
+});
+
+// verï¿½ndert CSS-Klassen
 function changeCss(id, css)
 {
 	$('#' + id)[0].className = css;
 }
 
-// Übersetzer
+// ï¿½bersetzer
 function googleTranslateElementInit()
 {
 	new google.translate.TranslateElement({pageLanguage: 'en', autoDisplay: false}, 'google_translate_element');
@@ -25,4 +39,52 @@ function getGetParas()
         c[unescape(parts[0])] = unescape(parts[1]);
     }
     window.$_GET = function(name){return name ? c[name] : c;}
+}
+
+// Sprachen aus Sprachdatei laden
+function getLanguages()
+{
+	var returnValue = null;
+	$.ajaxSetup({async: false});
+	$.getJSON
+	(
+		"js/languages.json",
+		function(data)
+		{
+			returnValue = data;
+		}
+	)
+	$.ajaxSetup({async: true});
+	return returnValue;
+}
+
+// prÃ¤pariert die Sprachauswahl
+function prepareLanguageSelection()
+{
+    var strHtml = '';
+    for (var key in objectLanguages.languageShort)
+    {
+        strHtml += '<option value="' + objectLanguages.languageShort[key] + '">' + objectLanguages.languageLong[key] + '</option>';
+    }
+    $('#language')[0].innerHTML = strHtml;
+}
+
+// wird beim Wechseln iner Sprache aufgerufen
+function changeLanguage()
+{
+    var currentLanguageIndex = $('#language')[0].selectedIndex;
+    translateEachElement(currentLanguageIndex);
+}
+
+// translates each Element with special classes
+function translateEachElement(currentLanguageIndex)
+{
+    for (var i = 0; i < $('.trans-innerHTML').length; i++)
+    {
+        $('.trans-innerHTML')[i].innerHTML = objectLanguages[$('.trans-innerHTML')[i].id][currentLanguageIndex];
+    }
+    for (var i = 0; i < $('.trans-placeholder').length; i++)
+    {
+        $('.trans-placeholder')[i].placeholder = objectLanguages[$('.trans-placeholder')[i].id][currentLanguageIndex];
+    }
 }

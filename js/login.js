@@ -50,17 +50,18 @@ function login(isAdminLogin)
 	{
 		if (data.responseText == 'Login erfolgreich')
 		{
-			changeCss('formLogin-divErrorPw', 'alert alert-danger hide');
-			changeCss('formLogin-divErrorDb', 'alert alert-danger hide');
+			$('#formLogin-divErrorPw').addClass('hide');
+			$('#formLogin-divErrorDb').addClass('hide');
+			$('#formLogin-divErrorPermission').addClass('hide');
 			returnValue = true;
 		}
 		else if (data.responseText == 'Member permission')
 		{
-			changeCss('formLogin-divErrorPw', 'alert alert-danger hide');
-			changeCss('formLogin-divErrorDb', 'alert alert-danger hide');
+			$('#formLogin-divErrorPw').addClass('hide');
+			$('#formLogin-divErrorDb').addClass('hide');
 			if (isAdminLogin)
 			{
-				changeCss('formLogin-divErrorPermission', 'alert alert-danger');
+				$('#formLogin-divErrorPermission').removeClass('hide');
 			}
 			else
 			{
@@ -69,21 +70,21 @@ function login(isAdminLogin)
 		}
 		else if (data.responseText == 'Login fehlgeschlagen')
 		{
-			changeCss('formLogin-divErrorPw', 'alert alert-danger');
-			changeCss('formLogin-divErrorDb', 'alert alert-danger hide');
+			$('#formLogin-divErrorPw').removeClass('hide');
+			$('#formLogin-divErrorDb').addClass('hide');
 			if (isAdminLogin)
 			{
-				changeCss('formLogin-divErrorPermission', 'alert alert-danger hide');
+				$('#formLogin-divErrorPermission').addClass('hide');
 			}
 			$('#Password')[0].focus();
 		}
 		else if (data.responseText == 'noDatabase')
 		{
-			changeCss('formLogin-divErrorPw', 'alert alert-danger hide');
-			changeCss('formLogin-divErrorDb', 'alert alert-danger');
+			$('#formLogin-divErrorPw').addClass('hide');
+			$('#formLogin-divErrorDb').removeClass('hide');
 			if (isAdminLogin)
 			{
-				changeCss('formLogin-divErrorPermission', 'alert alert-danger hide');
+				$('#formLogin-divErrorPermission').addClass('hide');
 			}
 			$('#Password')[0].focus();
 		}

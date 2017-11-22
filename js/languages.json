@@ -1,0 +1,11 @@
+{
+    "languageShort":["en","de"],
+    "languageLong":["English","Deutsch"],
+    "LoginHeader":["Login to create a report","Einloggen, um Bericht zu erstellen"],
+    "Login":["Login","Anmelden"],
+	"UserName":["Username","Benutzername"],
+	"Password":["Password","Passwort"],
+	"formLogin-divErrorPw":["<b>Login failed!</b> Wrong Username or Password.","<b>Login fehlgeschlagen!</b> Falscher Benutzername oder Passwort."],
+	"formLogin-divErrorPermission":["<b>Login failed!</b> You do not have the permission to login.","<b>Login fehlgeschlagen!</b> Sie haben nicht die Berechtigungen, sich einzuloggen."],
+	"formLogin-divErrorDb":["<b>Error!</b> Database is not available.","<b>Fehler!</b> Datenbank nicht ferfügbar."]
+}
