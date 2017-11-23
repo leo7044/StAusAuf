@@ -1,11 +1,45 @@
 {
-    "languageShort":["en","de"],
+	"languageShort":["en","de"],
     "languageLong":["English","Deutsch"],
-    "LoginHeader":["Login to create a report","Einloggen, um Bericht zu erstellen"],
+	"LoginHeader":["Login to create a report","Einloggen für Berichterstellung"],
+	"LoginHeaderAdmin":["Login to administrate the page","Einloggen fürs Verwalten"],
     "Login":["Login","Anmelden"],
 	"UserName":["Username","Benutzername"],
 	"Password":["Password","Passwort"],
-	"formLogin-divErrorPw":["<b>Login failed!</b> Wrong Username or Password.","<b>Login fehlgeschlagen!</b> Falscher Benutzername oder Passwort."],
-	"formLogin-divErrorPermission":["<b>Login failed!</b> You do not have the permission to login.","<b>Login fehlgeschlagen!</b> Sie haben nicht die Berechtigungen, sich einzuloggen."],
-	"formLogin-divErrorDb":["<b>Error!</b> Database is not available.","<b>Fehler!</b> Datenbank nicht ferfügbar."]
+	"formLogin-divErrorPw":["<b>Login failed!</b> Wrong Username or Password.","<b>Anmeldung fehlgeschlagen!</b> Falscher Benutzername oder Passwort."],
+	"formLogin-divErrorPermission":["<b>Login failed!</b> You do not have the permission to login.","<b>Anmeldung fehlgeschlagen!</b> Sie haben nicht die Berechtigungen, sich einzuloggen."],
+	"formLogin-divErrorDb":["<b>Error!</b> Database is not available.","<b>Fehler!</b> Datenbank nicht ferfügbar."],
+	"ViewReportsHeader":["HWR experience reports","HWR Reiseberichte"],
+	"ReportSaved":["Your report has been successfully saved.","Ihr Bericht wurde erfolgreich gespeichert."],
+	"GeneralInformation":["General Information","Allgemeine Informationen"],
+	"AvatarPicture":["Avatar Picture","Avatarbild"],
+	"PictureGallery":["Picture Gallery","Bildergalerie"],
+	"Comment":["Comment","Kommentar"],
+	"DeleteReport":["Delete Report", "Bericht löschen"],
+	"Close":["Close","Schließen"],
+	"ArrayTitle":
+	[
+		[
+			"Title of report: ",
+			"Author: ",
+			"Country: ",
+			"City: ",
+			"Travel-Period: ",
+			"Highlights: ",
+			"Pay attention for: ",
+			"Attended lectures: ",
+			"Attended internships: "
+		],
+		[
+			"Titel des Berichts: ",
+			"Autor: ",
+			"Land: ",
+			"Stadt: ",
+			"Reisezeitraum: ",
+			"Höhepunkte: ",
+			"Wichtige Hinweise: ",
+			"Besuchte Vorlesungen: ",
+			"Absolvierte Praktika: "
+		]
+	]
 }

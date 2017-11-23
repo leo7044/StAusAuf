@@ -15,7 +15,7 @@ $(document).ready(function()
 	fillReportTable();
 })
 
-// gibt die eigene Id mit UserName zurück
+// gibt die eigene Id mit UserName zurÃ¼ck
 function getOwnUser()
 {
 	$.ajaxSetup({async: false});
@@ -32,7 +32,7 @@ function getOwnUser()
 	$.ajaxSetup({async: true});
 }
 
-// füllt das ownUserArray falls kein Login existiert
+// fÃ¤llt das ownUserArray falls kein Login existiert
 function prepareUserIfNoLogin()
 {
 	ownUser[0] = new Object();
@@ -86,13 +86,13 @@ function getPictureData()
 		}
 		else
 		{
-			// DB nicht erreichbar - überleg dir was
+			// DB nicht erreichbar - Ã¼berleg dir was
 		}
 	});
 	$.ajaxSetup({async: true});
 }
 
-// lädt Daten aus der DB
+// lÃ¤dt Daten aus der DB
 function getReportData()
 {
 	var data =
@@ -108,7 +108,7 @@ function getReportData()
 	$.ajaxSetup({async: true});
 }
 
-// füllt die ReportTable beim onLoad
+// fÃ¤llt die ReportTable beim onLoad
 function fillReportTable()
 {
 	if (reportData.responseText != 'noDatabase')
@@ -154,7 +154,7 @@ function fillReportTable()
 					}
 					strHtml += '<center>';
 					strHtml += '<a id="modal_' + dataId + '" data-toggle="modal" data-target="#modalReport" style="cursor: pointer;" onclick="loadContentOfModal(this.id);">';
-					strHtml += '<img src="' + pfadToAvatarPic + '"></img>'; // Begleittext ergänzen
+					strHtml += '<img src="' + pfadToAvatarPic + '"></img>'; // Begleittext ergÃ¤nzen
 					strHtml += '</a>';
 					strHtml += '<br/>' + reportData[i].reportName + ' (' + reportData[i].nickName + ')';
 					var indexOfCountry = $.inArray(reportData[i].country, countryIso);
@@ -173,7 +173,7 @@ function fillReportTable()
 					}
 					strHtml += '<center>';
 					strHtml += '<a id="modal_' + dataId + '" data-toggle="modal" data-target="#modalReport" style="cursor: pointer;" onclick="loadContentOfModal(this.id);">';
-					strHtml += '<img src="' + pfadToAvatarPic + '"></img>'; // Begleittext ergänzen
+					strHtml += '<img src="' + pfadToAvatarPic + '"></img>'; // Begleittext ergÃ¤nzen
 					strHtml += '</a>';
 					strHtml += '<br/>' + reportData[i].reportName + ' (' + reportData[i].nickName + ')';
 					var indexOfCountry = $.inArray(reportData[i].country, countryIso);
@@ -192,7 +192,7 @@ function fillReportTable()
 					}
 					strHtml += '<center>';
 					strHtml += '<a id="modal_' + dataId + '" data-toggle="modal" data-target="#modalReport" style="cursor: pointer;" onclick="loadContentOfModal(this.id);">';
-					strHtml += '<img src="' + pfadToAvatarPic + '"></img>'; // Begleittext ergänzen
+					strHtml += '<img src="' + pfadToAvatarPic + '"></img>'; // Begleittext ergÃ¤nzen
 					strHtml += '</a>';
 					strHtml += '<br/>' + reportData[i].reportName + ' (' + reportData[i].nickName + ')';
 					var indexOfCountry = $.inArray(reportData[i].country, countryIso);
@@ -215,11 +215,11 @@ function fillReportTable()
 	}
 	else
 	{
-		// DB nicht erreichbar - überleg dir was
+		// DB nicht erreichbar - Ã¼berleg dir was
 	}
 }
 
-// lädt den Content fürs Modal
+// lÃ¤dt den Content fÃ¼rs Modal
 function loadContentOfModal(longModalId, loadingPage)
 {
 	loadingPage = loadingPage || false;
@@ -228,15 +228,8 @@ function loadContentOfModal(longModalId, loadingPage)
 	window.history.pushState('', '', '?Id=' + modalId);
 	var indexOfObjectInReportData = $.inArray(modalId, idArray); // auf welches Objekt in den ReportData muss zugegriffen werden
 	var modal = document.getElementById('modalReport');
-	var arrayTitle = new Array('Title of report: ',
-								'Author: ',
-								'Country: ',
-								'City: ',
-								'Travel-Period: ',
-								'Highlights: ',
-								'Pay attention for: ',
-								'Attended lectures: ',
-								'Attended internships: ');
+	var currentLanguageIndex = $('#language')[0].selectedIndex;
+	var arrayTitle = objectLanguages.ArrayTitle[currentLanguageIndex];
 	var arrayContent = new Array(reportData[indexOfObjectInReportData].reportName,
 								reportData[indexOfObjectInReportData].nickName,
 								countryData[$.inArray(reportData[indexOfObjectInReportData].country, countryIso)].name,
@@ -249,7 +242,7 @@ function loadContentOfModal(longModalId, loadingPage)
 	var modalBody =
 		'<div class="list-group">' +
 			'<a class="list-group-item">' +
-				'<h4 class="list-group-item-heading">General Information</h4>' +
+				'<h4 id="GeneralInformation" class="list-group-item-heading trans-innerHTML">General Information</h4>' +
 				'<p class="list-group-item-text">';
 					for (var i = 0; i < arrayTitle.length; i++)
 					{
@@ -272,7 +265,7 @@ function loadContentOfModal(longModalId, loadingPage)
 		modalBody +=
 			'<div class="list-group">' +
 				'<div class="list-group-item">' +
-					'<h4 class="list-group-item-heading">Avatar Picture</h4>' +
+					'<h4 id="AvatarPicture" class="list-group-item-heading trans-innerHTML">Avatar Picture</h4>' +
 					'<p class="list-group-item-text">';
 		var picUrl = pictureData[modalId][0].toString();
 		var pfadToAvatarPicThumb = 'img_upload/' + modalId + '/thumb_Avatar/' + picUrl;
@@ -289,7 +282,7 @@ function loadContentOfModal(longModalId, loadingPage)
 		modalBody +=
 			'<div class="list-group">' +
 				'<div class="list-group-item">' +
-					'<h4 class="list-group-item-heading">Gallery</h4>' +
+					'<h4 id="PictureGallery" class="list-group-item-heading trans-innerHTML">Picture Gallery</h4>' +
 					'<p class="list-group-item-text">';
 		var lastColumn = 0;
 		for (var i = 0; i < pictureData[modalId][3].length; i++)
@@ -355,7 +348,7 @@ function loadContentOfModal(longModalId, loadingPage)
 	modalBody +=
 		'<div class="list-group">' +
 			'<div class="list-group-item">' +
-				'<h4 class="list-group-item-heading">Comment</h4>' +
+				'<h4 id="Comment" class="list-group-item-heading trans-innerHTML">Comment</h4>' +
 				'<p class="list-group-item-text">' +
 					reportData[indexOfObjectInReportData].commentBox +
 				'</p>' +
@@ -372,7 +365,7 @@ function loadContentOfModal(longModalId, loadingPage)
 					if (loadingPage)
 					{
 						modalContent += '<div class="alert alert-success alert-dismissable fade in">' +
-											'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Your report has been successfully saved.' +
+											'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><span id="ReportSaved" class="trans-innerHTML">Your report has been successfully saved.</span>' +
 										'</div>';
 					}
 					modalContent += modalBody +
@@ -384,21 +377,22 @@ function loadContentOfModal(longModalId, loadingPage)
 						if (ownUser[0].MemberRole >= 1)
 						{
 							modalContent += '<button type="button" class="btn btn-danger pull-left" onclick="deleteReport(' + modalId + ');">' +
-									'<span class="glyphicon glyphicon glyphicon-remove-sign"></span> Delete Report' +
+									'<span class="glyphicon glyphicon glyphicon-remove-sign"></span> <span id="DeleteReport" class="trans-innerHTML">Delete Report</span>' +
 								'</button>';
 						}
 					}
 					modalContent += '<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="closeModal();">' +
-								'<span class="glyphicon glyphicon glyphicon-ok-sign"></span> Close' +
+								'<span class="glyphicon glyphicon glyphicon-ok-sign"></span> <span id="Close" class="trans-innerHTML">Close</span>' +
 							'</button>' +
 						'</div>' +
 					'</div>' +
 				'</div>' +
 			'</div>';
 	modal.innerHTML = modalContent;
+	changeLanguage();
 }
 
-// löscht Bericht
+// lÃ¶scht Bericht
 function deleteReport(Id)
 {
 	if (confirm('Are you sure you want to delete this report?'))
@@ -418,8 +412,9 @@ function deleteReport(Id)
 	}
 }
 
-// wird beim Schließen des ReportModals aufgerufen, um die url in der Addresszeile zu ändern
+// wird beim SchlieÃŸen des ReportModals aufgerufen, um die url in der Addresszeile zu Ã¤ndern
 function closeModal()
 {
 	window.history.pushState('', '', '?');
+	changeLanguage();
 }

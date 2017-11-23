@@ -11,23 +11,23 @@ function initializeForm()
 {
 	if ($_GET().createReport)
 	{
-		document.title = 'Create - Login';
 		document.formLogin.action = './?createReport';
 		document.formLogin.onsubmit =
 		function()
 		{
 			return login();
 		}
+		$('#LoginHeaderAdmin').addClass("hide");
 	}
 	else if ($_GET().admin)
 	{
-		document.title = 'Admin - Login';
 		document.formLogin.action = './?admin';
 		document.formLogin.onsubmit =
 		function()
 		{
 			return login(true);
 		}
+		$('#LoginHeader').addClass("hide");
 	}
 }
 

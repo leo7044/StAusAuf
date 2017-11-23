@@ -8,6 +8,7 @@ $(document).ready(function() {
     {
         objectLanguages = getLanguages();
         prepareLanguageSelection();
+        changeLanguage();
     }
     catch(e)
     {
@@ -15,13 +16,13 @@ $(document).ready(function() {
     }
 });
 
-// ver�ndert CSS-Klassen
+// verändert CSS-Klassen
 function changeCss(id, css)
 {
 	$('#' + id)[0].className = css;
 }
 
-// �bersetzer
+// übersetzer
 function googleTranslateElementInit()
 {
 	new google.translate.TranslateElement({pageLanguage: 'en', autoDisplay: false}, 'google_translate_element');
