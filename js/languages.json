@@ -8,7 +8,7 @@
 	"Password":["Password","Passwort"],
 	"formLogin-divErrorPw":["<b>Login failed!</b> Wrong Username or Password.","<b>Anmeldung fehlgeschlagen!</b> Falscher Benutzername oder Passwort."],
 	"formLogin-divErrorPermission":["<b>Login failed!</b> You do not have the permission to login.","<b>Anmeldung fehlgeschlagen!</b> Sie haben nicht die Berechtigungen, sich einzuloggen."],
-	"formLogin-divErrorDb":["<b>Error!</b> Database is not available.","<b>Fehler!</b> Datenbank nicht ferfügbar."],
+	"formLogin-divErrorDb":["<b>Error!</b> Database is not available.","<b>Fehler!</b> Datenbank nicht verfügbar."],
 	"ViewReportsHeader":["HWR experience reports","HWR Reiseberichte"],
 	"ReportSaved":["Your report has been successfully saved.","Ihr Bericht wurde erfolgreich gespeichert."],
 	"GeneralInformation":["General Information","Allgemeine Informationen"],
