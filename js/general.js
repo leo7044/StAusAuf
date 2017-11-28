@@ -60,20 +60,39 @@ function getLanguages()
 }
 
 // präpariert die Sprachauswahl
-function prepareLanguageSelection()
+function prepareLanguageSelection(modal)
 {
     var strHtml = '';
     for (var key in objectLanguages.languageShort)
     {
         strHtml += '<option value="' + objectLanguages.languageShort[key] + '">' + objectLanguages.languageLong[key] + '</option>';
     }
-    $('#language')[0].innerHTML = strHtml;
+    if (!modal)
+    {
+        $('#language')[0].innerHTML = strHtml;
+    }
+    else
+    {
+        $('#languageModal')[0].innerHTML = strHtml;
+        $('#languageModal')[0].selectedIndex = $('#language')[0].selectedIndex;
+    }
 }
 
-// wird beim Wechseln iner Sprache aufgerufen
-function changeLanguage()
+// wird beim Wechseln einer Sprache aufgerufen
+function changeLanguage(currentLanguageIndex)
 {
-    var currentLanguageIndex = $('#language')[0].selectedIndex;
+    if (currentLanguageIndex == undefined)
+    {
+        currentLanguageIndex = $('#language')[0].selectedIndex;
+    }
+    else
+    {
+        $('#language')[0].selectedIndex = currentLanguageIndex;
+        if ($('#languageModal')[0])
+        {
+            $('#languageModal')[0].selectedIndex = currentLanguageIndex;
+        }
+    }
     translateEachElement(currentLanguageIndex);
 }
 
@@ -87,5 +106,9 @@ function translateEachElement(currentLanguageIndex)
     for (var i = 0; i < $('.trans-placeholder').length; i++)
     {
         $('.trans-placeholder')[i].placeholder = objectLanguages[$('.trans-placeholder')[i].id][currentLanguageIndex];
+    }
+    for (var i = 0; i < $('.trans-innerHTML-array').length; i++)
+    {
+        $('.trans-innerHTML-array')[i].innerHTML = objectLanguages.ArrayTitle[currentLanguageIndex][i];
     }
 }

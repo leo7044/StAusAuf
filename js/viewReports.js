@@ -240,6 +240,14 @@ function loadContentOfModal(longModalId, loadingPage)
 								reportData[indexOfObjectInReportData].lecture,
 								reportData[indexOfObjectInReportData].internship);
 	var modalBody =
+		'<div class="row">' +
+			'<div class="col-md-9"></div>' +
+			'<div class="col-md-3">' +
+				'<div class="form-group">' +
+					'<select class="form-control" id="languageModal" onchange="changeLanguage(this.selectedIndex);"></select>' +
+				'</div>' +
+			'</div>' +
+		'</div>' +
 		'<div class="list-group">' +
 			'<a class="list-group-item">' +
 				'<h4 id="GeneralInformation" class="list-group-item-heading trans-innerHTML">General Information</h4>' +
@@ -249,7 +257,7 @@ function loadContentOfModal(longModalId, loadingPage)
 						modalBody +=
 							'<div class="row">' +
 								'<div class="col-md-3" text-right>' +
-									'<label>' + arrayTitle[i] + '</label>' +
+									'<label class="trans-innerHTML-array">' + arrayTitle[i] + '</label>' +
 								'</div>' +
 								'<div class="col-md-9">' +
 									arrayContent[i] +
@@ -389,6 +397,7 @@ function loadContentOfModal(longModalId, loadingPage)
 				'</div>' +
 			'</div>';
 	modal.innerHTML = modalContent;
+	prepareLanguageSelection(true);
 	changeLanguage();
 }
 
@@ -416,5 +425,4 @@ function deleteReport(Id)
 function closeModal()
 {
 	window.history.pushState('', '', '?');
-	changeLanguage();
 }
