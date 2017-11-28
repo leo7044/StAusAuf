@@ -22,26 +22,38 @@
 	</head>
 	<body>
 		<div class="jumbotron center-block own-box-admin text-center">
-			<div class="pull-right">
-				<form method="post" action="">
-					<!-- <a id="Profile" data-toggle="modal" data-target="#modalProfile" class="btn btn-primary">
-						<span class="glyphicon glyphicon-user"></span> Profile
-					</a>-->
-					<button type="submit" name="logout" class="btn btn-danger">
-						<span class="glyphicon glyphicon-log-out"></span> Logout
-					</button>
-				</form>
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<a href="./?admin"><img src="img/logo.png" width="100px" height="100px" /></a>
+				</div>
+				<div class="col-md-2">
+					<form method="post" action="">
+						<!-- <a id="Profile" data-toggle="modal" data-target="#modalProfile" class="btn btn-primary">
+							<span class="glyphicon glyphicon-user"></span> Profile
+						</a>-->
+						<button type="submit" name="logout" class="btn btn-danger pull-right">
+							<span class="glyphicon glyphicon-log-out"></span> <span id="Logout" class="trans-innerHTML">Logout</span>
+						</button>
+					</form>
+				</div>
 			</div>
-			<a href="./?admin"><img src="img/logo.png" width="100px" height="100px" class="logoSetCenterLogout" /></a>
 			<hr class="own-hr" />
-			<h2>Adminpanel</h2>
-			<div id="google_translate_element" style="text-align: right;"></div>
+			<h2 id="HeaderAdmin" class="trans-innerHTML">Adminpanel</h2>
+			<div class="row">
+				<div class="col-md-9"></div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<select class="form-control" id="language" onchange="changeLanguage(this.selectedIndex);"></select>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="center-block own-box-admin"> <!-- wird onload dynamisch mit .js generiert -->
 			<noscript>Please activate JavaScript</noscript>
 			<div id="divFormButtonNewUser" class="">
 				<button onclick="showFormNewUser();" class="btn btn-primary">
-					<span class="glyphicon glyphicon-plus-sign"></span> Add User
+					<span class="glyphicon glyphicon-plus-sign"></span> <span id="AddUser" class="trans-innerHTML">Add User</span>
 				</button>
 			</div>
 			<div id="divFormNewUser" class="hide">
@@ -134,11 +146,11 @@
 			<table class="table table-striped table-hover">
 				<thead>
 					<th>Id</th>
-					<th>UserName</th>
-					<th>Password</th>
-					<th>Members Roll</th>
+					<th id="UserName" class="trans-innerHTML">UserName</th>
+					<th id="Password" class="trans-innerHTML">Password</th>
+					<th id="MembersRoll" class="trans-innerHTML">Members Roll</th>
 					<th>Email</th>
-					<th>Action</th>
+					<th id="Action" class="trans-innerHTML">Action</th>
 				</thead>
 				<tbody id="userTable">
 				</tbody>

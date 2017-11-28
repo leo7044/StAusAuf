@@ -9,6 +9,7 @@
 	"formLogin-divErrorPw":["<b>Login failed!</b> Wrong Username or Password.","<b>Anmeldung fehlgeschlagen!</b> Falscher Benutzername oder Passwort."],
 	"formLogin-divErrorPermission":["<b>Login failed!</b> You do not have the permission to login.","<b>Anmeldung fehlgeschlagen!</b> Sie haben nicht die Berechtigungen, sich einzuloggen."],
 	"formLogin-divErrorDb":["<b>Error!</b> Database is not available.","<b>Fehler!</b> Datenbank nicht verfügbar."],
+
 	"ViewReportsHeader":["HWR experience reports","HWR Reiseberichte"],
 	"ReportSaved":["Your report has been successfully saved.","Ihr Bericht wurde erfolgreich gespeichert."],
 	"GeneralInformation":["General Information","Allgemeine Informationen"],
@@ -40,6 +41,31 @@
 			"Wichtige Hinweise: ",
 			"Besuchte Vorlesungen: ",
 			"Absolvierte Praktika: "
+		]
+	],
+
+	"HeaderAdmin":["Adminpanel","Verwaltung"],
+	"Logout":["Logout","Ausloggen"],
+	"AddUser":["Add User","Benutzer hinzufügen"],
+	"MembersRoll":["Members Roll","Mitgliederrolle"],
+	"Action":["Action","Aktion"],
+	"Edit":["Edit","Bearbeiten"],
+	"Delete":["Delete","Löschen"],
+	"Confirm":["Confirm","Speichern"],
+	"Abort":["Abort","Abbrechen"],
+	"NotEmpty":["Field must not be empty","Feld darf nicht leer sein"],
+	"NoChangeInPw":["leave empty -> no change of PW","leer lassen -> keine Änderung des PWs"],
+	"ArrayMemberRoles":
+	[
+		[
+			"Member",
+			"Moderator",
+			"Administrator"
+		],
+		[
+			"Mitglied",
+			"Moderator",
+			"Administrator"
 		]
 	]
 }

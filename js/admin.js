@@ -85,11 +85,11 @@ function buildDefaultRow(rowId)
 		strHtml += '<td>' + UserData[rowId].Email + '</td>';
 		if (ownUser[0].MemberRole >= UserData[rowId].MemberRole)
 		{
-			strHtml += '<td><button class="btn btn-default" onclick="editUser(' + UserData[rowId].Id + ');"><span class="glyphicon glyphicon-pencil" style="color:#0000FF;"></span> Edit</button>';
+			strHtml += '<td><button class="btn btn-default" onclick="editUser(' + UserData[rowId].Id + ');"><span class="glyphicon glyphicon-pencil" style="color:#0000FF;"></span> <span id="Edit" class="trans-innerHTML">Edit</span></button>';
 		}
 		else
 		{
-			strHtml += '<td><button class="btn btn-default disabled"><span class="glyphicon glyphicon-pencil" style="color:#0000FF;"></span> Edit</button>';
+			strHtml += '<td><button class="btn btn-default disabled"><span class="glyphicon glyphicon-pencil" style="color:#0000FF;"></span> <span id="Edit" class="trans-innerHTML">Edit</span></button>';
 		}
 		for (var j = 0; j < 10; j++)
 		{
@@ -99,16 +99,16 @@ function buildDefaultRow(rowId)
 		{
 			if (ownUser[0].MemberRole >= UserData[rowId].MemberRole)
 			{
-				strHtml += '<button class="btn btn-default" onclick="deleteUser(' + UserData[rowId].Id + ');"><span style="color:#FF0000;">✘</span> Delete</button></td>';
+				strHtml += '<button class="btn btn-default" onclick="deleteUser(' + UserData[rowId].Id + ');"><span style="color:#FF0000;">✘</span> <span id="Delete" class="trans-innerHTML">Delete</span></button></td>';
 			}
 			else
 			{
-				strHtml += '<button class="btn btn-default disabled"><span style="color:#FF0000;">✘</span> Delete</button></td>';
+				strHtml += '<button class="btn btn-default disabled"><span style="color:#FF0000;">✘</span> <span id="Delete" class="trans-innerHTML">Delete</span></button></td>';
 			}
 		}
 		else
 		{
-			strHtml += '<button class="btn btn-default disabled"><span style="color:#FF0000;">✘</span> Delete</button></td>';
+			strHtml += '<button class="btn btn-default disabled"><span style="color:#FF0000;">✘</span> <span id="Delete" class="trans-innerHTML">Delete</span></button></td>';
 		}
 	strHtml += '</tr>';
 	return strHtml;
@@ -131,53 +131,55 @@ function buildEditRow(rowId)
 {
 	var strHtml = '';
 	strHtml += '<tr id="' + UserData[rowId].Id + '_actionEdit" class="hide">';
-		strHtml += '<td>' + UserData[rowId].Id + '</td>';
-		strHtml += '<td><input id="userName_' + rowId +'" class="form-control" value="' + UserData[rowId].UserName + '" placeholder="Field must not be empty" /></td>';
-		strHtml += '<td>' +
-						'<div class="input-group">' +
-							'<input type="password" id="password_' + rowId +'" placeholder="leave empty -> no change of PW" class="form-control" onfocus="showPassword(this.id);" onblur="hidePassword(this.id);" />' +
-							'<span class="input-group-addon">' +
-								'<a data-toggle="tooltip" data-placement="top" title="Leave this field empty to not change the password">' +
-									'<i class="glyphicon glyphicon-question-sign"></i>' +
-								'</a>' +
-							'</span>' +
-						'</div>' +
-					'</td>';
-		if (ownUser[0].Id != UserData[rowId].Id)
+	strHtml += '<td>' + UserData[rowId].Id + '</td>';
+	strHtml += '<td><input name="NotEmpty" id="userName_' + rowId +'" class="form-control trans-name-placeholder" value="' + UserData[rowId].UserName + '" placeholder="Field must not be empty" required /></td>';
+	strHtml += '<td>' +
+					'<div class="input-group">' +
+						'<input type="password" name="NoChangeInPw" id="password_' + rowId +'" placeholder="leave empty -> no change of PW" class="form-control trans-name-placeholder" onfocus="showPassword(this.id);" onblur="hidePassword(this.id);" />' +
+						'<span class="input-group-addon">' +
+							'<a data-toggle="tooltip" data-placement="top" title="Leave this field empty to not change the password">' +
+								'<i class="glyphicon glyphicon-question-sign"></i>' +
+							'</a>' +
+						'</span>' +
+					'</div>' +
+				'</td>';
+	if (ownUser[0].Id != UserData[rowId].Id)
+	{
+		strHtml += '<td><select id="memberRole_' + rowId +'" class="form-control">';
+	}
+	else
+	{
+		strHtml += '<td><select id="memberRole_' + rowId +'" class="form-control" disabled>';
+	}
+	/* var currentLanguageIndex = $('#language')[0].selectedIndex;
+	var memberRolesArray = objectLanguages.ArrayMemberRoles[currentLanguageIndex]; */
+	for (var j = 0; j < memberRolesArray.length; j++)
+	{
+		if (UserData[rowId].MemberRole != j)
 		{
-			strHtml += '<td><select id="memberRole_' + rowId +'" class="form-control">';
-		}
-		else
-		{
-			strHtml += '<td><select id="memberRole_' + rowId +'" class="form-control" disabled>';
-		}
-		for (var j = 0; j < memberRolesArray.length; j++)
-		{
-			if (UserData[rowId].MemberRole != j)
+			if (j <= ownUser[0].MemberRole)
 			{
-				if (j <= ownUser[0].MemberRole)
-				{
-					strHtml += '<option value="' + j + '">' + memberRolesArray[j] + '</option>';
-				}
-				else
-				{
-					// strHtml += '<option value="' + j + '" disabled>' + memberRolesArray[j] + '</option>';
-					break;
-				}
+				strHtml += '<option value="' + j + '">' + memberRolesArray[j] + '</option>';
 			}
 			else
 			{
-				strHtml += '<option value="' + j + '" selected>' + memberRolesArray[j] + '</option>';
+				// strHtml += '<option value="' + j + '" disabled>' + memberRolesArray[j] + '</option>';
+				break;
 			}
 		}
-		strHtml += '</select></td>';
-		strHtml += '<td><input id="email_' + rowId +'" class="form-control" value="' + UserData[rowId].Email + '" /></td>';
-		strHtml += '<td><button class="btn btn-default" onclick="updateUser(' + UserData[rowId].Id + ', ' + rowId + ');"><span class="glyphicon glyphicon-ok" style="color:#5CB85C;"></span> Confirm</button>';
-		for (var j = 0; j < 10; j++)
+		else
 		{
-			strHtml += '&nbsp;';
+			strHtml += '<option value="' + j + '" selected>' + memberRolesArray[j] + '</option>';
 		}
-		strHtml += '<button class="btn btn-default" onclick="resetUser(' + UserData[rowId].Id + ', ' + rowId + ');"><span class="glyphicon glyphicon-remove" style="color:#FF0000;"></span> Abort</button></td>';
+	}
+	strHtml += '</select></td>';
+	strHtml += '<td><input id="email_' + rowId +'" class="form-control" value="' + UserData[rowId].Email + '" /></td>';
+	strHtml += '<td><button class="btn btn-default" onclick="updateUser(' + UserData[rowId].Id + ', ' + rowId + ');"><span class="glyphicon glyphicon-ok" style="color:#5CB85C;"></span> <span id="Confirm" class="trans-innerHTML">Confirm</span></button>';
+	for (var j = 0; j < 10; j++)
+	{
+		strHtml += '&nbsp;';
+	}
+	strHtml += '<button class="btn btn-default" onclick="resetUser(' + UserData[rowId].Id + ', ' + rowId + ');"><span class="glyphicon glyphicon-remove" style="color:#FF0000;"></span> <span id="Abort" class="trans-innerHTML">Abort</span></button></td>';
 	strHtml += '</tr>';
 	return strHtml;
 }
@@ -373,6 +375,7 @@ function resetUser(Id, rowId)
 {
 	$('#' + Id + '_actionDefault')[0].outerHTML = buildDefaultRow(rowId);
 	$('#' + Id + '_actionEdit')[0].outerHTML = buildEditRow(rowId);
+	changeLanguage();
 }
 
 // löscht User
@@ -395,6 +398,8 @@ function deleteUser(Id)
 // gibt die MemberRolle in Klartext aus
 function giveMemberRoleName(memberRole)
 {
+	/* var currentLanguageIndex = $('#language')[0].selectedIndex;
+	var memberRolesArray = objectLanguages.ArrayMemberRoles[currentLanguageIndex]; */
 	returnValue = 'Error';
 	switch(memberRole)
 	{
