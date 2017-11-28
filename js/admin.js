@@ -1,10 +1,11 @@
 /* Developer: Leo Brandenburg */
 var UserData = null;
 var ownUser = null;
-var memberRolesArray = Array('Member', 'Moderator', 'Administrator');
+var memberRolesArray = null;
 
 $(document).ready(function()
 {
+	memberRolesArray = objectLanguages.ArrayMemberRoles;
 	getOwnUser();
 	getUserFromDB();
 	$('#formPassword, #formPasswordConfirm')

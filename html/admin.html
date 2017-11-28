@@ -63,75 +63,81 @@
 						<div class="col-md-11">
 							<div class="form-group">
 								<button onclick="return hideFormNewUser();" class="btn btn-danger">
-									<span class="glyphicon glyphicon-remove"></span> Abort
+									<span class="glyphicon glyphicon-remove"></span> <span id="Abort" class="trans-innerHTML">Abort</span>
 								</button>
 								<button onclick=" return resetFormNewUser();" type="reset" class="btn btn-warning">
-									<span class="glyphicon glyphicon-repeat"></span> Reset
+									<span class="glyphicon glyphicon-repeat"></span> <span id="Reset" class="trans-innerHTML">Reset</span>
 								</button>
 								<button type="submit" class="btn btn-success">
-									<span class="glyphicon glyphicon-plus-sign"></span> Confirm
+									<span class="glyphicon glyphicon-plus-sign"></span> <span id="Confirm" class="trans-innerHTML">Confirm</span>
 								</button>
 							</div>
 						</div>
-						<div class="col-md-2">
-							<label>UserName*:</label>
-						</div>
-						<div class="col-md-10">
-							<div class="form-group">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-									<input id="formUserName" name="formUserName" class="form-control" maxlength="255" required autofocus />
+						<div class="row">
+							<div class="col-md-1"></div>
+							<div class="col-md-10">
+								<div class="form-group">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+										<input id="formUserName" name="formUserName" class="form-control trans-placeholder" maxlength="255" placeholder="Username*" required autofocus />
+									</div>
 								</div>
 							</div>
+							<div class="col-md-1"></div>
 						</div>
-						<div class="col-md-2">
-							<label>Password*:</label>
-						</div>
-						<div class="col-md-10">
-							<div class="form-group" id="divFormPassword">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-									<input type="password" id="formPassword" name="formPassword" class="form-control" maxlength="255" required />
+						<div class="row">
+							<div class="col-md-1"></div>
+							<div class="col-md-10">
+								<div class="form-group" id="divFormPassword">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+										<input type="password" id="formPassword" name="formPassword" class="form-control trans-placeholder" maxlength="255" placeholder="Password*" required />
+									</div>
 								</div>
 							</div>
+							<div class="col-md-1"></div>
 						</div>
-						<div class="col-md-2">
-							<label>Confirm password*:</label>
-						</div>
-						<div class="col-md-10">
-							<div class="form-group" id="divFormPasswordConfirm">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-									<input type="password" id="formPasswordConfirm" name="formPasswordConfirm" class="form-control" maxlength="255" required />
+						<div class="row">
+							<div class="col-md-1"></div>
+							<div class="col-md-10">
+								<div class="form-group" id="divFormPasswordConfirm">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+										<input type="password" id="formPasswordConfirm" name="formPasswordConfirm" class="form-control trans-placeholder" maxlength="255" placeholder="Confirm Password*" required />
+									</div>
 								</div>
 							</div>
+							<div class="col-md-1"></div>
 						</div>
-						<div class="col-md-2">
-							<label>Members Role*:</label>
-						</div>
-						<div class="col-md-10">
-							<div class="form-group">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-									<select id="selectMemberRole" name="selectMemberRole" class="form-control" required />
-										<option>test</option>
-									</select>
+						<div class="row">
+							<div class="col-md-1"></div>
+							<div class="col-md-10">
+								<div class="form-group">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+										<select id="selectMemberRole" name="selectMemberRole" class="form-control" required /></select>
+									</div>
 								</div>
 							</div>
+							<div class="col-md-1"></div>
 						</div>
-						<div class="col-md-2">
-							<label>Email:</label>
-						</div>
-						<div class="col-md-10">
-							<div class="form-group">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-									<input id="formEmail" name="formEmail" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" maxlength="255" />
+						<div class="row">
+							<div class="col-md-1"></div>
+							<div class="col-md-10">
+								<div class="form-group">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+										<input id="formEmail" name="formEmail" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" maxlength="255" placeholder="Email" />
+									</div>
 								</div>
 							</div>
+							<div class="col-md-1"></div>
 						</div>
-						<div class="col-md-1">
-							*) required
+						<div class="row">
+							<div class="col-md-1"></div>
+							<div id="form-required" class="col-md-2 trans-innerHTML">
+								*) required
+							</div>
 						</div>
 					</div>
 					<div id='formNewUser-divErrorPwNoMatch' class="alert alert-danger hide">

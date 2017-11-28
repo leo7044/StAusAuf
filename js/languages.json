@@ -44,7 +44,7 @@
 		]
 	],
 
-	"HeaderAdmin":["Adminpanel","Verwaltung"],
+	"HeaderAdmin":["Adminpanel","Administrative Verwaltung"],
 	"Logout":["Logout","Ausloggen"],
 	"AddUser":["Add User","Benutzer hinzufügen"],
 	"MembersRoll":["Members Roll","Mitgliederrolle"],
@@ -53,19 +53,17 @@
 	"Delete":["Delete","Löschen"],
 	"Confirm":["Confirm","Speichern"],
 	"Abort":["Abort","Abbrechen"],
+	"Reset":["Reset","Zurücksetzen"],
 	"NotEmpty":["Field must not be empty","Feld darf nicht leer sein"],
 	"NoChangeInPw":["leave empty -> no change of PW","leer lassen -> keine Änderung des PWs"],
+	"formUserName":["Username*","Benutzername*"],
+	"formPassword":["Password*","Passwort*"],
+	"formPasswordConfirm":["Confirm Password*","Password wiederholen*"],
+	"form-required":["*) required","*) erforderlich"],
 	"ArrayMemberRoles":
 	[
-		[
-			"Member",
-			"Moderator",
-			"Administrator"
-		],
-		[
-			"Mitglied",
-			"Moderator",
-			"Administrator"
-		]
+		"Member",
+		"Moderator",
+		"Administrator"
 	]
 }
