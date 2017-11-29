@@ -115,4 +115,8 @@ function translateEachElement(currentLanguageIndex)
     {
         $('.trans-name-placeholder')[i].placeholder = objectLanguages[$('.trans-name-placeholder')[i].name][currentLanguageIndex];
     }
+    for (var i = 0; i < $('.trans-name-title').length; i++)
+    {
+        $('.trans-name-title')[i].title = objectLanguages[$('.trans-name-title')[i].name][currentLanguageIndex];
+    }
 }

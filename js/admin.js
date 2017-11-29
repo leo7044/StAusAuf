@@ -58,6 +58,7 @@ function buildHtmlForUserTable()
 			strHtml += buildOneRow(i);
 		}
 		$('#userTable')[0].innerHTML = strHtml;
+		changeLanguage();
 	}
 	else
 	{
@@ -138,7 +139,7 @@ function buildEditRow(rowId)
 					'<div class="input-group">' +
 						'<input type="password" name="NoChangeInPw" id="password_' + rowId +'" placeholder="leave empty -> no change of PW" class="form-control trans-name-placeholder" onfocus="showPassword(this.id);" onblur="hidePassword(this.id);" />' +
 						'<span class="input-group-addon">' +
-							'<a data-toggle="tooltip" data-placement="top" title="Leave this field empty to not change the password">' +
+							'<a name="TitleLeaveEmpty" data-toggle="tooltip" data-placement="top" title="Leave this field empty to not change the password." class="trans-name-title">' +
 								'<i class="glyphicon glyphicon-question-sign"></i>' +
 							'</a>' +
 						'</span>' +
@@ -215,8 +216,10 @@ function resetFormNewUser()
 {
 	changeCss('divFormPassword', 'form-group');
 	changeCss('divFormPasswordConfirm', 'form-group');
-	changeCss('formNewUser-divErrorPwNoMatch', 'alert alert-danger hide');
-	changeCss('formNewUser-divErrorUserExists', 'alert alert-danger hide');
+	// changeCss('formNewUser-divErrorPwNoMatch', 'alert alert-danger hide');
+	// changeCss('formNewUser-divErrorUserExists', 'alert alert-danger hide');
+	$('#formNewUser-divErrorPwNoMatch').addClass('hide');
+	$('#formNewUser-divErrorUserExists').addClass('hide');
 	document.getElementById('formNewUser').reset();
 	$('#formUserName').focus();
 	return false;
@@ -233,7 +236,8 @@ function checkPasswordMatch(field1, field2, forced)
 	{
 		changeCss('divFormPassword', 'form-group has-success');
 		changeCss('divFormPasswordConfirm', 'form-group has-success');
-		changeCss('formNewUser-divErrorPwNoMatch', 'alert alert-danger hide');
+		// changeCss('formNewUser-divErrorPwNoMatch', 'alert alert-danger hide');
+		$('#formNewUser-divErrorPwNoMatch').addClass('hide');
 		returnValue = true;
 	}
 	else if (!newPw && !newPwConfirm)
@@ -248,20 +252,23 @@ function checkPasswordMatch(field1, field2, forced)
 		{
 			changeCss('divFormPassword', 'form-group has-error');
 			changeCss('divFormPasswordConfirm', 'form-group has-error');
-			changeCss('formNewUser-divErrorPwNoMatch', 'alert alert-danger');
+			// changeCss('formNewUser-divErrorPwNoMatch', 'alert alert-danger');
+			$('#formNewUser-divErrorPwNoMatch').removeClass('hide');
 		}
 		else
 		{
 			changeCss('divFormPassword', 'form-group');
 			changeCss('divFormPasswordConfirm', 'form-group');
-			changeCss('formNewUser-divErrorPwNoMatch', 'alert alert-danger hide');
+			// changeCss('formNewUser-divErrorPwNoMatch', 'alert alert-danger hide');
+			$('#formNewUser-divErrorPwNoMatch').addClass('hide');
 		}
 	}
-	changeCss('formNewUser-divErrorUserExists', 'alert alert-danger hide'); // erst PW-check, dann Rest
+	// changeCss('formNewUser-divErrorUserExists', 'alert alert-danger hide'); // erst PW-check, dann Rest
+	$('#formNewUser-divErrorUserExists').addClass('hide');
 	return returnValue;
 }
 
-// creiert einen neuen User
+// kreiert einen neuen User
 function createNewUser()
 {
 	if (checkPasswordMatch('formPassword', 'formPasswordConfirm', true))
@@ -296,7 +303,8 @@ function createNewUser()
 			}
 			else
 			{
-				changeCss('formNewUser-divErrorUserExists', 'alert alert-danger');
+				// changeCss('formNewUser-divErrorUserExists', 'alert alert-danger');
+				$('#formNewUser-divErrorUserExists').removeClass('hide');
 			}
 		}
 		else
