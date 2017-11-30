@@ -68,5 +68,8 @@
 		"Member",
 		"Moderator",
 		"Administrator"
-	]
+	],
+
+	"CreateNewReport":["Create a new report","Erstellen eines neuen Berichts"],
+	"Profile":["Profile","Profil"]
 }

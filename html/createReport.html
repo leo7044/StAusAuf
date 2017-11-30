@@ -1,30 +1,9 @@
-﻿<!-- Developer: Leo Brandenburg
-
-ToDo-List (must to have)
-- File-Upload (Advanced Usage): http://plugins.krajee.com/file-input/demo
-
-ToDo-List (nice to have):
-- lernende City-Datenbank
-- Countries-ISO-Datenbank (http://www.teamarbyte.de/mysql-laender.html, https://edoceo.com/notabene/sql-country-codes, https://gist.github.com/adhipg/1600028), manuelles Durchschauen erforderlich
-- Webpage fragt vor dem Verlassen, ob wirklich verlassen (Lösung bei Submit...?)
-- ng-models trotz einener onkeyup- und onblur-Implementierung notwendig -> Grund: gedown geht nicht, weil alte value -> deswegen keyup -> Optik sieht nicht ganz so schön aus
-- else zweige einfügen
-- validate all inputs at once
-- Dateiupload Bilder: https://www.php-einfach.de/php-tutorial/dateiupload/
--- -> AutoSize http://stackoverflow.com/questions/11089640/dynamically-scale-images-to-fit-a-specified-size-width-and-height
--- -> http://stackoverflow.com/questions/10130915/how-to-auto-resize-uploaded-image-using-php
--- -> http://php.net/manual/de/function.imagecopyresampled.php
-- flags für Länder: http://www.marghoobsuleman.com/jquery-image-dropdown
-
-Bug-List:
-- Submit Kalender -> Lösung: createReport.js if, else ?
-
--->
+﻿<!-- Developer: Leo Brandenburg -->
 
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Reports - Create report</title>
+		<title id="CreateNewReport" class="trans-innerHTML">Create a new report</title>
 		<meta charset="utf-8">
 		<meta name="author" content="Leo Brandenburg">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,20 +37,32 @@ Bug-List:
 	</head>
 	<body ng-app="MyApp" ng-controller="angModCreateReport">
 		<div class="jumbotron center-block own-box text-center">
-			<div class="pull-right">
-				<form method="post" action="">
-					<a id="Profile" data-toggle="modal" data-target="#modalProfile" class="btn btn-primary">
-						<span class="glyphicon glyphicon-user"></span> Profile
-					</a>
-					<button type="submit" name="logout" class="btn btn-danger">
-						<span class="glyphicon glyphicon-log-out"></span> Logout
-					</button>
-				</form>
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">
+					<a href="./?createReport"><img src="img/logo.png" width="100px" height="100px" /></a>
+				</div>
+				<div class="col-md-3 text-right">
+					<form method="post" action="">
+						<a data-toggle="modal" data-target="#modalProfile" class="btn btn-primary">
+							<span class="glyphicon glyphicon-user"></span> <span id="Profile" class="trans-innerHTML">Profile</span>
+						</a>
+						<button type="submit" name="logout" class="btn btn-danger">
+							<span class="glyphicon glyphicon-log-out"></span> <span id="Logout" class="trans-innerHTML">Logout</span>
+						</button>
+					</form>
+				</div>
 			</div>
-			<a href="./?createReport"><img src="img/logo.png" width="100px" height="100px" class="logoSetCenter" /></a>
 			<hr class="own-hr" />
-			<h2>Create a new report</h2>
-			<div id="google_translate_element" style="text-align: right;"> <!-- onclick="sortSelect(this.id)" --></div>
+			<h2 id="CreateNewReport" class="trans-innerHTML">Create a new report</h2>
+			<div class="row">
+				<div class="col-md-9"></div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<select class="form-control" id="language" onchange="changeLanguage(this.selectedIndex);"></select>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="center-block own-box">
 			<noscript>Please activate JavaScript</noscript>
