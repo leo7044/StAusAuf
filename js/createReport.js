@@ -79,7 +79,7 @@ function getCountryData()
 	});
 	$.ajaxSetup({async: true});
 	createDropDownListCountries();
-	permenentCheckTranslate();
+	// permenentCheckTranslate();
 }
 
 // sortiert dropDownList 
@@ -94,67 +94,34 @@ function sortCountryList(dropDownList)
 // kreiert oder updatet die dropDownList der Länder
 function createDropDownListCountries(language)
 {
-	language = language || '';
-	var numberCountries = countryData.length;
-	currentSelectedCountry = $('#dropDownListCountries').val();
-	$('#dropDownListCountries').empty();
-	for (var i = 0; i < numberCountries; i++)
+	if (countryData)
 	{
-		/*switch(language)
+		language = language || '';
+		var numberCountries = countryData.length;
+		currentSelectedCountry = $('#dropDownListCountries').val();
+		$('#dropDownListCountries').empty();
+		for (var i = 0; i < numberCountries; i++)
 		{
-			case 'br':
+			if (language)
 			{
-				$('#dropDownListCountries').append('<option value="' + countryData[i].alpha2Code +'">' + countryData[i].translations.br + '</option>');
-				break;
+				$('#dropDownListCountries').append('<option value="' + countryData[i].alpha2Code +'">' + countryData[i].translations[language] + '</option>');
 			}
-			case 'de':
-			{
-				$('#dropDownListCountries').append('<option value="' + countryData[i].alpha2Code +'">' + countryData[i].translations.de + '</option>');
-				break;
-			}
-			case 'es':
-			{
-				$('#dropDownListCountries').append('<option value="' + countryData[i].alpha2Code +'">' + countryData[i].translations.es + '</option>');
-				break;
-			}
-			case 'fr':
-			{
-				$('#dropDownListCountries').append('<option value="' + countryData[i].alpha2Code +'">' + countryData[i].translations.fr + '</option>');
-				break;
-			}
-			case 'it':
-			{
-				$('#dropDownListCountries').append('<option value="' + countryData[i].alpha2Code +'">' + countryData[i].translations.it + '</option>');
-				break;
-			}
-			case 'ja':
-			{
-				$('#dropDownListCountries').append('<option value="' + countryData[i].alpha2Code +'">' + countryData[i].translations.ja + '</option>');
-				break;
-			}
-			case 'pt':
-			{
-				$('#dropDownListCountries').append('<option value="' + countryData[i].alpha2Code +'">' + countryData[i].translations.pt + '</option>');
-				break;
-			}
-			default:
+			else
 			{
 				$('#dropDownListCountries').append('<option value="' + countryData[i].alpha2Code +'">' + countryData[i].name + '</option>');
-				break;
 			}
-		}*/
-		if (language)
-		{
-			$('#dropDownListCountries').append('<option value="' + countryData[i].alpha2Code +'">' + countryData[i].translations[language] + '</option>');
 		}
-		else
-		{
-			$('#dropDownListCountries').append('<option value="' + countryData[i].alpha2Code +'">' + countryData[i].name + '</option>');
-		}
+		sortCountryList('#dropDownListCountries');
+		// setFlagPictures();
+		setCurrentSelectedItem();
 	}
-	sortCountryList('#dropDownListCountries');
-	// setFlagPictures();
-	setCurrentSelectedItem();
+	else
+	{
+		setTimeout(function()
+		{
+			createDropDownListCountries();
+		}, 1000);
+	}
 }
 
 // setzt die Flaggen in der DropDownList
@@ -173,7 +140,9 @@ function setCurrentSelectedItem()
 {
 	if (currentSelectedCountry == null || currentSelectedCountry == '')
 	{
-		$('#dropDownListCountries').prepend('<option value="" selected="selected"></option>');
+		var currentLanguageIndex = $('#language')[0].selectedIndex;
+		var pleaseSelect = objectLanguages.DestinationCountry[currentLanguageIndex];
+		$('#dropDownListCountries').prepend('<option value="" selected="selected">' + pleaseSelect + '</option>');
 	}
 	else
 	{
@@ -185,7 +154,7 @@ function setCurrentSelectedItem()
 }
 
 // überprüft peranend auf Änderungen der Sprache
-function permenentCheckTranslate()
+/* function permenentCheckTranslate()
 {
     setTimeout(function ()
 	{
@@ -205,7 +174,7 @@ function permenentCheckTranslate()
 		}
         permenentCheckTranslate();
     }, 1000);
-}
+} */
 
 // DatePicker
 $(function() {

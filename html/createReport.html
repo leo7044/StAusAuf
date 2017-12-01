@@ -93,13 +93,12 @@
 				<!-- http://www.toolzzz.net/de/countrySelect.htm -->
 				<!-- https://restcountries.eu/ -->
 				<div class="form-group" id="div-Country">
-					<label>Destination-Country</label>
-					<div class="input-group" title="Please select your destination-country.">
+					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-flag"></i></span>
-						<select class="form-control notranslate" id="dropDownListCountries" ng-required="{{true" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Country', true)" onchange="checkInputAndChangeClassOfDiv(this.id, 'div-Country', true)">
+						<select class="form-control" id="dropDownListCountries" ng-required="{{true" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Country', true)" onchange="checkInputAndChangeClassOfDiv(this.id, 'div-Country', true)">
 						</select>
 						<span class="input-group-addon">
-							<a data-toggle="tooltip" data-placement="top" title="Please select your destination-country.">
+							<a name="ToolTipDestinationCountry" data-toggle="tooltip" data-placement="top" title="Please select your destination-country." class="trans-name-title">
 								<i class="glyphicon glyphicon-question-sign"></i>
 							</a>
 						</span>

@@ -110,6 +110,13 @@ function changeLanguage(currentLanguageIndex)
         var indexOfObjectInReportData = $.inArray(modalId, idArray);
         $('#OneReportCountry')[0].innerHTML = getCountryInCorrectLanguage(indexOfObjectInReportData);
     }
+
+    // createReport
+    if ($('#dropDownListCountries')[0])
+    {
+        var currentSelectedLanguage = objectLanguages.languageShort[currentLanguageIndex];
+        createDropDownListCountries(currentSelectedLanguage);
+    }
 }
 
 // translates each Element with special classes

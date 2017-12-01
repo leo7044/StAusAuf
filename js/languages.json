@@ -72,8 +72,10 @@
 
 	"CreateNewReport":["Create a new report","Erstellen eines neuen Berichts"],
 	"Profile":["Profile","Profil"],
-	"ReportName":["Title of report","Titel des Reports"],
+	"ReportName":["Title of report","Titel des Berichts"],
 	"NickName":["NickName (author of report)","NickName (Autos des Berichts)"],
+	"DestinationCountry":["Select destination-country...","Reiseland auswählen..."],
 	"ToolTipReportName":["Please enter a title for your report.","Bitte tragen Sie einen Titel für Ihren Bericht ein."],
-	"ToolTipNickName":["Please enter a NickName. The NickName will be shown as author of your report.","Bitte geben Sie einen NickNamen ein. Der NickName wird als Autor Ihres Berichts angezeigt."]
+	"ToolTipNickName":["Please enter a NickName. The NickName will be shown as author of your report.","Bitte geben Sie einen NickNamen ein. Der NickName wird als Autor Ihres Berichts angezeigt."],
+	"ToolTipDestinationCountry":["Please select your destination-country.","Bitte wählen Sie Ihr Reiseland aus."]
 }
