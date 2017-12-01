@@ -10,7 +10,7 @@ var affectedIdWhenUpload = '';
 
 // zum Laden der Seite ausführen
 $(document).ready(function(){
-	$('[data-toggle="tooltip"]').tooltip(); // tooltip for help-flag
+	// $('[data-toggle="tooltip"]').tooltip(); // tooltip for help-flag
 	// msDropDownCountries = $("#dropDownListCountries").msDropdown().data("dd"); // Country-Flags
 	// $(document).tooltip({delay: {show: null}});
 	changeCss('div-ReportName', 'form-group');

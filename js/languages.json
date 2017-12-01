@@ -71,5 +71,9 @@
 	],
 
 	"CreateNewReport":["Create a new report","Erstellen eines neuen Berichts"],
-	"Profile":["Profile","Profil"]
+	"Profile":["Profile","Profil"],
+	"ReportName":["Title of report","Titel des Reports"],
+	"NickName":["NickName (author of report)","NickName (Autos des Berichts)"],
+	"ToolTipReportName":["Please enter a title for your report.","Bitte tragen Sie einen Titel für Ihren Bericht ein."],
+	"ToolTipNickName":["Please enter a NickName. The NickName will be shown as author of your report.","Bitte geben Sie einen NickNamen ein. Der NickName wird als Autor Ihres Berichts angezeigt."]
 }

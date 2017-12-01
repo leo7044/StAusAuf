@@ -5,6 +5,7 @@ var memberRolesArray = null;
 
 $(document).ready(function()
 {
+	// $('[data-toggle="tooltip"]').tooltip(); // tooltip for help-flag
 	memberRolesArray = objectLanguages.ArrayMemberRoles;
 	getOwnUser();
 	getUserFromDB();

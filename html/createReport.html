@@ -68,24 +68,22 @@
 			<noscript>Please activate JavaScript</noscript>
 			<form method="post" action="." name="formCreateReport" class="form-horizontal" onsubmit="return checkInputFormCreateReport()" enctype="multipart/form-data">
 				<div class="form-group" id="div-ReportName" ng-class="{'has-error': formCreateReport.ReportName.$invalid, 'has-success': formCreateReport.ReportName.$valid}">
-					<label>Title of report</label>
-					<div class="input-group" title="Please enter a title for your report.">
+					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-						<input class="form-control" name="ReportName" id="ReportName" ng-model="ReportName" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-ReportName', true)" maxlength="255" autofocus required />
+						<input class="form-control trans-placeholder" name="ReportName" id="ReportName" ng-model="ReportName" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-ReportName', true)" maxlength="255" placeholder="Title of report" autofocus required />
 						<span class="input-group-addon">
-							<a data-toggle="tooltip" data-placement="top" title="Please enter a title for your report.">
+							<a name="ToolTipReportName" data-toggle="tooltip" data-placement="top" title="Please enter a title for your report." class="trans-name-title">
 								<i class="glyphicon glyphicon-question-sign"></i>
 							</a>
 						</span>
 					</div>
 				</div>
 				<div class="form-group" id="div-NickName" ng-class="{'has-error': formCreateReport.NickName.$invalid, 'has-success': formCreateReport.NickName.$valid}">
-					<label>NickName (author of report)</label>
-					<div class="input-group" title="Please enter a NickName. The NickName will be shown as author of your report.">
+					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-						<input class="form-control" name="NickName" id="NickName" ng-model="NickName" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-NickName', true)" maxlength="255" ng-required="{{true" />
+						<input class="form-control trans-placeholder" name="NickName" id="NickName" ng-model="NickName" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-NickName', true)" maxlength="255" placeholder="NickName (author of report)" ng-required="{{true" />
 						<span class="input-group-addon">
-							<a data-toggle="tooltip" data-placement="top" title="Please enter a NickName. The NickName will be shown as author of your report.">
+							<a name="ToolTipNickName" data-toggle="tooltip" data-placement="top" title="Please enter a NickName. The NickName will be shown as author of your report." class="trans-name-title">
 								<i class="glyphicon glyphicon-question-sign"></i>
 							</a>
 						</span>

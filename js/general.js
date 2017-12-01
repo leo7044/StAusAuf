@@ -94,7 +94,7 @@ function changeLanguage(currentLanguageIndex)
         }
     }
     translateEachElement(currentLanguageIndex);
-    
+
     // viewReports
     if (document.getElementsByName('ReportCountry') != undefined)
     {

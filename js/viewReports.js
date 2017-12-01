@@ -229,10 +229,8 @@ function loadContentOfModal(longModalId, loadingPage)
 	var modal = document.getElementById('modalReport');
 	var currentLanguageIndex = $('#language')[0].selectedIndex;
 	var arrayTitle = objectLanguages.ArrayTitle[currentLanguageIndex];
-	// var arrayContent = getArrayOneReport(indexOfObjectInReportData);
 	var arrayContent = new Array(reportData[indexOfObjectInReportData].reportName,
 								reportData[indexOfObjectInReportData].nickName,
-								// countryData[$.inArray(reportData[indexOfObjectInReportData].country, countryIso)].name,
 								'<span id="OneReportCountry">' + getCountryInCorrectLanguage(indexOfObjectInReportData) + '</span>',
 								reportData[indexOfObjectInReportData].city,
 								reportData[indexOfObjectInReportData].dateRange,
