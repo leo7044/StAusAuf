@@ -157,8 +157,7 @@ function fillReportTable()
 					strHtml += '<img src="' + pfadToAvatarPic + '"></img>'; // Begleittext ergänzen
 					strHtml += '</a>';
 					strHtml += '<br/>' + reportData[i].reportName + ' (' + reportData[i].nickName + ')';
-					var indexOfCountry = $.inArray(reportData[i].country, countryIso);
-					strHtml += '<br/>' + countryData[indexOfCountry].name;
+					strHtml += '<br/><span name="ReportCountry">' + getCountryInCorrectLanguage(i) + '</span>';
 					strHtml += '</center>'
 					strHtml += '</div>';
 					break;
@@ -177,7 +176,7 @@ function fillReportTable()
 					strHtml += '</a>';
 					strHtml += '<br/>' + reportData[i].reportName + ' (' + reportData[i].nickName + ')';
 					var indexOfCountry = $.inArray(reportData[i].country, countryIso);
-					strHtml += '<br/>' + countryData[indexOfCountry].name;
+					strHtml += '<br/><span name="ReportCountry">' + getCountryInCorrectLanguage(i) + '</span>';
 					strHtml += '</center>'
 					strHtml += '</div>';
 					break;
@@ -196,7 +195,7 @@ function fillReportTable()
 					strHtml += '</a>';
 					strHtml += '<br/>' + reportData[i].reportName + ' (' + reportData[i].nickName + ')';
 					var indexOfCountry = $.inArray(reportData[i].country, countryIso);
-					strHtml += '<br/>' + countryData[indexOfCountry].name;
+					strHtml += '<br/><span name="ReportCountry">' + getCountryInCorrectLanguage(i) + '</span>';
 					strHtml += '</center>'
 					strHtml += '</div>';
 					strHtml += '</div><br/><br/>';
@@ -230,9 +229,11 @@ function loadContentOfModal(longModalId, loadingPage)
 	var modal = document.getElementById('modalReport');
 	var currentLanguageIndex = $('#language')[0].selectedIndex;
 	var arrayTitle = objectLanguages.ArrayTitle[currentLanguageIndex];
+	// var arrayContent = getArrayOneReport(indexOfObjectInReportData);
 	var arrayContent = new Array(reportData[indexOfObjectInReportData].reportName,
 								reportData[indexOfObjectInReportData].nickName,
-								countryData[$.inArray(reportData[indexOfObjectInReportData].country, countryIso)].name,
+								// countryData[$.inArray(reportData[indexOfObjectInReportData].country, countryIso)].name,
+								'<span id="OneReportCountry">' + getCountryInCorrectLanguage(indexOfObjectInReportData) + '</span>',
 								reportData[indexOfObjectInReportData].city,
 								reportData[indexOfObjectInReportData].dateRange,
 								reportData[indexOfObjectInReportData].highlight,
@@ -425,4 +426,26 @@ function deleteReport(Id)
 function closeModal()
 {
 	window.history.pushState('', '', '?');
+}
+
+// =============================================
+// für Übersetzungen
+// =============================================
+
+// liefert den Ländernamen in der richtigen Sprache zurück
+function getCountryInCorrectLanguage(id)
+{
+	var strHtml = '';
+	var indexOfCountry = $.inArray(reportData[id].country, countryIso);
+	var currentLanguageIndex = $('#language')[0].selectedIndex;
+	if (currentLanguageIndex)
+	{
+		var lang = objectLanguages.languageShort[currentLanguageIndex];
+		strHtml += countryData[indexOfCountry].translations[lang];
+	}
+	else
+	{
+		strHtml += countryData[indexOfCountry].name;
+	}
+	return strHtml;
 }

@@ -94,6 +94,22 @@ function changeLanguage(currentLanguageIndex)
         }
     }
     translateEachElement(currentLanguageIndex);
+    
+    // viewReports
+    if (document.getElementsByName('ReportCountry') != undefined)
+    {
+        for (var i = 0; i < document.getElementsByName('ReportCountry').length; i++)
+        {
+            document.getElementsByName('ReportCountry')[i].innerHTML = getCountryInCorrectLanguage(i);
+        }
+    }
+    getGetParas();
+    if ($_GET().Id != undefined)
+    {
+        var modalId = $_GET().Id;
+        var indexOfObjectInReportData = $.inArray(modalId, idArray);
+        $('#OneReportCountry')[0].innerHTML = getCountryInCorrectLanguage(indexOfObjectInReportData);
+    }
 }
 
 // translates each Element with special classes
