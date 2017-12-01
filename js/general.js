@@ -22,12 +22,6 @@ function changeCss(id, css)
 	$('#' + id)[0].className = css;
 }
 
-// übersetzer
-function googleTranslateElementInit()
-{
-	new google.translate.TranslateElement({pageLanguage: 'en', autoDisplay: false}, 'google_translate_element');
-}
-
 // GET-Paras
 function getGetParas()
 {
