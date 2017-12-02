@@ -29,20 +29,6 @@ div.own-box-admin
 	background-color: #F8F8FF;
 }
 
-/*Grund: pull-right der Buttons */
-.logoSetCenter
-{
-	position: relative;
-	left: 88px;
-}
-
-/*Grund: pull-right des Logout-Buttons */
-.logoSetCenterLogout
-{
-	position: relative;
-	left: 44px;
-}
-
 /* Tabelle zentrieren, auch mÃ¶glich mit class="center", aber zusÃ¤tzliche Implementierung, um nicht jedesmal class="center" schreiben zu mÃ¼ssen */
 th, td
 {

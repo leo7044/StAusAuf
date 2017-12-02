@@ -102,7 +102,7 @@ function createDropDownListCountries(language)
 		$('#dropDownListCountries').empty();
 		for (var i = 0; i < numberCountries; i++)
 		{
-			if (language)
+			if (language && language != 'en')
 			{
 				$('#dropDownListCountries').append('<option value="' + countryData[i].alpha2Code +'">' + countryData[i].translations[language] + '</option>');
 			}

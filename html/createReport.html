@@ -104,14 +104,13 @@
 					</div>
 				</div>
 				<div class="form-group hide" id="div-City" ng-class="{'has-error': formCreateReport.City.$invalid, 'has-success': formCreateReport.City.$valid}"> <!-- ng-show="Country" -->
-					<label>Destination-City</label>
-					<div class="input-group" title="Please enter your destination-city.">
+					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
-						<input class="form-control" name="City" id="Input_City" ng-model="City" list="dataListCity" ng-required="{{true" maxlength="255" />
+						<input class="form-control trans-placeholder" name="City" id="Input_City" ng-model="City" list="dataListCity" ng-required="{{true" maxlength="255" placeholder="Destination-City" />
 						<datalist id="dataListCity">
 						</datalist>
 						<span class="input-group-addon">
-							<a data-toggle="tooltip" data-placement="top" title="Please enter your destination-city.">
+							<a name="ToolTipDestinationCity" data-toggle="tooltip" data-placement="top" title="Please enter your destination-city." class="trans-name-title">
 								<i class="glyphicon glyphicon-question-sign"></i>
 							</a>
 						</span>
