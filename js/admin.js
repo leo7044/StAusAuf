@@ -182,7 +182,7 @@ function buildEditRow(rowId)
 	{
 		strHtml += '&nbsp;';
 	}
-	strHtml += '<button class="btn btn-default" onclick="resetUser(' + UserData[rowId].Id + ', ' + rowId + ');"><span class="glyphicon glyphicon-remove" style="color:#FF0000;"></span> <span id="Abort" class="trans-innerHTML">Abort</span></button></td>';
+	strHtml += '<button class="btn btn-default" onclick="resetUser(' + UserData[rowId].Id + ', ' + rowId + ');"><span class="glyphicon glyphicon-remove" style="color:#FF0000;"></span> <span id="Cancel" class="trans-innerHTML">Cancel</span></button></td>';
 	strHtml += '</tr>';
 	return strHtml;
 }

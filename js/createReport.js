@@ -667,7 +667,7 @@ function checkPasswordMatch(forced)
 		{
 			changeCss('modal-div-NewPw', 'form-group');
 			changeCss('modal-div-NewPwConfirm', 'form-group');
-			//changeCss('formModalProfile-divErrorPwNoMatch', 'alert alert-danger hide'); // Grund: das Formular wird bei Klick auf "X Abort (blau)" nicht zurückgesetzt
+			//changeCss('formModalProfile-divErrorPwNoMatch', 'alert alert-danger hide'); // Grund: das Formular wird bei Klick auf "X Cancel (blau)" nicht zurückgesetzt
 		}
 	}
 	return returnValue;
