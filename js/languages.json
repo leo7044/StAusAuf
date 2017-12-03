@@ -72,14 +72,21 @@
 
 	"CreateNewReport":["Create a new report","Erstellen eines neuen Berichts"],
 	"Profile":["Profile","Profil"],
-	"ReportName":["Title of report","Titel des Berichts"],
-	"NickName":["NickName (author of report)","NickName (Autos des Berichts)"],
-	"Input_City":["Destination-City","Reisestadt"],
-	"daterange":["Travel-Period","Reisezeitraum"],
-	"DestinationCountry":["Select destination-country...","Reiseland auswählen..."],
+	"ReportName":["Title of report*","Titel des Berichts*"],
+	"NickName":["NickName (author of report)*","NickName (Autos des Berichts)*"],
+	"DestinationCountry":["Select destination-country...*","Reiseland auswählen...*"],
+	"Input_City":["Destination-City*","Reisestadt*"],
+	"daterange":["Travel-Period*","Reisezeitraum*"],
+	"Input_Highlight":["Your personal highlights*","Ihre persönlichen Highlights*"],
+	"Input_Attention":["What must be considered?*","Was muss beachtet werden?*"],
+	"Lecture":["Attended lectures","Besuchte Vorlesungen"],
+	"Internship":["Attended internships","Besuchte Praktika"],
 	"ToolTipReportName":["Please enter a title for your report.","Bitte tragen Sie einen Titel für Ihren Bericht ein."],
 	"ToolTipNickName":["Please enter a NickName. The NickName will be shown as author of your report.","Bitte geben Sie einen NickNamen ein. Der NickName wird als Autor Ihres Berichts angezeigt."],
 	"ToolTipDestinationCountry":["Please select your destination-country.","Bitte wählen Sie Ihr Reiseland aus."],
 	"ToolTipDestinationCity":["Please enter your destination-city.","Bitte geben Sie Ihre Reisestadt an."],
-	"ToolTipdaterange":["Please select startdate and enddate of your travel.","Bitte wähle das Start- und Enddatum deiner Reise aus."]
+	"ToolTipDateRange":["Please select startdate and enddate of your travel.","Bitte wähle das Start- und Enddatum deiner Reise aus."],
+	"ToolTipHighlight":["Please enter your personal highlights.","Bitte tragen Sie Ihre persönlichen Highlights ein."],
+	"ToolTipLecture":["Please enter your attended lectures.","Bitte geben Sie Ihre besuchten Vorlesungen an."],
+	"ToolTipInternship":["Please enter your attended internship.","Bitte geben Sie Ihre besuchten Pratika an."]
 }

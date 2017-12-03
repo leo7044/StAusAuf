@@ -70,7 +70,7 @@
 				<div class="form-group" id="div-ReportName" ng-class="{'has-error': formCreateReport.ReportName.$invalid, 'has-success': formCreateReport.ReportName.$valid}">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-						<input class="form-control trans-placeholder" name="ReportName" id="ReportName" ng-model="ReportName" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-ReportName', true)" maxlength="255" placeholder="Title of report" autofocus required />
+						<input class="form-control trans-placeholder" name="ReportName" id="ReportName" ng-model="ReportName" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-ReportName', true)" maxlength="255" placeholder="Title of report*" autofocus required />
 						<span class="input-group-addon">
 							<a name="ToolTipReportName" data-toggle="tooltip" data-placement="top" title="Please enter a title for your report." class="trans-name-title">
 								<i class="glyphicon glyphicon-question-sign"></i>
@@ -81,7 +81,7 @@
 				<div class="form-group" id="div-NickName" ng-class="{'has-error': formCreateReport.NickName.$invalid, 'has-success': formCreateReport.NickName.$valid}">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-						<input class="form-control trans-placeholder" name="NickName" id="NickName" ng-model="NickName" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-NickName', true)" maxlength="255" placeholder="NickName (author of report)" ng-required="{{true" />
+						<input class="form-control trans-placeholder" name="NickName" id="NickName" ng-model="NickName" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-NickName', true)" maxlength="255" placeholder="NickName (author of report)*" ng-required="{{true" />
 						<span class="input-group-addon">
 							<a name="ToolTipNickName" data-toggle="tooltip" data-placement="top" title="Please enter a NickName. The NickName will be shown as author of your report." class="trans-name-title">
 								<i class="glyphicon glyphicon-question-sign"></i>
@@ -107,7 +107,7 @@
 				<div class="form-group hide" id="div-City" ng-class="{'has-error': formCreateReport.City.$invalid, 'has-success': formCreateReport.City.$valid}"> <!-- ng-show="Country" -->
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
-						<input class="form-control trans-placeholder" name="City" id="Input_City" ng-model="City" list="dataListCity" ng-required="{{true" maxlength="255" placeholder="Destination-City" />
+						<input class="form-control trans-placeholder" name="City" id="Input_City" ng-model="City" list="dataListCity" ng-required="{{true" maxlength="255" placeholder="Destination-City*" />
 						<datalist id="dataListCity">
 						</datalist>
 						<span class="input-group-addon">
@@ -131,57 +131,53 @@
 						<!-- mit Substring in PHP auswerten: http://php.net/manual/de/function.substr.php -->
 						<!-- pattern nicht notwendig, wenn readonly; readonly -> no required -->
 						<!-- http://fragaria.github.io/angular-daterangepicker/ -->
-						<input class="form-control trans-placeholder" style="background: white;" name="daterange" id="daterange" ng-model="DateRange" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Date', true)" placeholder="Travel-Period" readonly />
+						<input class="form-control trans-placeholder" style="background: white;" name="daterange" id="daterange" ng-model="DateRange" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Date', true)" placeholder="Travel-Period*" readonly />
 						<span class="input-group-addon">
-							<a name="ToolTipdaterange" data-toggle="tooltip" data-placement="top" title="Please select startdate and enddate of your travel." class="trans-name-title">
+							<a name="ToolTipDateRange" data-toggle="tooltip" data-placement="top" title="Please select startdate and enddate of your travel." class="trans-name-title">
 								<i class="glyphicon glyphicon-question-sign"></i>
 							</a>
 						</span>
 					</div>
 				</div>
 				<div class="form-group" id="div-Highlight" ng-class="{'has-error': formCreateReport.Highlight.$invalid, 'has-success': formCreateReport.Highlight.$valid}">
-					<label>Your personal highlights</label>
-					<div class="input-group" title="Please enter your personal highlights.">
+					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-thumbs-up"></i></span>
-						<input class="form-control" name="Highlight" id="Input_Highlight" ng-model="Highlight" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Highlight', true)" ng-required="{{true" ngMinlength="1" maxlength="255" />
+						<input class="form-control trans-placeholder" name="Highlight" id="Input_Highlight" ng-model="Highlight" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Highlight', true)" ng-required="{{true" ngMinlength="1" maxlength="255" placeholder="Your personal highlights*" />
 						<span class="input-group-addon">
-							<a data-toggle="tooltip" data-placement="top" title="Please enter your personal highlights.">
+							<a name="ToolTipHighlight" data-toggle="tooltip" data-placement="top" title="Please enter your personal highlights." class="trans-name-title">
 								<i class="glyphicon glyphicon-question-sign"></i>
 							</a>
 						</span>
 					</div>
 				</div>
 				<div class="form-group" id="div-Attention" ng-class="{'has-error': formCreateReport.Attention.$invalid, 'has-success': formCreateReport.Attention.$valid}">
-					<label>What must be considered?</label>
-					<div class="input-group" title="What must be considered?">
+					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-warning-sign"></i></span>
-						<input class="form-control" name="Attention" id="Input_Attention" ng-model="Attention" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Attention', true)" ng-required="{{true" maxlength="255" />
+						<input class="form-control trans-placeholder" name="Attention" id="Input_Attention" ng-model="Attention" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Attention', true)" ng-required="{{true" maxlength="255" placeholder="What must be considered?*" />
 						<span class="input-group-addon">
-							<a data-toggle="tooltip" data-placement="top" title="What must be considered?">
+							<a name="Input_Attention" data-toggle="tooltip" data-placement="top" title="What must be considered?" class="trans-name-title">
 								<i class="glyphicon glyphicon-question-sign"></i>
 							</a>
 						</span>
 					</div>
 				</div>
 				<div class="form-group" id="div-Lecture" ng-class="{'has-error': formCreateReport.Lecture.$invalid, 'has-success': formCreateReport.Lecture.$valid}">
-					<label>optional: Enter your attended lectures</label>
-					<div class="input-group" title="optional: Please enter your attended lectures.">
+					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
-						<input class="form-control" name="Lecture" id="Lecture" ng-model="Lecture" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Lecture', false)" onkeyup="checkInputAndChangeClassOfDiv(this.id, 'div-Lecture', false)" maxlength="255" />
+						<input class="form-control trans-placeholder" name="Lecture" id="Lecture" ng-model="Lecture" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Lecture', false)" onkeyup="checkInputAndChangeClassOfDiv(this.id, 'div-Lecture', false)" maxlength="255" placeholder="Attended lectures" />
 						<span class="input-group-addon">
-							<a data-toggle="tooltip" data-placement="top" title="optional: Please enter your attended lectures.">
+							<a name="ToolTipLecture" data-toggle="tooltip" data-placement="top" title="Please enter your attended lectures." class="trans-name-title">
 								<i class="glyphicon glyphicon-question-sign"></i>
 							</a>
 						</span>
 					</div>
 				</div>
 				<div class="form-group" id="div-Internship" ng-class="{'has-error': formCreateReport.Internship.$invalid, 'has-success': formCreateReport.Internship.$valid}">
-					<label>optional: Enter your attended internships</label>
-					<div class="input-group" title="optional: Please enter your attended internship.">
+					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
-						<input class="form-control" name="Internship" id="Internship" ng-model="Internship" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Internship', false)" onkeyup="checkInputAndChangeClassOfDiv(this.id, 'div-Internship', false)" maxlength="255" />
+						<input class="form-control trans-placeholder" name="Internship" id="Internship" ng-model="Internship" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Internship', false)" onkeyup="checkInputAndChangeClassOfDiv(this.id, 'div-Internship', false)" maxlength="255" placeholder="Attended internships" />
 						<span class="input-group-addon">
-							<a data-toggle="tooltip" data-placement="top" title="optional: Please enter your attended internship.">
+							<a name="ToolTipInternship" data-toggle="tooltip" data-placement="top" title="Please enter your attended internship." class="trans-name-title">
 								<i class="glyphicon glyphicon-question-sign"></i>
 							</a>
 						</span>
@@ -194,6 +190,9 @@
 				<div class="form-group" title="Please select pictures for your report-gallery (max. 20 pictures)">
 					<label class="control-label">Please select pictures for your report-gallery (max. 20 pictures)</label>
 					<input id="FileInputUploadGallery" name="FileInputUploadGallery[]" type="file" class="file-loading" multiple />
+				</div>
+				<div id="form-required" class="trans-innerHTML">
+					*) required
 				</div>
 				<br/>
 				<div class="form-group" title="Please tell us more. Feel free to share with us more details.">
