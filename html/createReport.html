@@ -24,7 +24,7 @@
 		<script src="js/general.js"></script> <!-- alles eigene -->
 		<script src="js/createReport.js"></script> <!-- alles eigene -->
 		<script src="sceditor/minified/jquery.sceditor.bbcode.min.js"></script> <!-- BB-Codes -->
-		<script src="js/fileinput.min.js"></script> <!-- FileInput v4.4.6-7 -->
+		<script src="js/fileinput.min.js"></script> <!-- FileInput v4.4.6-11 -->
 
 		<!-- CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> <!-- Bootstrap -->
@@ -32,7 +32,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.25/daterangepicker.min.css"> <!-- DatePicker nebeneinander -->
 		<link rel="stylesheet" href="sceditor/minified/themes/default.min.css" /> <!-- BB-Codes -->
 		<!-- <link rel="stylesheet" href="css/msdropdown.min.css" /> <!-- Länder-Flaggen -->
-		<link rel="stylesheet" href="css/fileinput.min.css" /> <!-- FileInput v4.4.6-7 -->
+		<link rel="stylesheet" href="css/fileinput.min.css" /> <!-- FileInput v4.4.6-11 -->
 		<link rel="stylesheet" href="css/own.css"> <!-- alles eigene -->
 	</head>
 	<body ng-app="MyApp" ng-controller="angModCreateReport">
@@ -183,26 +183,24 @@
 						</span>
 					</div>
 				</div>
-				<div class="form-group" id="div-FileInputUploadAvatar" title="Please select an avatar-picture for your report">
-					<label class="control-label">Please select an avatar-picture for your report</label>
-					<input id="FileInputUploadAvatar" name="FileInputUploadAvatar[]" type="file" class="file-loading" />
+				<div class="form-group">
+					<input id="FileInputUploadAvatar" name="FileInputUploadAvatar[]" type="file" class="file-loading trans-upload-placeholder" data-msg-placeholder="Select an avatar-picture for your report" />
 				</div>
-				<div class="form-group" title="Please select pictures for your report-gallery (max. 20 pictures)">
-					<label class="control-label">Please select pictures for your report-gallery (max. 20 pictures)</label>
-					<input id="FileInputUploadGallery" name="FileInputUploadGallery[]" type="file" class="file-loading" multiple />
+				<div class="form-group">
+					<input id="FileInputUploadGallery" name="FileInputUploadGallery[]" type="file" class="file-loading trans-upload-placeholder" data-msg-placeholder="Select pictures for your picture-gallery (max. 20 pictures)" multiple />
 				</div>
 				<div id="form-required" class="trans-innerHTML">
 					*) required
 				</div>
 				<br/>
-				<div class="form-group" title="Please tell us more. Feel free to share with us more details.">
-					<label>Comment-Box - enough space for you to share with us more details <img src="sceditor/emoticons/wink.png" /></label>
+				<div  class="form-group">
+					<label id="LabelCommentBox" class="trans-innerHTML">Comment-Box - enough space for you to share with us more details <img src="sceditor/emoticons/wink.png" /></label>
 					<!-- placeholder does not work with sceditor -> reason: they implemented a fake-div -->
 					<textarea id="textarea_textreport" class="form-control" style="width: 100px; height: 350px" name="textreport"></textarea>
 				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-success">
-						<span class="glyphicon glyphicon-plus-sign"></span> Save report
+						<span class="glyphicon glyphicon-plus-sign"></span> <span id="UploadReport" class="trans-innerHTML">Upload report</span>
 					</button>
 				</div>
 			</form>

@@ -28,7 +28,8 @@ $(document).ready(function(){
         // maxFileSize: 1024,
 		// maxFilePreviewSize: 1024,
 		overwriteInitial: true,
-		removeClass: "btn btn-danger"
+		removeClass: "btn btn-danger",
+		browseLabel: "<span id='ChooseAvatar' class='trans-innerHTML'>Choose Avatar...</span>"
 		// defaultPreviewContent: '<img src="img/default_avatar_male.jpg" alt="Your Avatar" style="width:160px"><h6 class="text-muted">Drag & drop an avatar-picture here</h6>'
     });
 	$("#FileInputUploadGallery").fileinput({ // FileUploadGallery
@@ -37,7 +38,7 @@ $(document).ready(function(){
 		allowedFileTypes: ["image"],
 		// allowedFileTypes: ['jpg', 'png', 'gif'],
 		browseClass: "btn btn-success",
-        browseLabel: "Pick Images",
+        browseLabel: "<span id='PickImages' class='trans-innerHTML'>Pick Images...</span>",
         browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
 		removeClass: "btn btn-danger",
         // maxFileSize: 1024,
@@ -73,6 +74,7 @@ function getCountryData()
 {
 	$.ajaxSetup({async: false});
 	$.get('https://restcountries.eu/rest/v2/all')
+	// $.get('js/countryApi.json')
 	.always(function(data)
 	{
 		countryData = data;

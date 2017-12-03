@@ -81,6 +81,9 @@
 	"Input_Attention":["What must be considered?*","Was muss beachtet werden?*"],
 	"Lecture":["Attended lectures","Besuchte Vorlesungen"],
 	"Internship":["Attended internships","Besuchte Praktika"],
+	"FileInputUploadAvatar":["Select an avatar-picture for your report","Wählen Sie ein Avatarbild für Ihren Bericht aus"],
+	"FileInputUploadGallery":["Select pictures for your picture-gallery (max. 20 pictures)","Wählen Sie Bilder für ihre Bildergallerie aus (max 20 Bilder)"],
+	"LabelCommentBox":["Comment-Box - enough space for you to share with us more details <img src='sceditor/emoticons/wink.png' />","Kommentarbox - genug Platz für Sie, mehr Details mit uns zu teilen <img src='sceditor/emoticons/wink.png' />"],
 	"ToolTipReportName":["Please enter a title for your report.","Bitte tragen Sie einen Titel für Ihren Bericht ein."],
 	"ToolTipNickName":["Please enter a NickName. The NickName will be shown as author of your report.","Bitte geben Sie einen NickNamen ein. Der NickName wird als Autor Ihres Berichts angezeigt."],
 	"ToolTipDestinationCountry":["Please select your destination-country.","Bitte wählen Sie Ihr Reiseland aus."],
@@ -88,5 +91,8 @@
 	"ToolTipDateRange":["Please select startdate and enddate of your travel.","Bitte wähle das Start- und Enddatum deiner Reise aus."],
 	"ToolTipHighlight":["Please enter your personal highlights.","Bitte tragen Sie Ihre persönlichen Highlights ein."],
 	"ToolTipLecture":["Please enter your attended lectures.","Bitte geben Sie Ihre besuchten Vorlesungen an."],
-	"ToolTipInternship":["Please enter your attended internship.","Bitte geben Sie Ihre besuchten Pratika an."]
+	"ToolTipInternship":["Please enter your attended internship.","Bitte geben Sie Ihre besuchten Pratika an."],
+	"UploadReport":["Upload report","Bericht hochladen"],
+	"ChooseAvatar":["Choose Avatar...","Avatarbild auswählen..."],
+	"PickImages":["Pick Images...","Bilder auswählen..."]
 }

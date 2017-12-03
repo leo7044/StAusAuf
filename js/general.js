@@ -8,7 +8,10 @@ $(document).ready(function() {
     {
         objectLanguages = getLanguages();
         prepareLanguageSelection();
-        changeLanguage();
+        // Vorteil der Ausführung: das JSON wird auch schon beim PageLoad geladen, falls HTML-Quellcode im Original nicht angepasst wurde
+        // Nachteil: Wenn HTML-Quellcode aktuell (das sollte er immer sein) ==> Performance-Verlust
+        // ==> nicht ausführen
+        // changeLanguage();
     }
     catch(e)
     {
@@ -135,5 +138,20 @@ function translateEachElement(currentLanguageIndex)
     for (var i = 0; i < $('.trans-name-title').length; i++)
     {
         $('.trans-name-title')[i].title = objectLanguages[$('.trans-name-title')[i].name][currentLanguageIndex];
+    }
+    for (var i = 0; i < $('.trans-upload-placeholder').length; i++)
+    {
+        $('.trans-upload-placeholder')[i]['data-msg-placeholder'] = objectLanguages[$('.trans-upload-placeholder')[i].id][currentLanguageIndex];
+        try
+        {
+            $('.file-caption-name')[i].placeholder = objectLanguages[$('.trans-upload-placeholder')[i].id][currentLanguageIndex];
+        }
+        catch(e)
+        {
+            // beim PageLoad wird es beim ersten Mal immer einen Fehler geben.
+            // Der Grund ist, dass der FileInput noch nicht aufgebaut ist, wenn das erste Mal übersetzt wird.
+            // theoretische Lösungen: abfangen oder dieses eine Problemelement abfangen ==> praktische Lösung: abfangen
+            // console.log(e);
+        }
     }
 }
