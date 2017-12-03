@@ -102,7 +102,7 @@ function createDropDownListCountries(language)
 		$('#dropDownListCountries').empty();
 		for (var i = 0; i < numberCountries; i++)
 		{
-			if (language && language != 'en')
+			if (language == 'br' || language == 'de' || language == 'es' || language == 'fa' || language == 'fr' || language == 'hr' || language == 'it' || language == 'ja' || language == 'nl' || language == 'pl')
 			{
 				$('#dropDownListCountries').append('<option value="' + countryData[i].alpha2Code +'">' + countryData[i].translations[language] + '</option>');
 			}
