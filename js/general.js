@@ -19,12 +19,6 @@ $(document).ready(function() {
     }
 });
 
-// verändert CSS-Klassen
-function changeCss(id, css)
-{
-	$('#' + id)[0].className = css;
-}
-
 // GET-Paras
 function getGetParas()
 {

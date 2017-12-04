@@ -13,13 +13,7 @@ $(document).ready(function(){
 	// $('[data-toggle="tooltip"]').tooltip(); // tooltip for help-flag
 	// msDropDownCountries = $("#dropDownListCountries").msDropdown().data("dd"); // Country-Flags
 	// $(document).tooltip({delay: {show: null}});
-	changeCss('div-ReportName', 'form-group');
-	changeCss('div-NickName', 'form-group');
-	changeCss('div-Date', 'form-group');
-	changeCss('div-Highlight', 'form-group');
-	changeCss('div-Attention', 'form-group');
-	changeCss('div-Lecture', 'form-group');
-	changeCss('div-Internship', 'form-group');
+	$('#div-ReportName, #div-NickName, #div-Date, #div-Highlight, #div-Attention, #div-Lecture, #div-Internship').removeClass('has-success has-error');
 	$("#FileInputUploadAvatar").fileinput({ // FileUploadAvatar
         showUpload: false, // Zeile 674 in "fileinput.js" bearbeitet, showUpload auf false gesetzt; Zeile 3.797 in "fileinput.js" bearbeitet, um "Remove"-Button rot einzufärben
 		// uploadUrl: 'img_public',
@@ -81,7 +75,6 @@ function getCountryData()
 	});
 	$.ajaxSetup({async: true});
 	createDropDownListCountries();
-	// permenentCheckTranslate();
 }
 
 // sortiert dropDownList 
@@ -155,29 +148,6 @@ function setCurrentSelectedItem()
 	}
 }
 
-// überprüft peranend auf Änderungen der Sprache
-/* function permenentCheckTranslate()
-{
-    setTimeout(function ()
-	{
-		try // Grund: 1 Fehler -> Timeout-Loop wird abgebrochen (kein Risiko eingehen)
-		{
-			var tmpCurrentSelectedLanguage = $('#google_translate_element').children('div').children('div').children('select')[0].value;
-		}
-		catch(e)
-		{
-			var tmpCurrentSelectedLanguage = '';
-			// console.log('error_permenentCheckTranslate');
-		}
-		if (tmpCurrentSelectedLanguage != currentSelectedLanguage)
-		{
-			currentSelectedLanguage = tmpCurrentSelectedLanguage;
-			createDropDownListCountries(currentSelectedLanguage);
-		}
-        permenentCheckTranslate();
-    }, 1000);
-} */
-
 // DatePicker
 $(function() {
 	$('input[name="daterange"]').daterangepicker({
@@ -189,8 +159,12 @@ $(function() {
 	}, function() {
 		/*if (document.formCreateReport.daterange.value != "")
 		{*/
-			changeCss('div-Date', 'form-group has-success');
-		//}
+			$('#div-Date').addClass('has-success').removeClass('has-error');
+		/*}
+		else
+		{
+			$('#div-Date').addClass('has-error').removeClass('has-success');
+		}*/
 		$('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
 			$(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
 		});
@@ -204,42 +178,42 @@ function checkInputFormCreateReport()
 	var NickName = document.formCreateReport.NickName.value;
 	if (NickName == "")
 	{
-		changeCss('div-NickName', 'form-group has-error');
+		$('#div-NickName').addClass('has-error').removeClass('has-success');
 		document.formCreateReport.NickName.focus();
 		return false;
 	}
 	var Country = document.formCreateReport.dropDownListCountries.value;
 	if (Country == "")
 	{
-		changeCss('div-Country', 'form-group has-error');
+		$('#div-Country').addClass('has-error').removeClass('has-success');
 		document.formCreateReport.dropDownListCountries.focus();
 		return false;
 	}
 	var city = document.formCreateReport.City.value;
 	if (city == "")
 	{
-		changeCss('div-City', 'form-group has-error');
+		$('#div-City').addClass('has-error').removeClass('has-success');
 		document.formCreateReport.City.focus();
 		return false;
 	}
 	var dateRange = document.formCreateReport.daterange.value;
 	if (dateRange == "")
 	{
-		changeCss('div-Date', 'form-group has-error');
+		$('#div-Date').addClass('has-error').removeClass('has-success');
 		document.formCreateReport.daterange.focus();
 		return false;
 	}
 	var highlight = document.formCreateReport.Highlight.value;
 	if (highlight == "")
 	{
-		changeCss('div-Highlight', 'form-group has-error');
+		$('#div-Highlight').addClass('has-error').removeClass('has-success');
 		document.formCreateReport.Highlight.focus();
 		return false;
 	}
 	var attention = document.formCreateReport.Attention.value;
 	if (attention == "")
 	{
-		changeCss('div-Attention', 'form-group has-error');
+		$('#div-Attention').addClass('has-error').removeClass('has-success');
 		document.formCreateReport.Attention.focus();
 		return false;
 	}
@@ -405,12 +379,12 @@ function checkInputAndChangeClassOfDiv(para_input, para_div, para_required)
 	var input_field = document.getElementById(para_input).value;
 	if (input_field == "" && para_required == true)
 	{
-		changeCss(para_div, 'form-group has-error');
+		$('#' + para_div).addClass('has-error').removeClass('has-success');
 		return false;
 	}
 	else
 	{
-		changeCss(para_div, 'form-group has-success');
+		$('#' + para_div).addClass('has-success').removeClass('has-error');
 	}
 }
 
@@ -421,7 +395,7 @@ function changeCountry()
 	$('#dropDownListCountries option[value=""]').remove();
 	if (document.getElementById('div-City').className == 'form-group hide has-error')
 	{
-		changeCss('div-City', 'form-group has-error');
+		$('#div-City').addClass('has-error').removeClass('has-success');
 	}
 	document.formCreateReport.City.focus();
 	var data =
@@ -452,11 +426,11 @@ function inputNotEmpty(para_input, para_div)
 	var input_field = document.getElementById(para_input).value;
 	if (input_field == "")
 	{
-		changeCss(para_div, 'form-group has-error');
+		$('#' + para_div).addClass('has-error').removeClass('has-success');
 	}
 	else
 	{
-		changeCss(para_div, 'form-group');
+		$('#' + para_div).removeClass('has-success has-error');
 	}
 }
 
@@ -471,13 +445,13 @@ function changeCountryClass()
 {
 	if (document.formCreateReport.Country.value != "")
 	{
-		changeCss('div-Country', 'form-group has-success');
+		$('#div-Country').addClass('has-success').removeClass('has-error');
 		document.getElementById('countries_msdd').style.borderColor = "#3c763d";
 		document.formCreateReport.City.focus();
 	}
 	else
 	{
-		changeCss('div-Country', 'form-group has-error');
+		$('#div-Country').addClass('has-error').removeClass('has-success');
 		document.getElementById('countries_msdd').style.borderColor = "#a94442";
 	}
 }
@@ -504,14 +478,14 @@ myApp.controller('angModCreateReport', function($scope) {
 		$('#formModalProfile-divErrorWrongPw').addClass('hide');
 		$('#formModalProfile-divErrorPwNoMatch').addClass('hide');
 		$('#ErrorDb').addClass('hide');
-		changeCss('modalCancel', 'btn btn-danger');
-		changeCss('modalSave', 'btn btn-success');
-		changeCss('modalClose', 'btn btn-primary hide');
-		changeCss('modalButtonEditPw', 'btn btn-info');
-		changeCss('div-changePw', 'hide');
-		changeCss('modal-div-OldPw', 'form-group');
-		changeCss('modal-div-NewPw', 'form-group');
-		changeCss('modal-div-NewPwConfirm', 'form-group');
+		$('#modalCancel').removeClass('hide');
+		$('#modalSave').removeClass('hide');
+		$('#modalClose').addClass('hide');
+		$('#modalButtonEditPw').removeClass('hide');
+		$('#div-changePw').addClass('hide');
+		$('#modal-div-OldPw').removeClass('has-success has-error');
+		$('#modal-div-NewPw').removeClass('has-success has-error');
+		$('#modal-div-NewPwConfirm').removeClass('has-success has-error');
 		document.getElementById('formModalProfile').reset();
 		document.getElementById('modalEmail').value = originalOwnEmail;
 	};
@@ -544,15 +518,18 @@ function checkInputFormModalProfile()
 					$('#formModalProfile-divSuccess').removeClass('hide');
 					$('#formModalProfile-divErrorUpdate').addClass('hide');
 					$('#formModalProfile-divErrorWrongPw').addClass('hide');
+					$('#formModalProfile-divErrorPwNoMatch').addClass('hide');
 					$('#ErrorDb').addClass('hide');
-					changeCss('modalButtonEditPw', 'btn btn-info hide');
-					changeCss('modalButtonEditPwCancel', 'btn btn-info hide');
-					changeCss('modalCancel', 'btn btn-danger hide');
-					changeCss('modalSave', 'btn btn-success hide');
-					changeCss('modalClose', 'btn btn-primary');
+					$('#modalButtonEditPw').addClass('hide');
+					$('#modalButtonEditPwCancel').addClass('hide');
+					$('#modalCancel').addClass('hide');
+					$('#modalSave').addClass('hide');
+					$('#modalClose').removeClass('hide');
+					$('#modal-div-OldPw').addClass('has-success').removeClass('has-error');
 				}
 				else if (data.responseText == 'Altes Passwort falsch')
 				{
+					$('#modal-div-OldPw').addClass('has-error').removeClass('has-success');
 					$('#formModalProfile-divErrorWrongPw').removeClass('hide');
 					$('#ErrorDb').addClass('hide');
 				}
@@ -596,12 +573,13 @@ function checkInputFormModalProfile()
 				$('#formModalProfile-divSuccess').removeClass('hide');
 				$('#formModalProfile-divErrorUpdate').addClass('hide');
 				$('#formModalProfile-divErrorWrongPw').addClass('hide');
+				$('#formModalProfile-divErrorPwNoMatch').addClass('hide');
 				$('#ErrorDb').addClass('hide');
-				changeCss('modalButtonEditPw', 'btn btn-info hide');
-				changeCss('modalButtonEditPwCancel', 'btn btn-info hide');
-				changeCss('modalCancel', 'btn btn-danger hide');
-				changeCss('modalSave', 'btn btn-success hide');
-				changeCss('modalClose', 'btn btn-primary');
+				$('#modalButtonEditPw').addClass('hide');
+				$('#modalButtonEditPwCancel').addClass('hide');
+				$('#modalCancel').addClass('hide');
+				$('#modalSave').addClass('hide');
+				$('#modalClose').removeClass('hide');
 			}
 			else if (data.responseText == 'Email Aktualisierung fehlgeschlagen') // tritt praktisch nie auf
 			{
@@ -624,19 +602,19 @@ function checkInputFormModalProfile()
 // onclick auf change Password
 function buttonChangePassword()
 {
-	changeCss('modalButtonEditPw', 'btn btn-info hide');
-	changeCss('modalButtonEditPwCancel', 'btn btn-info');
-	changeCss('div-changePw', '');
+	$('#modalButtonEditPw').addClass('hide');
+	$('#modalButtonEditPwCancel').removeClass('hide');
+	$('#div-changePw').removeClass('hide');
 	$('#modalOldPw').focus();
 }
 
 // onclick auf cancel change Password
 function buttonChangePasswordCancel()
 {
-	changeCss('modalButtonEditPw', 'btn btn-info');
-	changeCss('modalButtonEditPwCancel', 'btn btn-info hide');
+	$('#modalButtonEditPw').removeClass('hide');
+	$('#modalButtonEditPwCancel').addClass('hide');
 	$('#formModalProfile-divErrorWrongPw').addClass('hide');
-	changeCss('div-changePw', 'hide');
+	$('#div-changePw').addClass('hide');
 }
 
 // überprüft, ob die neuen Passwörter gleich sind
@@ -647,15 +625,15 @@ function checkPasswordMatch(forced)
 	var newPwConfirm = $('#modalNewPwConfirm')[0].value;
 	if (newPw && newPw == newPwConfirm)
 	{
-		changeCss('modal-div-NewPw', 'form-group has-success');
-		changeCss('modal-div-NewPwConfirm', 'form-group has-success');
+		$('#modal-div-NewPw').addClass('has-success').removeClass('has-error');
+		$('#modal-div-NewPwConfirm').addClass('has-success').removeClass('has-error');
 		$('#formModalProfile-divErrorPwNoMatch').addClass('hide');
 		returnValue = true;
 	}
 	else if (!newPw && !newPwConfirm)
 	{
-		changeCss('modal-div-NewPw', 'form-group has-error');
-		changeCss('modal-div-NewPwConfirm', 'form-group has-error');
+		$('#modal-div-NewPw').addClass('has-error').removeClass('has-success');
+		$('#modal-div-NewPwConfirm').addClass('has-error').removeClass('has-success');
 		$('#formModalProfile-divErrorPwNoMatch').addClass('hide');
 	}
 	else
@@ -663,15 +641,15 @@ function checkPasswordMatch(forced)
 		forced = forced || false;
 		if (forced == true)
 		{
-			changeCss('modal-div-NewPw', 'form-group has-error');
-			changeCss('modal-div-NewPwConfirm', 'form-group has-error');
+			$('#modal-div-NewPw').addClass('has-error').removeClass('has-success');
+			$('#modal-div-NewPwConfirm').addClass('has-error').removeClass('has-success');
 			$('#formModalProfile-divErrorPwNoMatch').removeClass('hide');
 		}
 		else
 		{
-			changeCss('modal-div-NewPw', 'form-group');
-			changeCss('modal-div-NewPwConfirm', 'form-group');
-			// $('#formModalProfile-divErrorPwNoMatch').addClass('hide'); // Grund: das Formular wird bei Klick auf "X Cancel (blau)" nicht zurückgesetzt
+			$('#modal-div-NewPw').removeClass('has-success has-error');
+			$('#modal-div-NewPwConfirm').removeClass('has-success has-error');
+			// $('#formModalProfile-divErrorPwNoMatch').addClass('hide'); // Grund: wegen der Enter-Taste würde die Fehlermeldung sofort wieder verschwinden
 		}
 	}
 	return returnValue;

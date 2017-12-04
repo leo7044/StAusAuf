@@ -190,8 +190,8 @@ function buildEditRow(rowId)
 // zeigt Form für neuen User
 function showFormNewUser()
 {
-	changeCss('divFormButtonNewUser', 'hide');
-	changeCss('divFormNewUser', '');
+	$('#divFormButtonNewUser').addClass('hide');
+	$('#divFormNewUser').removeClass('hide');
 	var ownMemberRole = ownUser[0].MemberRole;
 	// var selectOptions = '<option value="-1"></option>';
 	var selectOptions = '';
@@ -206,8 +206,8 @@ function showFormNewUser()
 // verbirgt Form für neuen User
 function hideFormNewUser()
 {
-	changeCss('divFormButtonNewUser', '');
-	changeCss('divFormNewUser', 'hide');
+	$('#divFormButtonNewUser').removeClass('hide');
+	$('#divFormNewUser').addClass('hide');
 	resetFormNewUser();
 	return false;
 }
@@ -215,10 +215,8 @@ function hideFormNewUser()
 // setzt Form zurück
 function resetFormNewUser()
 {
-	changeCss('divFormPassword', 'form-group');
-	changeCss('divFormPasswordConfirm', 'form-group');
-	// changeCss('formNewUser-divErrorPwNoMatch', 'alert alert-danger hide');
-	// changeCss('formNewUser-divErrorUserExists', 'alert alert-danger hide');
+	$('#divFormPassword').removeClass('has-success has-error');
+	$('#divFormPasswordConfirm').removeClass('has-success has-error');
 	$('#formNewUser-divErrorPwNoMatch').addClass('hide');
 	$('#formNewUser-divErrorUserExists').addClass('hide');
 	document.getElementById('formNewUser').reset();
@@ -235,9 +233,8 @@ function checkPasswordMatch(field1, field2, forced)
 	var newPwConfirm = $('#' + field2)[0].value;
 	if (newPw && newPw == newPwConfirm)
 	{
-		changeCss('divFormPassword', 'form-group has-success');
-		changeCss('divFormPasswordConfirm', 'form-group has-success');
-		// changeCss('formNewUser-divErrorPwNoMatch', 'alert alert-danger hide');
+		$('#divFormPassword').addClass('has-success').removeClass('has-error');
+		$('#divFormPasswordConfirm').addClass('has-success').removeClass('has-error');
 		$('#formNewUser-divErrorPwNoMatch').addClass('hide');
 		returnValue = true;
 	}
@@ -251,21 +248,18 @@ function checkPasswordMatch(field1, field2, forced)
 		forced = forced || false;
 		if (forced == true)
 		{
-			changeCss('divFormPassword', 'form-group has-error');
-			changeCss('divFormPasswordConfirm', 'form-group has-error');
-			// changeCss('formNewUser-divErrorPwNoMatch', 'alert alert-danger');
+			$('#divFormPassword').addClass('has-error').removeClass('has-success');
+			$('#divFormPasswordConfirm').addClass('has-error').removeClass('has-success');
 			$('#formNewUser-divErrorPwNoMatch').removeClass('hide');
 		}
 		else
 		{
-			changeCss('divFormPassword', 'form-group');
-			changeCss('divFormPasswordConfirm', 'form-group');
-			// changeCss('formNewUser-divErrorPwNoMatch', 'alert alert-danger hide');
+			$('#divFormPassword').removeClass('has-success has-error');
+			$('#divFormPasswordConfirm').removeClass('has-success has-error');
 			$('#formNewUser-divErrorPwNoMatch').addClass('hide');
 		}
 	}
-	// changeCss('formNewUser-divErrorUserExists', 'alert alert-danger hide'); // erst PW-check, dann Rest
-	$('#formNewUser-divErrorUserExists').addClass('hide');
+	$('#formNewUser-divErrorUserExists').addClass('hide'); // erst PW-check, dann Rest
 	return returnValue;
 }
 
@@ -304,7 +298,6 @@ function createNewUser()
 			}
 			else
 			{
-				// changeCss('formNewUser-divErrorUserExists', 'alert alert-danger');
 				$('#formNewUser-divErrorUserExists').removeClass('hide');
 			}
 		}
@@ -319,8 +312,8 @@ function createNewUser()
 // User bearbeiten
 function editUser(Id)
 {
-	changeCss(Id + '_actionDefault', 'hide');
-	changeCss(Id + '_actionEdit', '');
+	$('#' + Id + '_actionDefault').addClass('hide');
+	$('#' + Id + '_actionEdit').removeClass('hide');
 }
 
 // User speichern
@@ -393,7 +386,7 @@ function deleteUser(Id)
 {
 	if (confirm('Are you sure you want to delete the user?'))
 	{
-		changeCss(Id + '_actionDefault', 'hide');
+		$('#' + Id + '_actionDefault').addClass('hide');
 		var data =
 		{
 			action: "deleteUser",
