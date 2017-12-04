@@ -487,7 +487,7 @@ $(function() {
 	$("textarea").sceditor({
 		plugins: "bbcode",
 		width: '100%',
-		style: "sceditor/minified/jquery.sceditor.default.min.css",
+		style: "sceditor/minified/themes/default.min.css",
 		emoticonsRoot: "sceditor/" // IMPORTANT: To include the emoticons you have to change the "emoticonsRoot" to "sceditor/" --> reason: the folder "sceditor" was created by hand and not automatically --> reason: a better overview in folder-structure
 	});
 });
