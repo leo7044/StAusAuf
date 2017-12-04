@@ -476,7 +476,7 @@ myApp.controller('angModCreateReport', function($scope) {
 		$('#formModalProfile-divSuccess').addClass('hide');
 		$('#formModalProfile-divErrorUpdate').addClass('hide');
 		$('#formModalProfile-divErrorWrongPw').addClass('hide');
-		$('#formModalProfile-divErrorPwNoMatch').addClass('hide');
+		$('#DivErrorPwNoMatch').addClass('hide');
 		$('#ErrorDb').addClass('hide');
 		$('#modalCancel').removeClass('hide');
 		$('#modalSave').removeClass('hide');
@@ -518,7 +518,7 @@ function checkInputFormModalProfile()
 					$('#formModalProfile-divSuccess').removeClass('hide');
 					$('#formModalProfile-divErrorUpdate').addClass('hide');
 					$('#formModalProfile-divErrorWrongPw').addClass('hide');
-					$('#formModalProfile-divErrorPwNoMatch').addClass('hide');
+					$('#DivErrorPwNoMatch').addClass('hide');
 					$('#ErrorDb').addClass('hide');
 					$('#modalButtonEditPw').addClass('hide');
 					$('#modalButtonEditPwCancel').addClass('hide');
@@ -573,7 +573,7 @@ function checkInputFormModalProfile()
 				$('#formModalProfile-divSuccess').removeClass('hide');
 				$('#formModalProfile-divErrorUpdate').addClass('hide');
 				$('#formModalProfile-divErrorWrongPw').addClass('hide');
-				$('#formModalProfile-divErrorPwNoMatch').addClass('hide');
+				$('#DivErrorPwNoMatch').addClass('hide');
 				$('#ErrorDb').addClass('hide');
 				$('#modalButtonEditPw').addClass('hide');
 				$('#modalButtonEditPwCancel').addClass('hide');
@@ -627,14 +627,14 @@ function checkPasswordMatch(forced)
 	{
 		$('#modal-div-NewPw').addClass('has-success').removeClass('has-error');
 		$('#modal-div-NewPwConfirm').addClass('has-success').removeClass('has-error');
-		$('#formModalProfile-divErrorPwNoMatch').addClass('hide');
+		$('#DivErrorPwNoMatch').addClass('hide');
 		returnValue = true;
 	}
 	else if (!newPw && !newPwConfirm)
 	{
 		$('#modal-div-NewPw').addClass('has-error').removeClass('has-success');
 		$('#modal-div-NewPwConfirm').addClass('has-error').removeClass('has-success');
-		$('#formModalProfile-divErrorPwNoMatch').addClass('hide');
+		$('#DivErrorPwNoMatch').addClass('hide');
 	}
 	else
 	{
@@ -643,13 +643,13 @@ function checkPasswordMatch(forced)
 		{
 			$('#modal-div-NewPw').addClass('has-error').removeClass('has-success');
 			$('#modal-div-NewPwConfirm').addClass('has-error').removeClass('has-success');
-			$('#formModalProfile-divErrorPwNoMatch').removeClass('hide');
+			$('#DivErrorPwNoMatch').removeClass('hide');
 		}
 		else
 		{
 			$('#modal-div-NewPw').removeClass('has-success has-error');
 			$('#modal-div-NewPwConfirm').removeClass('has-success has-error');
-			// $('#formModalProfile-divErrorPwNoMatch').addClass('hide'); // Grund: wegen der Enter-Taste würde die Fehlermeldung sofort wieder verschwinden
+			// $('#DivErrorPwNoMatch').addClass('hide'); // Grund: wegen der Enter-Taste würde die Fehlermeldung sofort wieder verschwinden
 		}
 	}
 	return returnValue;

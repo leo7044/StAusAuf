@@ -215,10 +215,8 @@ function hideFormNewUser()
 // setzt Form zurück
 function resetFormNewUser()
 {
-	$('#divFormPassword').removeClass('has-success has-error');
-	$('#divFormPasswordConfirm').removeClass('has-success has-error');
-	$('#formNewUser-divErrorPwNoMatch').addClass('hide');
-	$('#formNewUser-divErrorUserExists').addClass('hide');
+	$('#divFormPassword, #divFormPasswordConfirm').removeClass('has-success has-error');
+	$('#DivErrorPwNoMatch, #formNewUser-divErrorUserExists').addClass('hide');
 	document.getElementById('formNewUser').reset();
 	$('#formUserName').focus();
 	return false;
@@ -233,9 +231,8 @@ function checkPasswordMatch(field1, field2, forced)
 	var newPwConfirm = $('#' + field2)[0].value;
 	if (newPw && newPw == newPwConfirm)
 	{
-		$('#divFormPassword').addClass('has-success').removeClass('has-error');
-		$('#divFormPasswordConfirm').addClass('has-success').removeClass('has-error');
-		$('#formNewUser-divErrorPwNoMatch').addClass('hide');
+		$('#divFormPassword, #divFormPasswordConfirm').addClass('has-success').removeClass('has-error');
+		$('#DivErrorPwNoMatch').addClass('hide');
 		returnValue = true;
 	}
 	else if (!newPw && !newPwConfirm)
@@ -248,15 +245,13 @@ function checkPasswordMatch(field1, field2, forced)
 		forced = forced || false;
 		if (forced == true)
 		{
-			$('#divFormPassword').addClass('has-error').removeClass('has-success');
-			$('#divFormPasswordConfirm').addClass('has-error').removeClass('has-success');
-			$('#formNewUser-divErrorPwNoMatch').removeClass('hide');
+			$('#divFormPassword, #divFormPasswordConfirm').addClass('has-error').removeClass('has-success');
+			$('#DivErrorPwNoMatch').removeClass('hide');
 		}
 		else
 		{
-			$('#divFormPassword').removeClass('has-success has-error');
-			$('#divFormPasswordConfirm').removeClass('has-success has-error');
-			$('#formNewUser-divErrorPwNoMatch').addClass('hide');
+			$('#divFormPassword, #divFormPasswordConfirm').removeClass('has-success has-error');
+			$('#DivErrorPwNoMatch').addClass('hide');
 		}
 	}
 	$('#formNewUser-divErrorUserExists').addClass('hide'); // erst PW-check, dann Rest
