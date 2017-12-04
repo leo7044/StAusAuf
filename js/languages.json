@@ -8,7 +8,7 @@
 	"Password":["Password","Passwort"],
 	"formLogin-divErrorPw":["<b>Login failed!</b> Wrong Username or Password.","<b>Anmeldung fehlgeschlagen!</b> Falscher Benutzername oder Passwort."],
 	"formLogin-divErrorPermission":["<b>Login failed!</b> You do not have the permission to login.","<b>Anmeldung fehlgeschlagen!</b> Sie haben nicht die Berechtigungen, sich einzuloggen."],
-	"formLogin-divErrorDb":["<b>Error!</b> Database is not available.","<b>Fehler!</b> Datenbank nicht verfügbar."],
+	"ErrorDb":["<b>Error!</b> Database is not available.","<b>Fehler!</b> Datenbank nicht verfügbar."],
 
 	"ViewReportsHeader":["HWR experience reports","HWR Reiseberichte"],
 	"ReportSaved":["Your report has been successfully saved.","Ihr Bericht wurde erfolgreich gespeichert."],
@@ -95,6 +95,21 @@
 	"UploadReport":["Upload report","Bericht hochladen"],
 	"ChooseAvatar":["Choose Avatar...","Avatarbild auswählen..."],
 	"PickImages":["Pick Images...","Bilder auswählen..."],
+	
 	"FillCommentBox":["Please fill in the comment-box. <img src='sceditor/emoticons/smile.png' />","Bitte füllen Sie die Kommentarbox mit ihren Reiseerfahrungen. <img src='sceditor/emoticons/smile.png' />"],
-	"IWillDoIt":["Ok, I will do it.","Ok, mache ich."]
+	"IWillDoIt":["Ok, I will do it.","Ok, mache ich."],
+
+	"ChangePassword":["Change Password","Passwort ändern"],
+	"modalEmail":["Enter your e-mail address","Geben Sie Ihre E-Mail-Adresse an"],
+	"modalOldPw":["Old password","Altes Passwort"],
+	"modalNewPw":["New password","Neues Passwort"],
+	"modalNewPwConfirm":["Confirm new password","Neues Passwort bestätigen"],
+	"ToolTipModalEmail":["Please enter your e-mail address.","Bitte geben Sie Ihre E-Mail-Adresse an."],
+	"ToolTipModalOldPw":["Please enter your old password.","Bitte geben Sie Ihr altes Passwort ein."],
+	"ToolTipModalNewPw":["Please enter your new password.","Bitte geben Sie Ihr neues Passwort ein."],
+	"ToolTipModalNewPwConfirm":["Please confirm your new password.","Bitte bestätigen Sie Ihr neues Passwort."],
+	"formModalProfile-divSuccess":["<b>Success!</b> The profile has been updated successfully.","<b>Erfolg!</b> Das Profil wurde erfolgreich aktualisiert."],
+	"formModalProfile-divErrorUpdate":["<b>Error!</b> The profile could not be updated.","<b>Fehler!</b> Das Profil konnte nicht aktualisiert werden."],
+	"formModalProfile-divErrorWrongPw":["<b>Error!</b> Old password is wrong.","<b>Fehler!</b> Das alte Passwort ist falsch."],
+	"formModalProfile-divErrorPwNoMatch":["<b>Error!</b> New passwords do not match.","<b>Fehler!</b> Die neuen Passwörter stimmen nicht überein."]
 }

@@ -499,10 +499,11 @@ myApp.controller('angModCreateReport', function($scope) {
 	{
 		form.$setUntouched();
 		form.$setPristine();
-		changeCss('formModalProfile-divSuccess', 'alert alert-success hide');
-		changeCss('formModalProfile-divErrorUpdate', 'alert alert-danger hide');
-		changeCss('formModalProfile-divErrorWrongPw', 'alert alert-danger hide');
-		changeCss('formModalProfile-divErrorDb', 'alert alert-danger hide');
+		$('#formModalProfile-divSuccess').addClass('hide');
+		$('#formModalProfile-divErrorUpdate').addClass('hide');
+		$('#formModalProfile-divErrorWrongPw').addClass('hide');
+		$('#formModalProfile-divErrorPwNoMatch').addClass('hide');
+		$('#ErrorDb').addClass('hide');
 		changeCss('modalCancel', 'btn btn-danger');
 		changeCss('modalSave', 'btn btn-success');
 		changeCss('modalClose', 'btn btn-primary hide');
@@ -540,10 +541,10 @@ function checkInputFormModalProfile()
 				if (data.responseText == 'Profil Aktualisierung erfolgreich')
 				{
 					originalOwnEmail = emailAddress;
-					changeCss('formModalProfile-divSuccess', 'alert alert-success');
-					changeCss('formModalProfile-divErrorUpdate', 'alert alert-danger hide');
-					changeCss('formModalProfile-divErrorWrongPw', 'alert alert-danger hide');
-					changeCss('formModalProfile-divErrorDb', 'alert alert-danger hide');
+					$('#formModalProfile-divSuccess').removeClass('hide');
+					$('#formModalProfile-divErrorUpdate').addClass('hide');
+					$('#formModalProfile-divErrorWrongPw').addClass('hide');
+					$('#ErrorDb').addClass('hide');
 					changeCss('modalButtonEditPw', 'btn btn-info hide');
 					changeCss('modalButtonEditPwCancel', 'btn btn-info hide');
 					changeCss('modalCancel', 'btn btn-danger hide');
@@ -552,29 +553,30 @@ function checkInputFormModalProfile()
 				}
 				else if (data.responseText == 'Altes Passwort falsch')
 				{
-					changeCss('formModalProfile-divErrorWrongPw', 'alert alert-danger');
+					$('#formModalProfile-divErrorWrongPw').removeClass('hide');
+					$('#ErrorDb').addClass('hide');
 				}
 				else if (data.responseText == 'Profil Aktualisierung fehlgeschlagen') // tritt praktisch nie auf
 				{
-					changeCss('formModalProfile-divErrorUpdate', 'alert alert-danger');
-					changeCss('formModalProfile-divErrorWrongPw', 'alert alert-danger hide');
-					changeCss('formModalProfile-divErrorDb', 'alert alert-danger hide');
+					$('#formModalProfile-divErrorUpdate').removeClass('hide');
+					$('#formModalProfile-divErrorWrongPw').addClass('hide');
+					$('#ErrorDb').addClass('hide');
 				}
 				else
 				{
-					changeCss('formModalProfile-divErrorUpdate', 'alert alert-danger hide');
-					changeCss('formModalProfile-divErrorWrongPw', 'alert alert-danger hide');
-					changeCss('formModalProfile-divErrorDb', 'alert alert-danger');
+					$('#formModalProfile-divErrorUpdate').addClass('hide');
+					$('#formModalProfile-divErrorWrongPw').addClass('hide');
+					$('#ErrorDb').removeClass('hide');
 				}
 			});
 			$.ajaxSetup({async: true});
 		}
 		else
 		{
-			changeCss('formModalProfile-divSuccess', 'alert alert-success hide');
-			changeCss('formModalProfile-divErrorUpdate', 'alert alert-danger hide');
-			changeCss('formModalProfile-divErrorWrongPw', 'alert alert-danger hide');
-			changeCss('formModalProfile-divErrorDb', 'alert alert-danger hide');
+			$('#formModalProfile-divSuccess').addClass('hide');
+			$('#formModalProfile-divErrorUpdate').addClass('hide');
+			$('#formModalProfile-divErrorWrongPw').addClass('hide');
+			$('#ErrorDb').addClass('hide');
 		}
 	}
 	else
@@ -591,10 +593,10 @@ function checkInputFormModalProfile()
 			if (data.responseText == 'Email Aktualisierung erfolgreich')
 			{
 				originalOwnEmail = emailAddress;
-				changeCss('formModalProfile-divSuccess', 'alert alert-success');
-				changeCss('formModalProfile-divErrorUpdate', 'alert alert-danger hide');
-				changeCss('formModalProfile-divErrorWrongPw', 'alert alert-danger hide');
-				changeCss('formModalProfile-divErrorDb', 'alert alert-danger hide');
+				$('#formModalProfile-divSuccess').removeClass('hide');
+				$('#formModalProfile-divErrorUpdate').addClass('hide');
+				$('#formModalProfile-divErrorWrongPw').addClass('hide');
+				$('#ErrorDb').addClass('hide');
 				changeCss('modalButtonEditPw', 'btn btn-info hide');
 				changeCss('modalButtonEditPwCancel', 'btn btn-info hide');
 				changeCss('modalCancel', 'btn btn-danger hide');
@@ -603,15 +605,15 @@ function checkInputFormModalProfile()
 			}
 			else if (data.responseText == 'Email Aktualisierung fehlgeschlagen') // tritt praktisch nie auf
 			{
-				changeCss('formModalProfile-divErrorUpdate', 'alert alert-danger');
-				changeCss('formModalProfile-divErrorWrongPw', 'alert alert-danger hide');
-				changeCss('formModalProfile-divErrorDb', 'alert alert-danger hide');
+				$('#formModalProfile-divErrorUpdate').removeClass('hide');
+				$('#formModalProfile-divErrorWrongPw').addClass('hide');
+				$('#ErrorDb').addClass('hide');
 			}
 			else
 			{
-				changeCss('formModalProfile-divErrorUpdate', 'alert alert-danger hide');
-				changeCss('formModalProfile-divErrorWrongPw', 'alert alert-danger hide');
-				changeCss('formModalProfile-divErrorDb', 'alert alert-danger');
+				$('#formModalProfile-divErrorUpdate').addClass('hide');
+				$('#formModalProfile-divErrorWrongPw').addClass('hide');
+				$('#ErrorDb').removeClass('hide');
 			}
 		});
 		$.ajaxSetup({async: true});
@@ -633,7 +635,7 @@ function buttonChangePasswordCancel()
 {
 	changeCss('modalButtonEditPw', 'btn btn-info');
 	changeCss('modalButtonEditPwCancel', 'btn btn-info hide');
-	changeCss('formModalProfile-divErrorWrongPw', 'alert alert-danger hide');
+	$('#formModalProfile-divErrorWrongPw').addClass('hide');
 	changeCss('div-changePw', 'hide');
 }
 
@@ -647,14 +649,14 @@ function checkPasswordMatch(forced)
 	{
 		changeCss('modal-div-NewPw', 'form-group has-success');
 		changeCss('modal-div-NewPwConfirm', 'form-group has-success');
-		changeCss('formModalProfile-divErrorPwNoMatch', 'alert alert-danger hide');
+		$('#formModalProfile-divErrorPwNoMatch').addClass('hide');
 		returnValue = true;
 	}
 	else if (!newPw && !newPwConfirm)
 	{
 		changeCss('modal-div-NewPw', 'form-group has-error');
 		changeCss('modal-div-NewPwConfirm', 'form-group has-error');
-		changeCss('formModalProfile-divErrorPwNoMatch', 'alert alert-danger hide');
+		$('#formModalProfile-divErrorPwNoMatch').addClass('hide');
 	}
 	else
 	{
@@ -663,13 +665,13 @@ function checkPasswordMatch(forced)
 		{
 			changeCss('modal-div-NewPw', 'form-group has-error');
 			changeCss('modal-div-NewPwConfirm', 'form-group has-error');
-			changeCss('formModalProfile-divErrorPwNoMatch', 'alert alert-danger');
+			$('#formModalProfile-divErrorPwNoMatch').removeClass('hide');
 		}
 		else
 		{
 			changeCss('modal-div-NewPw', 'form-group');
 			changeCss('modal-div-NewPwConfirm', 'form-group');
-			//changeCss('formModalProfile-divErrorPwNoMatch', 'alert alert-danger hide'); // Grund: das Formular wird bei Klick auf "X Cancel (blau)" nicht zurückgesetzt
+			// $('#formModalProfile-divErrorPwNoMatch').addClass('hide'); // Grund: das Formular wird bei Klick auf "X Cancel (blau)" nicht zurückgesetzt
 		}
 	}
 	return returnValue;

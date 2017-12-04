@@ -96,6 +96,10 @@ if (!$conn->connect_error)
 			{
 				echo 'Altes Passwort falsch';
 			}
+			else if ($response == "noProfileChange")
+			{
+				echo 'Profil Aktualisierung fehlgeschlagen';
+			}
 			break;
 		}
 		case 'updateEmail':
@@ -424,10 +428,23 @@ function updateEmail($conn, $Id, $email)
 function updateProfile($conn, $Id, $oldPw, $newPw, $email)
 {
 	$returnValue = "wrongOldPw";
-	$conn->query("UPDATE `login` SET `Password`='$newPw', `Email`='$email' WHERE `Id`='$Id' AND `Password`='$oldPw';;");
+	$conn->query("UPDATE `login` SET `Password`='$newPw', `Email`='$email' WHERE `Id`='$Id' AND `Password`='$oldPw';");
 	if ($conn->affected_rows > 0)
 	{
 		$returnValue = "success Change";
+	}
+	else
+	{
+		$result = $conn->query("SELECT `Id` FROM `login` WHERE `Id`='$Id' AND `Password`='$oldPw';");
+		$tmpId = 0;
+		while ($zeile = $result->fetch_assoc())
+		{
+			$tmpId = $zeile['Id'];
+		}
+		if ($tmpId)
+		{
+			$returnValue = "noProfileChange";
+		}
 	}
 	return $returnValue;
 }

@@ -227,13 +227,13 @@
 			</div>
 		</div>
 		<!-- Modal-Profile -->
-		<div class="modal fade" id="modalProfile" role="dialog" aria-labelledby="modalProfileLabel">
+		<div class="modal fade" id="modalProfile" role="dialog" aria-labelledby="Profile">
 			<div class="modal-dialog modal-lg" role="document">
 				<div class="modal-content">
 					<form method="post" action="" id="formModalProfile" name="formModalProfile" onsubmit="return checkInputFormModalProfile()">
 						<div class="modal-header">
 							<!-- <button type="button" ng-click="ownReset(formModalProfile)" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-							<h4 class="modal-title" id="modalProfileLabel">Profile</h4>
+							<h4 class="modal-title trans-innerHTML" id="Profile">Profile</h4>
 						</div>
 						<div class="modal-body">
 							<div class="row">
@@ -245,12 +245,11 @@
 								</div>
 							</div>
 							<div class="form-group" id="modal-div-Email" ng-class="{'has-error': formModalProfile.modalEmail.$invalid && formModalProfile.modalEmail.$touched , 'has-success': formModalProfile.modalEmail.$valid && formModalProfile.modalEmail.$touched}">
-								<label>e-mail address:</label>
-								<div class="input-group" title="Please enter your e-mail address.">
+								<div class="input-group">
 									<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-									<input class="form-control" name="modalEmail" id="modalEmail" ng-model="modalEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Enter your e-mail address." autofocus maxlength="255" />
+									<input class="form-control trans-placeholder" name="modalEmail" id="modalEmail" ng-model="modalEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Enter your e-mail address" autofocus maxlength="255" />
 									<span class="input-group-addon">
-										<a data-toggle="tooltip" data-placement="top" title="Please enter your e-mail address.">
+										<a name="ToolTipModalEmail" data-toggle="tooltip" data-placement="top" title="Please enter your e-mail address." class="trans-name-title">
 											<i class="glyphicon glyphicon-question-sign"></i>
 										</a>
 									</span>
@@ -258,92 +257,75 @@
 							</div>
 							<div class="form-group">
 								<button id="modalButtonEditPw" type="button" class="btn btn-info" onclick="buttonChangePassword();">
-									<span class="glyphicon glyphicon-pencil"></span> Change Password
+									<span class="glyphicon glyphicon-pencil"></span> <span id="ChangePassword" class="trans-innerHTML">Change Password</span>
 								</button>
 							</div>
 							<div id="div-changePw" class="hide">
 								<div class="form-group">
 									<button id="modalButtonEditPwCancel" type="button" class="btn btn-info" onclick="buttonChangePasswordCancel();">
-										<span class="glyphicon glyphicon-remove"></span> Cancel
+										<span class="glyphicon glyphicon-remove"></span> <span id="Cancel" class="trans-innerHTML">Cancel</span>
 									</button>
 								</div>
-								<div class="row">
-									<div class="col-md-2">
-										<label>Old password:</label>
+								<div class="form-group" id="modal-div-OldPw">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+										<input type="password" class="form-control trans-placeholder" name="modalOldPw" id="modalOldPw" ng-model="modalOldPw" onblur="inputNotEmpty(this.id, 'modal-div-OldPw')" onkeyup="inputNotEmpty(this.id, 'modal-div-OldPw')" maxlength="255" placeholder="Old password" />
+										<span class="input-group-addon">
+											<a name="ToolTipModalOldPw" data-toggle="tooltip" data-placement="top" title="Please enter your old password." class="trans-name-title">
+												<i class="glyphicon glyphicon-question-sign"></i>
+											</a>
+										</span>
 									</div>
-									<div class="col-md-10">
-										<div class="form-group" id="modal-div-OldPw">
-											<div class="input-group" title="Please enter your old password.">
-												<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-												<input type="password" class="form-control" name="modalOldPw" id="modalOldPw" ng-model="modalOldPw" onblur="inputNotEmpty(this.id, 'modal-div-OldPw')" onkeyup="inputNotEmpty(this.id, 'modal-div-OldPw')" maxlength="255" />
-												<span class="input-group-addon">
-													<a data-toggle="tooltip" data-placement="top" title="Please enter your old password.">
-														<i class="glyphicon glyphicon-question-sign"></i>
-													</a>
-												</span>
-											</div>
-										</div>
+								</div>
+								<div class="form-group" id="modal-div-NewPw">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+										<input type="password" class="form-control trans-placeholder" name="modalNewPw" id="modalNewPw" ng-model="modalNewPw" maxlength="255" placeholder="New Password" />
+										<span class="input-group-addon">
+											<a name="ToolTipModalNewPw" data-toggle="tooltip" data-placement="top" title="Please enter your new password." class="trans-name-title">
+												<i class="glyphicon glyphicon-question-sign"></i>
+											</a>
+										</span>
 									</div>
-									<div class="col-md-2">
-										<label>New password:</label>
-									</div>
-									<div class="col-md-10">
-										<div class="form-group" id="modal-div-NewPw">
-											<div class="input-group" title="Please enter a new password.">
-												<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-												<input type="password" class="form-control" name="modalNewPw" id="modalNewPw" ng-model="modalNewPw" maxlength="255" />
-												<span class="input-group-addon">
-													<a data-toggle="tooltip" data-placement="top" title="Please enter a new password.">
-														<i class="glyphicon glyphicon-question-sign"></i>
-													</a>
-												</span>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-2">
-										<label>Confirm password:</label>
-									</div>
-									<div class="col-md-10">
-										<div class="form-group" id="modal-div-NewPwConfirm">
-											<div class="input-group" title="Please confirm your new password.">
-												<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-												<input type="password" class="form-control" name="modalNewPwConfirm" id="modalNewPwConfirm" ng-model="modalNewPwConfirm" maxlength="255" />
-												<span class="input-group-addon">
-													<a data-toggle="tooltip" data-placement="top" title="Please enter confirm your new password.">
-														<i class="glyphicon glyphicon-question-sign"></i>
-													</a>
-												</span>
-											</div>
-										</div>
+								</div>
+								<div class="form-group" id="modal-div-NewPwConfirm">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+										<input type="password" class="form-control trans-placeholder" name="modalNewPwConfirm" id="modalNewPwConfirm" ng-model="modalNewPwConfirm" maxlength="255" placeholder="Confirm new passowrd" />
+										<span class="input-group-addon">
+											<a name="ToolTipModalNewPwConfirm" data-toggle="tooltip" data-placement="top" title="Please confirm your new password." class="trans-name-title">
+												<i class="glyphicon glyphicon-question-sign"></i>
+											</a>
+										</span>
 									</div>
 								</div>
 							</div>
-							<div id='formModalProfile-divSuccess' class="alert alert-success hide">
+							<div id='formModalProfile-divSuccess' class="alert alert-success hide trans-innerHTML">
 								<b>Success!</b> The profile has been updated successfully.
 							</div>
-							<div id='formModalProfile-divErrorUpdate' class="alert alert-danger hide"> <!-- tritt praktisch nie auf -->
+							<div id='formModalProfile-divErrorUpdate' class="alert alert-danger hide trans-innerHTML"> <!-- tritt praktisch nie auf -->
 								<b>Error!</b> The profile could not be updated.
 							</div>
-							<div id='formModalProfile-divErrorWrongPw' class="alert alert-danger hide">
+							<div id='formModalProfile-divErrorWrongPw' class="alert alert-danger hide trans-innerHTML">
 								<b>Error!</b> Old password is wrong.
 							</div>
-							<div id='formModalProfile-divErrorPwNoMatch' class="alert alert-danger hide">
+							<div id='formModalProfile-divErrorPwNoMatch' class="alert alert-danger hide trans-innerHTML">
 								<b>Error!</b> New passwords do not match.
 							</div>
-							<div id='formModalProfile-divErrorDb' class="alert alert-danger hide">
+							<div id='ErrorDb' class="alert alert-danger hide trans-innerHTML">
 								<b>Error!</b> Database is not available.
 							</div>
 						</div>
 						<div class="modal-footer">
 							<div class="form-group">
 								<button id="modalCancel" type="button" ng-click="ownReset(formModalProfile)" class="btn btn-danger" data-dismiss="modal">
-									<span class="glyphicon glyphicon-remove"></span> Cancel
+									<span class="glyphicon glyphicon-remove"></span> <span id="Cancel" class="trans-innerHTML">Cancel</span>
 								</button>
 								<button id="modalSave" type="submit" class="btn btn-success">
-									<span class="glyphicon glyphicon-ok"></span> Confirm
+									<span class="glyphicon glyphicon-ok"></span> <span id="Confirm" class="trans-innerHTML">Confirm</span>
 								</button>
 								<button id="modalClose" type="button" ng-click="ownReset(formModalProfile)" class="btn btn-primary hide" data-dismiss="modal">
-									<span class="glyphicon glyphicon-ok-sign"></span> Close
+									<span class="glyphicon glyphicon-ok-sign"></span> <span id="Close" class="trans-innerHTML">Close</span>
 								</button>
 							</div>
 						</div>

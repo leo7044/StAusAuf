@@ -51,14 +51,14 @@ function login(isAdminLogin)
 		if (data.responseText == 'Login erfolgreich')
 		{
 			$('#formLogin-divErrorPw').addClass('hide');
-			$('#formLogin-divErrorDb').addClass('hide');
+			$('#ErrorDb').addClass('hide');
 			$('#formLogin-divErrorPermission').addClass('hide');
 			returnValue = true;
 		}
 		else if (data.responseText == 'Member permission')
 		{
 			$('#formLogin-divErrorPw').addClass('hide');
-			$('#formLogin-divErrorDb').addClass('hide');
+			$('#ErrorDb').addClass('hide');
 			if (isAdminLogin)
 			{
 				$('#formLogin-divErrorPermission').removeClass('hide');
@@ -71,7 +71,7 @@ function login(isAdminLogin)
 		else if (data.responseText == 'Login fehlgeschlagen')
 		{
 			$('#formLogin-divErrorPw').removeClass('hide');
-			$('#formLogin-divErrorDb').addClass('hide');
+			$('#ErrorDb').addClass('hide');
 			if (isAdminLogin)
 			{
 				$('#formLogin-divErrorPermission').addClass('hide');
@@ -81,7 +81,7 @@ function login(isAdminLogin)
 		else if (data.responseText == 'noDatabase')
 		{
 			$('#formLogin-divErrorPw').addClass('hide');
-			$('#formLogin-divErrorDb').removeClass('hide');
+			$('#ErrorDb').removeClass('hide');
 			if (isAdminLogin)
 			{
 				$('#formLogin-divErrorPermission').addClass('hide');
