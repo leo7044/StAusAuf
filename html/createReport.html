@@ -45,7 +45,7 @@
 				</div>
 				<div class="col-md-3 text-right">
 					<form method="post" action="">
-						<a data-toggle="modal" data-target="#modalProfile" class="btn btn-primary">
+						<a data-toggle="modal" data-target="#modalProfile" class="btn btn-primary" onclick="modifyModalProfile();">
 							<span class="glyphicon glyphicon-user"></span> <span id="Profile" class="trans-innerHTML">Profile</span>
 						</a>
 						<button type="submit" name="logout" class="btn btn-danger">
@@ -236,6 +236,14 @@
 							<h4 class="modal-title" id="modalProfileLabel">Profile</h4>
 						</div>
 						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-9"></div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<select class="form-control" id="languageModal" onchange="changeLanguage(this.selectedIndex);"></select>
+									</div>
+								</div>
+							</div>
 							<div class="form-group" id="modal-div-Email" ng-class="{'has-error': formModalProfile.modalEmail.$invalid && formModalProfile.modalEmail.$touched , 'has-success': formModalProfile.modalEmail.$valid && formModalProfile.modalEmail.$touched}">
 								<label>e-mail address:</label>
 								<div class="input-group" title="Please enter your e-mail address.">

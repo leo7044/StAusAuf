@@ -682,3 +682,13 @@ function checkPasswordMatch(forced)
         e.returnValue = 'Do you want to reload the page?';
     }
 };*/
+
+// =============================================
+// für Übersetzungen
+// =============================================
+
+// wird beim Öffnen des Profil-Modals ausgeführt
+function modifyModalProfile()
+{
+	prepareLanguageSelection(true);
+}
