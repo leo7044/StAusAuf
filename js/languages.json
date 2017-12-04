@@ -94,5 +94,7 @@
 	"ToolTipInternship":["Please enter your attended internship.","Bitte geben Sie Ihre besuchten Pratika an."],
 	"UploadReport":["Upload report","Bericht hochladen"],
 	"ChooseAvatar":["Choose Avatar...","Avatarbild auswählen..."],
-	"PickImages":["Pick Images...","Bilder auswählen..."]
+	"PickImages":["Pick Images...","Bilder auswählen..."],
+	"FillCommentBox":["Please fill in the comment-box. <img src='sceditor/emoticons/smile.png' />","Bitte füllen Sie die Kommentarbox mit ihren Reiseerfahrungen. <img src='sceditor/emoticons/smile.png' />"],
+	"IWillDoIt":["Ok, I will do it.","Ok, mache ich."]
 }
