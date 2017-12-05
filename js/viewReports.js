@@ -210,7 +210,7 @@ function fillReportTable()
 			strHtml += '</div>';
 		}
 		// console.log(reportData); // Debug
-		$('#bigDivForReportTable')[0].innerHTML = strHtml;
+		document.getElementById('bigDivForReportTable').innerHTML = strHtml;
 	}
 	else
 	{
@@ -227,7 +227,7 @@ function loadContentOfModal(longModalId, loadingPage)
 	window.history.pushState('', '', '?Id=' + modalId);
 	var indexOfObjectInReportData = $.inArray(modalId, idArray); // auf welches Objekt in den ReportData muss zugegriffen werden
 	var modal = document.getElementById('modalReport');
-	var currentLanguageIndex = $('#language')[0].selectedIndex;
+	var currentLanguageIndex = document.getElementById('language').selectedIndex;
 	var arrayTitle = objectLanguages.ArrayTitle[currentLanguageIndex];
 	var arrayContent = new Array(reportData[indexOfObjectInReportData].reportName,
 								reportData[indexOfObjectInReportData].nickName,

@@ -135,7 +135,7 @@ function setCurrentSelectedItem()
 {
 	if (currentSelectedCountry == null || currentSelectedCountry == '')
 	{
-		var currentLanguageIndex = $('#language')[0].selectedIndex;
+		var currentLanguageIndex = document.getElementById('language').selectedIndex;
 		var pleaseSelect = objectLanguages.DestinationCountry[currentLanguageIndex];
 		$('#dropDownListCountries').prepend('<option value="" selected="selected">' + pleaseSelect + '</option>');
 	}
@@ -485,7 +485,7 @@ myApp.controller('angModCreateReport', function($scope) {
 function checkInputFormModalProfile()
 {
 	var emailAddress = document.getElementById('modalEmail').value;
-	if (!$('#div-changePw')[0].className)
+	if ($('#div-changePw').hasClass(''))
 	{
 		if (checkPasswordMatch(true))
 		{
@@ -585,8 +585,8 @@ function buttonChangePasswordCancel()
 function checkPasswordMatch(forced)
 {
 	var returnValue = false;
-	var newPw = $('#modalNewPw')[0].value;
-	var newPwConfirm = $('#modalNewPwConfirm')[0].value;
+	var newPw = document.getElementById('modalNewPw').value;
+	var newPwConfirm = document.getElementById('modalNewPwConfirm').value;
 	if (newPw && newPw == newPwConfirm)
 	{
 		$('#DivErrorPwNoMatch').addClass('hide');

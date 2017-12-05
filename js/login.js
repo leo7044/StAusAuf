@@ -73,7 +73,7 @@ function login(isAdminLogin)
 			{
 				$('#formLogin-divErrorPermission').addClass('hide');
 			}
-			$('#Password')[0].focus();
+			document.getElementById('Password').focus();
 		}
 		else if (data.responseText == 'noDatabase')
 		{
@@ -83,7 +83,7 @@ function login(isAdminLogin)
 			{
 				$('#formLogin-divErrorPermission').addClass('hide');
 			}
-			$('#Password')[0].focus();
+			document.getElementById('Password').focus();
 		}
 	});
 	$.ajaxSetup({async: true}); // muss wieder aufgehoben werden

@@ -58,7 +58,7 @@ function buildHtmlForUserTable()
 		{
 			strHtml += buildOneRow(i);
 		}
-		$('#userTable')[0].innerHTML = strHtml;
+		document.getElementById('userTable').innerHTML = strHtml;
 		changeLanguage();
 	}
 	else
@@ -120,13 +120,13 @@ function buildDefaultRow(rowId)
 // zeigt das Passwort, wenn man in das Feld klickt
 function showPassword(Id)
 {
-	$('#' + Id)[0].type = 'text';
+	document.getElementById(Id).type = 'text';
 }
 
 // verbirgt das Passwort, wenn man aus dem Feld rausklickt
 function hidePassword(Id)
 {
-	$('#' + Id)[0].type = 'password';
+	document.getElementById(Id).type = 'password';
 }
 
 // Reihe zum Bearbeiten
@@ -154,7 +154,7 @@ function buildEditRow(rowId)
 	{
 		strHtml += '<td><select id="memberRole_' + rowId +'" class="form-control" disabled>';
 	}
-	/* var currentLanguageIndex = $('#language')[0].selectedIndex;
+	/* var currentLanguageIndex = document.getElementById('language').selectedIndex;
 	var memberRolesArray = objectLanguages.ArrayMemberRoles[currentLanguageIndex]; */
 	for (var j = 0; j < memberRolesArray.length; j++)
 	{
@@ -199,7 +199,7 @@ function showFormNewUser()
 	{
 		selectOptions += '<option value="' + i + '">' + giveMemberRoleName(i) + '</option>';
 	}
-	$('#selectMemberRole')[0].innerHTML = selectOptions;
+	document.getElementById('selectMemberRole').innerHTML = selectOptions;
 	$('#formUserName').focus();
 }
 
@@ -227,8 +227,8 @@ function checkPasswordMatch(field1, field2, forced)
 {
 	forced = forced || false;
 	var returnValue = false;
-	var newPw = $('#' + field1)[0].value;
-	var newPwConfirm = $('#' + field2)[0].value;
+	var newPw = document.getElementById(field1).value;
+	var newPwConfirm = document.getElementById(field2).value;
 	if (newPw && newPw == newPwConfirm)
 	{
 		$('#divFormPassword, #divFormPasswordConfirm').addClass('has-success').removeClass('has-error');
@@ -371,8 +371,8 @@ function updateUser(Id, rowId)
 // setzt User auf Ursprungszustand (UserData) zurück - Achtung: UserData in saveUser müssen aktuell gehalten werden, weil updateUser auch auf resetUser aufbaut
 function resetUser(Id, rowId)
 {
-	$('#' + Id + '_actionDefault')[0].outerHTML = buildDefaultRow(rowId);
-	$('#' + Id + '_actionEdit')[0].outerHTML = buildEditRow(rowId);
+	document.getElementById(Id + '_actionDefault').outerHTML = buildDefaultRow(rowId);
+	document.getElementById(Id + '_actionEdit').outerHTML = buildEditRow(rowId);
 	changeLanguage();
 }
 
@@ -396,7 +396,7 @@ function deleteUser(Id)
 // gibt die MemberRolle in Klartext aus
 function giveMemberRoleName(memberRole)
 {
-	/* var currentLanguageIndex = $('#language')[0].selectedIndex;
+	/* var currentLanguageIndex = document.getElementById('language').selectedIndex;
 	var memberRolesArray = objectLanguages.ArrayMemberRoles[currentLanguageIndex]; */
 	returnValue = 'Error';
 	switch(memberRole)

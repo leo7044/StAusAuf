@@ -60,12 +60,12 @@ function prepareLanguageSelection(modal)
     }
     if (!modal)
     {
-        $('#language')[0].innerHTML = strHtml;
+        document.getElementById('language').innerHTML = strHtml;
     }
     else
     {
-        $('#languageModal')[0].innerHTML = strHtml;
-        $('#languageModal')[0].selectedIndex = $('#language')[0].selectedIndex;
+        document.getElementById('languageModal').innerHTML = strHtml;
+        document.getElementById('languageModal').selectedIndex = document.getElementById('language').selectedIndex;
     }
 }
 
@@ -74,14 +74,14 @@ function changeLanguage(currentLanguageIndex)
 {
     if (currentLanguageIndex == undefined)
     {
-        currentLanguageIndex = $('#language')[0].selectedIndex;
+        currentLanguageIndex = document.getElementById('language').selectedIndex;
     }
     else
     {
-        $('#language')[0].selectedIndex = currentLanguageIndex;
-        if ($('#languageModal')[0])
+        document.getElementById('language').selectedIndex = currentLanguageIndex;
+        if (document.getElementById('languageModal'))
         {
-            $('#languageModal')[0].selectedIndex = currentLanguageIndex;
+            document.getElementById('languageModal').selectedIndex = currentLanguageIndex;
         }
     }
     translateEachElement(currentLanguageIndex);
@@ -99,11 +99,11 @@ function changeLanguage(currentLanguageIndex)
     {
         var modalId = $_GET().Id;
         var indexOfObjectInReportData = $.inArray(modalId, idArray);
-        $('#OneReportCountry')[0].innerHTML = getCountryInCorrectLanguage(indexOfObjectInReportData);
+        document.getElementById('OneReportCountry').innerHTML = getCountryInCorrectLanguage(indexOfObjectInReportData);
     }
 
     // createReport
-    if ($('#dropDownListCountries')[0])
+    if (document.getElementById('dropDownListCountries'))
     {
         var currentSelectedLanguage = objectLanguages.languageShort[currentLanguageIndex];
         createDropDownListCountries(currentSelectedLanguage);
