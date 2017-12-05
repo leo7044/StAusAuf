@@ -67,8 +67,8 @@ $(document).ready(function(){
 function getCountryData()
 {
 	$.ajaxSetup({async: false});
-	$.get('https://restcountries.eu/rest/v2/all')
-	// $.get('js/countryApi.json')
+	$.get('https://restcountries.eu/rest/v2/all') // for less traffic but more dependency
+	// $.post('js/countryApi.json') // in case extern API goes offline
 	.always(function(data)
 	{
 		countryData = data;

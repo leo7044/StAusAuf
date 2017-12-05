@@ -29,7 +29,7 @@ div.own-box-admin
 	background-color: #F8F8FF;
 }
 
-/* Tabelle zentrieren, auch mÃ¶glich mit class="center", aber zusÃ¤tzliche Implementierung, um nicht jedesmal class="center" schreiben zu mÃ¼ssen */
+/* Tabelle zentrieren, auch möglich mit class="center", aber zusätzliche Implementierung, um nicht jedesmal class="center" schreiben zu müssen */
 th, td
 {
 	text-align: center;

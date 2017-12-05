@@ -55,8 +55,8 @@ function createIdArray()
 function getCountryData()
 {
 	$.ajaxSetup({async: false});
+	$.get('https://restcountries.eu/rest/v2/all') // for less traffic but more dependency
 	// $.post('js/countryApi.json') // in case extern API goes offline
-	$.get('https://restcountries.eu/rest/v2/all')
 	.always(function(data)
 	{
 		countryData = data;
