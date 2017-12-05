@@ -50,15 +50,12 @@ function login(isAdminLogin)
 	{
 		if (data.responseText == 'Login erfolgreich')
 		{
-			$('#formLogin-divErrorPw').addClass('hide');
-			$('#ErrorDb').addClass('hide');
-			$('#formLogin-divErrorPermission').addClass('hide');
+			$('#formLogin-divErrorPw, #ErrorDb, #formLogin-divErrorPermission').addClass('hide');
 			returnValue = true;
 		}
 		else if (data.responseText == 'Member permission')
 		{
-			$('#formLogin-divErrorPw').addClass('hide');
-			$('#ErrorDb').addClass('hide');
+			$('#formLogin-divErrorPw, #ErrorDb').addClass('hide');
 			if (isAdminLogin)
 			{
 				$('#formLogin-divErrorPermission').removeClass('hide');

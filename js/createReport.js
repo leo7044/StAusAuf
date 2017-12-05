@@ -393,9 +393,9 @@ function changeCountry()
 {
 	var input_field = $('#dropDownListCountries').val();
 	$('#dropDownListCountries option[value=""]').remove();
-	if (document.getElementById('div-City').className == 'form-group hide has-error')
+	if ($('#div-City').hasClass('hide'))
 	{
-		$('#div-City').addClass('has-error').removeClass('has-success');
+		$('#div-City').addClass('has-error').removeClass('hide has-success');
 	}
 	document.formCreateReport.City.focus();
 	var data =
@@ -473,19 +473,9 @@ myApp.controller('angModCreateReport', function($scope) {
 	{
 		form.$setUntouched();
 		form.$setPristine();
-		$('#formModalProfile-divSuccess').addClass('hide');
-		$('#formModalProfile-divErrorUpdate').addClass('hide');
-		$('#formModalProfile-divErrorWrongPw').addClass('hide');
-		$('#DivErrorPwNoMatch').addClass('hide');
-		$('#ErrorDb').addClass('hide');
-		$('#modalCancel').removeClass('hide');
-		$('#modalSave').removeClass('hide');
-		$('#modalClose').addClass('hide');
-		$('#modalButtonEditPw').removeClass('hide');
-		$('#div-changePw').addClass('hide');
-		$('#modal-div-OldPw').removeClass('has-success has-error');
-		$('#modal-div-NewPw').removeClass('has-success has-error');
-		$('#modal-div-NewPwConfirm').removeClass('has-success has-error');
+		$('#formModalProfile-divSuccess, #formModalProfile-divErrorUpdate, #formModalProfile-divErrorWrongPw, #DivErrorPwNoMatch, #ErrorDb, #modalClose, #div-changePw').addClass('hide');
+		$('#modalCancel, #modalSave, #modalButtonEditPw').removeClass('hide');
+		$('#modal-div-OldPw, #modal-div-NewPw, #modal-div-NewPwConfirm').removeClass('has-success has-error');
 		document.getElementById('formModalProfile').reset();
 		document.getElementById('modalEmail').value = originalOwnEmail;
 	};
@@ -515,34 +505,24 @@ function checkInputFormModalProfile()
 				if (data.responseText == 'Profil Aktualisierung erfolgreich')
 				{
 					originalOwnEmail = emailAddress;
-					$('#formModalProfile-divSuccess').removeClass('hide');
-					$('#formModalProfile-divErrorUpdate').addClass('hide');
-					$('#formModalProfile-divErrorWrongPw').addClass('hide');
-					$('#DivErrorPwNoMatch').addClass('hide');
-					$('#ErrorDb').addClass('hide');
-					$('#modalButtonEditPw').addClass('hide');
-					$('#modalButtonEditPwCancel').addClass('hide');
-					$('#modalCancel').addClass('hide');
-					$('#modalSave').addClass('hide');
-					$('#modalClose').removeClass('hide');
+					$('#formModalProfile-divErrorUpdate, #formModalProfile-divErrorWrongPw, #DivErrorPwNoMatch, #ErrorDb, #modalButtonEditPw, #modalButtonEditPwCancel, #modalCancel, #modalSave').addClass('hide');
+					$('#formModalProfile-divSuccess, #modalClose').removeClass('hide');
 					$('#modal-div-OldPw').addClass('has-success').removeClass('has-error');
 				}
 				else if (data.responseText == 'Altes Passwort falsch')
 				{
-					$('#modal-div-OldPw').addClass('has-error').removeClass('has-success');
+					$('#ErrorDb').addClass('hide');
 					$('#formModalProfile-divErrorWrongPw').removeClass('hide');
-					$('#ErrorDb').addClass('hide');
+					$('#modal-div-OldPw').addClass('has-error').removeClass('has-success');
 				}
-				else if (data.responseText == 'Profil Aktualisierung fehlgeschlagen') // tritt praktisch nie auf
+				else if (data.responseText == 'Profil Aktualisierung fehlgeschlagen') // tritt auf, wenn das Passwort auf das selbige geändert wurde
 				{
+					$('#formModalProfile-divErrorWrongPw, #ErrorDb').addClass('hide');
 					$('#formModalProfile-divErrorUpdate').removeClass('hide');
-					$('#formModalProfile-divErrorWrongPw').addClass('hide');
-					$('#ErrorDb').addClass('hide');
 				}
 				else
 				{
-					$('#formModalProfile-divErrorUpdate').addClass('hide');
-					$('#formModalProfile-divErrorWrongPw').addClass('hide');
+					$('#formModalProfile-divErrorUpdate, #formModalProfile-divErrorWrongPw').addClass('hide');
 					$('#ErrorDb').removeClass('hide');
 				}
 			});
@@ -550,10 +530,7 @@ function checkInputFormModalProfile()
 		}
 		else
 		{
-			$('#formModalProfile-divSuccess').addClass('hide');
-			$('#formModalProfile-divErrorUpdate').addClass('hide');
-			$('#formModalProfile-divErrorWrongPw').addClass('hide');
-			$('#ErrorDb').addClass('hide');
+			$('#formModalProfile-divSuccess, #formModalProfile-divErrorUpdate, #formModalProfile-divErrorWrongPw, #ErrorDb').addClass('hide');
 		}
 	}
 	else
@@ -570,27 +547,17 @@ function checkInputFormModalProfile()
 			if (data.responseText == 'Email Aktualisierung erfolgreich')
 			{
 				originalOwnEmail = emailAddress;
-				$('#formModalProfile-divSuccess').removeClass('hide');
-				$('#formModalProfile-divErrorUpdate').addClass('hide');
-				$('#formModalProfile-divErrorWrongPw').addClass('hide');
-				$('#DivErrorPwNoMatch').addClass('hide');
-				$('#ErrorDb').addClass('hide');
-				$('#modalButtonEditPw').addClass('hide');
-				$('#modalButtonEditPwCancel').addClass('hide');
-				$('#modalCancel').addClass('hide');
-				$('#modalSave').addClass('hide');
-				$('#modalClose').removeClass('hide');
+				$('#formModalProfile-divErrorUpdate, #formModalProfile-divErrorWrongPw, #DivErrorPwNoMatch, #ErrorDb, #modalButtonEditPw, #modalButtonEditPwCancel, #modalCancel, #modalSave').addClass('hide');
+				$('#formModalProfile-divSuccess, #modalClose').removeClass('hide');
 			}
 			else if (data.responseText == 'Email Aktualisierung fehlgeschlagen') // tritt praktisch nie auf
 			{
+				$('#formModalProfile-divErrorWrongPw, #ErrorDb').addClass('hide');
 				$('#formModalProfile-divErrorUpdate').removeClass('hide');
-				$('#formModalProfile-divErrorWrongPw').addClass('hide');
-				$('#ErrorDb').addClass('hide');
 			}
 			else
 			{
-				$('#formModalProfile-divErrorUpdate').addClass('hide');
-				$('#formModalProfile-divErrorWrongPw').addClass('hide');
+				$('#formModalProfile-divErrorUpdate, #formModalProfile-divErrorWrongPw').addClass('hide');
 				$('#ErrorDb').removeClass('hide');
 			}
 		});
@@ -603,18 +570,15 @@ function checkInputFormModalProfile()
 function buttonChangePassword()
 {
 	$('#modalButtonEditPw').addClass('hide');
-	$('#modalButtonEditPwCancel').removeClass('hide');
-	$('#div-changePw').removeClass('hide');
+	$('#modalButtonEditPwCancel, #div-changePw').removeClass('hide');
 	$('#modalOldPw').focus();
 }
 
 // onclick auf cancel change Password
 function buttonChangePasswordCancel()
 {
+	$('#modalButtonEditPwCancel, #formModalProfile-divErrorWrongPw, #div-changePw').addClass('hide');
 	$('#modalButtonEditPw').removeClass('hide');
-	$('#modalButtonEditPwCancel').addClass('hide');
-	$('#formModalProfile-divErrorWrongPw').addClass('hide');
-	$('#div-changePw').addClass('hide');
 }
 
 // überprüft, ob die neuen Passwörter gleich sind
@@ -625,31 +589,27 @@ function checkPasswordMatch(forced)
 	var newPwConfirm = $('#modalNewPwConfirm')[0].value;
 	if (newPw && newPw == newPwConfirm)
 	{
-		$('#modal-div-NewPw').addClass('has-success').removeClass('has-error');
-		$('#modal-div-NewPwConfirm').addClass('has-success').removeClass('has-error');
 		$('#DivErrorPwNoMatch').addClass('hide');
+		$('#modal-div-NewPw, #modal-div-NewPwConfirm').addClass('has-success').removeClass('has-error');
 		returnValue = true;
 	}
 	else if (!newPw && !newPwConfirm)
 	{
-		$('#modal-div-NewPw').addClass('has-error').removeClass('has-success');
-		$('#modal-div-NewPwConfirm').addClass('has-error').removeClass('has-success');
 		$('#DivErrorPwNoMatch').addClass('hide');
+		$('#modal-div-NewPw, #modal-div-NewPwConfirm').addClass('has-error').removeClass('has-success');
 	}
 	else
 	{
 		forced = forced || false;
 		if (forced == true)
 		{
-			$('#modal-div-NewPw').addClass('has-error').removeClass('has-success');
-			$('#modal-div-NewPwConfirm').addClass('has-error').removeClass('has-success');
 			$('#DivErrorPwNoMatch').removeClass('hide');
+			$('#modal-div-NewPw, #modal-div-NewPwConfirm').addClass('has-error').removeClass('has-success');
 		}
 		else
 		{
-			$('#modal-div-NewPw').removeClass('has-success has-error');
-			$('#modal-div-NewPwConfirm').removeClass('has-success has-error');
 			// $('#DivErrorPwNoMatch').addClass('hide'); // Grund: wegen der Enter-Taste würde die Fehlermeldung sofort wieder verschwinden
+			$('#modal-div-NewPw, #modal-div-NewPwConfirm').removeClass('has-success has-error');
 		}
 	}
 	return returnValue;
