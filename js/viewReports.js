@@ -33,13 +33,13 @@ function getOwnUser()
 }
 
 // fällt das ownUserArray falls kein Login existiert
-function prepareUserIfNoLogin()
+/* function prepareUserIfNoLogin()
 {
 	ownUser[0] = new Object();
 	ownUser[0]['Id'] = 0;
 	ownUser[0]['MemberRole'] = 'noLogin';
 	ownUser[0]['UserName'] = 'noLogin';
-}
+} */
 
 // erstellt Id-Array um ArrayId und RealId zu suchen
 function createIdArray()

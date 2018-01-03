@@ -152,7 +152,7 @@ function setCurrentSelectedItem()
 $(function() {
 	$('input[name="daterange"]').daterangepicker({
 	"autoUpdateInput": false,
-	"format": 'yyyy-mm-dd',
+	"format": 'DD.MM.YYYY',
     "opens": "right", /* right means: it opens from left to right */
     "buttonClasses": "btn",
     "cancelClass": "btn-danger"
@@ -166,7 +166,7 @@ $(function() {
 			$('#div-Date').addClass('has-error').removeClass('has-success');
 		}*/
 		$('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
-			$(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
+			$(this).val(picker.startDate.format('DD.MM.YYYY') + ' - ' + picker.endDate.format('DD.MM.YYYY'));
 		});
 	});
 });
