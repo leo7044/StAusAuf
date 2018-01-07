@@ -91,13 +91,14 @@
 							<div class="form-group" id="divFormPassword">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-									<input type="password" id="formPassword" name="formPassword" class="form-control trans-placeholder" maxlength="255" placeholder="Password*" required />
+									<input type="password" id="formPassword" name="formPassword" class="form-control trans-placeholder" maxlength="255" placeholder="Password*" onfocus="showPassword(this.id);" onblur="hidePassword(this.id);" required />
+									<span class="input-group-addon" style="cursor: pointer;" onclick="copyPwToClipboard();"><i class="glyphicon glyphicon-copy"></i></span>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-1"></div>
 					</div>
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-md-1"></div>
 						<div class="col-md-10">
 							<div class="form-group" id="divFormPasswordConfirm">
@@ -108,7 +109,7 @@
 							</div>
 						</div>
 						<div class="col-md-1"></div>
-					</div>
+					</div> -->
 					<div class="row">
 						<div class="col-md-1"></div>
 						<div class="col-md-10">

@@ -9,9 +9,9 @@ $(document).ready(function()
 	memberRolesArray = objectLanguages.ArrayMemberRoles;
 	getOwnUser();
 	getUserFromDB();
-	$('#formPassword, #formPasswordConfirm')
+	/*$('#formPassword, #formPasswordConfirm')
 		.keyup(function() {checkPasswordMatch('formPassword', 'formPasswordConfirm', false);})
-		.blur(function() {checkPasswordMatch('formPassword', 'formPasswordConfirm', false);});
+		.blur(function() {checkPasswordMatch('formPassword', 'formPasswordConfirm', false);});*/
 })
 
 // gibt die eigene Id mit UserName zurück
@@ -201,6 +201,7 @@ function showFormNewUser()
 	}
 	document.getElementById('selectMemberRole').innerHTML = selectOptions;
 	$('#formUserName').focus();
+	$('#formPassword')[0].value = generateRandomPassword();
 }
 
 // verbirgt Form für neuen User
@@ -219,11 +220,40 @@ function resetFormNewUser()
 	$('#DivErrorPwNoMatch, #formNewUser-divErrorUserExists').addClass('hide');
 	document.getElementById('formNewUser').reset();
 	$('#formUserName').focus();
+	$('#formPassword')[0].value = generateRandomPassword();
 	return false;
 }
 
+// generiert ein zufälliges Passwort
+function generateRandomPassword()
+{
+	var data =
+	{
+		action: "generateRandomPassword"
+	}
+	var password = null;
+	$.ajaxSetup({async: false});
+	$.post('php/manageBackend.php', data)
+	.always(function(data)
+	{
+		password = data.responseText;
+	});
+	$.ajaxSetup({async: true});
+	return password;
+}
+
+// kopiert das Password in den Arbeitsspeicher
+function copyPwToClipboard()
+{
+	showPassword('formPassword');
+	var textToCopy = $('#formPassword');
+	textToCopy.select();
+	document.execCommand('copy');
+	hidePassword('formPassword');
+}
+
 // überprüft Passwörter auf Übereinstimmung
-function checkPasswordMatch(field1, field2, forced)
+/* function checkPasswordMatch(field1, field2, forced)
 {
 	forced = forced || false;
 	var returnValue = false;
@@ -256,13 +286,13 @@ function checkPasswordMatch(field1, field2, forced)
 	}
 	$('#formNewUser-divErrorUserExists').addClass('hide'); // erst PW-check, dann Rest
 	return returnValue;
-}
+}*/
 
 // kreiert einen neuen User
 function createNewUser()
 {
-	if (checkPasswordMatch('formPassword', 'formPasswordConfirm', true))
-	{
+	/* if (checkPasswordMatch('formPassword', 'formPasswordConfirm', true))
+	{ */
 		// im BackEnd speichern
 		var userName = document.formNewUser.formUserName.value;
 		var password = document.formNewUser.formPassword.value;
@@ -300,7 +330,7 @@ function createNewUser()
 		{
 			// DB nicht erreichbar
 		}
-	}
+	/* } */
 	return false;
 }
 

@@ -349,6 +349,11 @@ if (!$conn->connect_error)
 				break;
 			}
 		}
+		case 'generateRandomPassword':
+		{
+			echo md5(time());
+			break;
+		}
 		default:
 		{
 			echo 'no Action';
