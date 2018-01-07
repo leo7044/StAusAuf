@@ -12,6 +12,17 @@ if (isset($_REQUEST['createReport']))
 		logout();
 	}
 }
+else if (isset($_REQUEST['edit']))
+{
+	if (isset($_SESSION['StAusAuf_Id']) && !isset($_REQUEST['logout']))
+	{
+		include_once('html/viewReports.html');
+	}
+	else
+	{
+		logout();
+	}
+}
 else if (isset($_REQUEST['admin']))
 {
 	if (isset($_SESSION['StAusAuf_Id']) && !isset($_REQUEST['logout']))

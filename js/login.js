@@ -17,6 +17,18 @@ function initializeForm()
 		{
 			return login();
 		}
+		$('#LoginHeaderEdit').addClass("hide");
+		$('#LoginHeaderAdmin').addClass("hide");
+	}
+	else if ($_GET().edit)
+	{
+		document.formLogin.action = '.';
+		document.formLogin.onsubmit =
+		function()
+		{
+			return login();
+		}
+		$('#LoginHeaderCreate').addClass("hide");
 		$('#LoginHeaderAdmin').addClass("hide");
 	}
 	else if ($_GET().admin)
@@ -27,7 +39,8 @@ function initializeForm()
 		{
 			return login(true);
 		}
-		$('#LoginHeader').addClass("hide");
+		$('#LoginHeaderCreate').addClass("hide");
+		$('#LoginHeaderEdit').addClass("hide");
 	}
 }
 
