@@ -136,7 +136,7 @@ function fillReportTable()
 		var lastColumn = 0;
 		for (var i = 0; i < reportData.length; i++)
 		{
-			var pfadToAvatarPic = 'img/default_avatar_male.jpg';
+			var pfadToTitlePic = 'img/default_avatar_male.jpg';
 			var dataId = reportData[i].Id; // reason: deleted reports, offet from 1
 			var row = parseInt(i / 3);
 			lastColumn = row;
@@ -150,11 +150,11 @@ function fillReportTable()
 					var picUrl = pictureData[dataId][0].toString();
 					if (picUrl != '')
 					{
-						pfadToAvatarPic = 'img_upload/' + dataId + '/thumb_Avatar/' + picUrl;
+						pfadToTitlePic = 'img_upload/' + dataId + '/thumb_Title/' + picUrl;
 					}
 					strHtml += '<center>';
 					strHtml += '<a id="modal_' + dataId + '" data-toggle="modal" data-target="#modalReport" style="cursor: pointer;" onclick="loadContentOfModal(this.id);">';
-					strHtml += '<img src="' + pfadToAvatarPic + '"></img>'; // Begleittext ergänzen
+					strHtml += '<img src="' + pfadToTitlePic + '" class="picture-size-small"></img>';
 					strHtml += '</a>';
 					strHtml += '<br/>' + reportData[i].reportName + ' (' + reportData[i].nickName + ')';
 					strHtml += '<br/><span name="ReportCountry">' + getCountryInCorrectLanguage(i) + '</span>';
@@ -168,11 +168,11 @@ function fillReportTable()
 					var picUrl = pictureData[dataId][0].toString();
 					if (picUrl != '')
 					{
-						pfadToAvatarPic = 'img_upload/' + dataId + '/thumb_Avatar/' + picUrl;
+						pfadToTitlePic = 'img_upload/' + dataId + '/thumb_Title/' + picUrl;
 					}
 					strHtml += '<center>';
 					strHtml += '<a id="modal_' + dataId + '" data-toggle="modal" data-target="#modalReport" style="cursor: pointer;" onclick="loadContentOfModal(this.id);">';
-					strHtml += '<img src="' + pfadToAvatarPic + '"></img>'; // Begleittext ergänzen
+					strHtml += '<img src="' + pfadToTitlePic + '" class="picture-size-small"></img>';
 					strHtml += '</a>';
 					strHtml += '<br/>' + reportData[i].reportName + ' (' + reportData[i].nickName + ')';
 					var indexOfCountry = $.inArray(reportData[i].country, countryIso);
@@ -187,11 +187,11 @@ function fillReportTable()
 					var picUrl = pictureData[dataId][0].toString();
 					if (picUrl != '')
 					{
-						pfadToAvatarPic = 'img_upload/' + dataId + '/thumb_Avatar/' + picUrl;
+						pfadToTitlePic = 'img_upload/' + dataId + '/thumb_Title/' + picUrl;
 					}
 					strHtml += '<center>';
 					strHtml += '<a id="modal_' + dataId + '" data-toggle="modal" data-target="#modalReport" style="cursor: pointer;" onclick="loadContentOfModal(this.id);">';
-					strHtml += '<img src="' + pfadToAvatarPic + '"></img>'; // Begleittext ergänzen
+					strHtml += '<img src="' + pfadToTitlePic + '" class="picture-size-small"></img>';
 					strHtml += '</a>';
 					strHtml += '<br/>' + reportData[i].reportName + ' (' + reportData[i].nickName + ')';
 					var indexOfCountry = $.inArray(reportData[i].country, countryIso);
@@ -272,13 +272,13 @@ function loadContentOfModal(longModalId, loadingPage)
 		modalBody +=
 			'<div class="list-group">' +
 				'<div class="list-group-item">' +
-					'<h4 id="AvatarPicture" class="list-group-item-heading trans-innerHTML">Avatar Picture</h4>' +
+					'<h4 id="TitlePicture" class="list-group-item-heading trans-innerHTML">Title Picture</h4>' +
 					'<p class="list-group-item-text">';
 		var picUrl = pictureData[modalId][0].toString();
-		var pfadToAvatarPicThumb = 'img_upload/' + modalId + '/thumb_Avatar/' + picUrl;
-		var pfadToAvatarPicBig = 'img_upload/' + modalId + '/big_Avatar/' + picUrl;
-		modalBody += '<a href="' + pfadToAvatarPicBig + '" rel="lightbox" title="' + picUrl + '">' +
-						'<img src="' + pfadToAvatarPicThumb + '">' +
+		var pfadToTitlePicThumb = 'img_upload/' + modalId + '/thumb_Title/' + picUrl;
+		var pfadToTitlePicBig = 'img_upload/' + modalId + '/big_Title/' + picUrl;
+		modalBody += '<a href="' + pfadToTitlePicBig + '" rel="lightbox" title="' + picUrl + '">' +
+						'<img src="' + pfadToTitlePicThumb + '" class="picture-size-small">' +
 					'</a>';
 		modalBody += '</p>' +
 				'</a>' +
@@ -307,7 +307,7 @@ function loadContentOfModal(longModalId, loadingPage)
 					modalBody += '<div class="row">' +
 									'<div class="col-md-3">' +
 										'<a href="' + pfadToGalleryPicBig + '" rel="lightbox" title="' + picUrl + '">' +
-											'<img src="' + pfadToGalleryPicThumb + '">' +
+											'<img src="' + pfadToGalleryPicThumb + '" class="picture-size-small">' +
 										'</a>' +
 									'</div>';
 					break;
@@ -316,7 +316,7 @@ function loadContentOfModal(longModalId, loadingPage)
 				{
 					modalBody += '<div class="col-md-3">' +
 									'<a href="' + pfadToGalleryPicBig + '" rel="lightbox" title="' + picUrl + '">' +
-										'<img src="' + pfadToGalleryPicThumb + '">' +
+										'<img src="' + pfadToGalleryPicThumb + '" class="picture-size-small">' +
 									'</a>' +
 								'</div>';
 					break;
@@ -325,7 +325,7 @@ function loadContentOfModal(longModalId, loadingPage)
 				{
 					modalBody += '<div class="col-md-3">' +
 									'<a href="' + pfadToGalleryPicBig + '" rel="lightbox" title="' + picUrl + '">' +
-										'<img src="' + pfadToGalleryPicThumb + '">' +
+										'<img src="' + pfadToGalleryPicThumb + '" class="picture-size-small">' +
 									'</a>' +
 								'</div>';
 					break;
@@ -334,7 +334,7 @@ function loadContentOfModal(longModalId, loadingPage)
 				{
 					modalBody += '<div class="col-md-3">' +
 									'<a href="' + pfadToGalleryPicBig + '" rel="lightbox" title="' + picUrl + '">' +
-										'<img src="' + pfadToGalleryPicThumb + '">' +
+										'<img src="' + pfadToGalleryPicThumb + '" class="picture-size-small">' +
 									'</a>' +
 								'</div>' +
 							'</div>';

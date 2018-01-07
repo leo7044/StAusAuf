@@ -148,32 +148,32 @@ if (!$conn->connect_error)
 			}
 			break;
 		}
-		case 'fileAjaxUploadAvatar':
+		case 'fileAjaxUploadTitle':
 		{
 			$Id = $_post['id'];
-			$allowedFileTypes = array('jpg', 'png', 'gif'); // diese Dateiendungen werden akzeptiert - ggf. noch anzupassen
+			$allowedFileTypes = array('jpg', 'jpeg', 'png', 'gif'); // diese Dateiendungen werden akzeptiert - ggf. noch anzupassen
 			$dirUpload = '../img_upload';
 			$pathNewPics = "$dirUpload/$Id";
 			mkdir("$pathNewPics", 0755, true);
-			$pathThumbAvatar = "$pathNewPics/thumb_Avatar/";
-			$pathBigAvatar = "$pathNewPics/big_Avatar/";
-			mkdir("$pathThumbAvatar", 0755, true);
-			mkdir("$pathBigAvatar", 0755, true);
+			$pathThumbTitle = "$pathNewPics/thumb_Title/";
+			$pathBigTitle = "$pathNewPics/big_Title/";
+			mkdir("$pathThumbTitle", 0755, true);
+			mkdir("$pathBigTitle", 0755, true);
 			foreach($_FILES as $key => $value)
 			{
 				$tmpName = $value['tmp_name'];
 				$name = $value['name'];
-				move_uploaded_file($tmpName, $pathThumbAvatar . $name);
-				copy($pathThumbAvatar . $name, $pathBigAvatar . $name);
-				resizeImage($pathThumbAvatar . $name, 160, 160);
-				resizeImage($pathBigAvatar . $name, 1920, 1080);
+				move_uploaded_file($tmpName, $pathThumbTitle . $name);
+				copy($pathThumbTitle . $name, $pathBigTitle . $name);
+				resizeImage($pathThumbTitle . $name, 160, 160);
+				resizeImage($pathBigTitle . $name, 1920, 1080);
 			}
 			break;
 		}
 		case 'fileAjaxUploadGallery':
 		{
 			$Id = $_post['id'];
-			$allowedFileTypes = array('jpg', 'png', 'gif'); // diese Dateiendungen werden akzeptiert - ggf. noch anzupassen
+			$allowedFileTypes = array('jpg', 'jpeg', 'png', 'gif'); // diese Dateiendungen werden akzeptiert - ggf. noch anzupassen
 			$dirUpload = '../img_upload';
 			$pathNewPics = "$dirUpload/$Id";
 			$pathThumbGallery = "$pathNewPics/thumb_Gallery/";

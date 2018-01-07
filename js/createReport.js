@@ -14,7 +14,7 @@ $(document).ready(function(){
 	// msDropDownCountries = $("#dropDownListCountries").msDropdown().data("dd"); // Country-Flags
 	// $(document).tooltip({delay: {show: null}});
 	$('#div-ReportName, #div-NickName, #div-Date, #div-Highlight, #div-Attention, #div-Lecture, #div-Internship').removeClass('has-success has-error');
-	$("#FileInputUploadAvatar").fileinput({ // FileUploadAvatar
+	$("#FileInputUploadTitle").fileinput({ // FileUploadTitle
         showUpload: false, // Zeile 674 in "fileinput.js" bearbeitet, showUpload auf false gesetzt; Zeile 3.797 in "fileinput.js" bearbeitet, um "Remove"-Button rot einzufärben
 		// uploadUrl: 'img_public',
 		allowedFileTypes: ["image"],
@@ -23,8 +23,8 @@ $(document).ready(function(){
 		// maxFilePreviewSize: 1024,
 		overwriteInitial: true,
 		removeClass: "btn btn-danger",
-		browseLabel: "<span id='ChooseAvatar' class='trans-innerHTML'>Choose Avatar...</span>"
-		// defaultPreviewContent: '<img src="img/default_avatar_male.jpg" alt="Your Avatar" style="width:160px"><h6 class="text-muted">Drag & drop an avatar-picture here</h6>'
+		browseLabel: "<span id='ChooseTitle' class='trans-innerHTML'>Choose title-picture...</span>"
+		// defaultPreviewContent: '<img src="img/default_avatar_male.jpg" alt="Your Title" style="width:160px"><h6 class="text-muted">Drag & drop an title-picture here</h6>'
     });
 	$("#FileInputUploadGallery").fileinput({ // FileUploadGallery
 		showUpload: false,
@@ -228,7 +228,7 @@ function checkInputFormCreateReport()
 	var success = saveFormReportInDb(NickName, Country, city, dateRange, highlight, attention, frame_textreport);
 	if (success == 'ReportSpeicherung erfolgreich')
 	{
-		uploadFilesAvatar(affectedIdWhenUpload);
+		uploadFilesTitle(affectedIdWhenUpload);
 		uploadFilesGallery(affectedIdWhenUpload);
 		document.formCreateReport.action = './?Id=' + affectedIdWhenUpload + '&success=true';
 		// hide button and link to report or whatever // nicht mehr nötig, weil auf nächste Seite weitergeleitet
@@ -247,15 +247,15 @@ function saveFormReportInDb(NickName, Country, city, dateRange, highlight, atten
 	var ReportName = document.formCreateReport.ReportName.value;
 	var Lecture = document.formCreateReport.Lecture.value;
 	var Internship = document.formCreateReport.Internship.value;
-	var numPicsAvatar = document.formCreateReport.FileInputUploadAvatar.files.length;
+	var numPicsTitle = document.formCreateReport.FileInputUploadTitle.files.length;
 	var numPicsGallery = document.formCreateReport.FileInputUploadGallery.files.length;
-	/*var picsAvatar = new Array();
+	/*var picsTitle = new Array();
 	var picsGallery = new Array();
-	for (var i = 0; i < numPicsAvatar; i++)
+	for (var i = 0; i < numPicsTitle; i++)
 	{
-		picsAvatar[i] = new Object();
-		picsAvatar[i].name = document.formCreateReport.FileInputUploadAvatar.files[i].name;
-		picsAvatar[i].type = document.formCreateReport.FileInputUploadAvatar.files[i].type;
+		picsTitle[i] = new Object();
+		picsTitle[i].name = document.formCreateReport.FileInputUploadTitle.files[i].name;
+		picsTitle[i].type = document.formCreateReport.FileInputUploadTitle.files[i].type;
 	}
 	for (var i = 0; i < numPicsGallery; i++)
 	{
@@ -275,7 +275,7 @@ function saveFormReportInDb(NickName, Country, city, dateRange, highlight, atten
 		'attention': attention,
 		'lecture': Lecture,
 		'internship': Internship,
-		/*'picsAvatar': picsAvatar,
+		/*'picsTitle': picsTitle,
 		'picsGallery': picsGallery,*/
 		'commentBox': frame_textreport
 	};
@@ -312,18 +312,18 @@ function saveFormReportInDb(NickName, Country, city, dateRange, highlight, atten
 	return returnValue;
 }
 
-// lädt Avatar-Bild mittels AJAX hoch
-function uploadFilesAvatar(id)
+// lädt Title-Bild mittels AJAX hoch
+function uploadFilesTitle(id)
 {
 	var returnValue = false;
 	var form_data = new FormData();
-	for (var i = 0; i < $('#FileInputUploadAvatar').prop('files').length; i++)
+	for (var i = 0; i < $('#FileInputUploadTitle').prop('files').length; i++)
 	{
-		var file_data = $('#FileInputUploadAvatar').prop('files')[i];
-		form_data.append('fileAvatar' + i, file_data);
+		var file_data = $('#FileInputUploadTitle').prop('files')[i];
+		form_data.append('fileTitle' + i, file_data);
 	}
 	form_data.append('id', id);
-	form_data.append('action', 'fileAjaxUploadAvatar');
+	form_data.append('action', 'fileAjaxUploadTitle');
 	$.ajaxSetup({async: false});
 	$.ajax({
 		url: './php/manageBackend.php', // point to server-side PHP script

@@ -29,6 +29,13 @@ div.own-box-admin
 	background-color: #F8F8FF;
 }
 
+/* legt Maximalgröße for unskallierte Bilder fest */
+.picture-size-small
+{
+	max-width: 160px;
+	max-height: 160px;
+}
+
 /* Tabelle zentrieren, auch möglich mit class="center", aber zusätzliche Implementierung, um nicht jedesmal class="center" schreiben zu müssen */
 th, td
 {
