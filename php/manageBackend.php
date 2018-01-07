@@ -346,8 +346,8 @@ if (!$conn->connect_error)
 					$userAnswer[1] = 'UserName schon vergeben';
 				}
 				echo json_encode($userAnswer);
-				break;
 			}
+			break;
 		}
 		case 'generateRandomPassword':
 		{
