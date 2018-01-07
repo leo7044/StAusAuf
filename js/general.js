@@ -133,6 +133,10 @@ function translateEachElement(currentLanguageIndex)
     {
         $('.trans-name-title')[i].title = objectLanguages[$('.trans-name-title')[i].name][currentLanguageIndex];
     }
+    for (var i = 0; i < $('.trans-id-title').length; i++)
+    {
+        $('.trans-id-title')[i].title = objectLanguages[$('.trans-id-title')[i].id][currentLanguageIndex];
+    }
     for (var i = 0; i < $('.trans-upload-placeholder').length; i++)
     {
         $('.trans-upload-placeholder')[i]['data-msg-placeholder'] = objectLanguages[$('.trans-upload-placeholder')[i].id][currentLanguageIndex];
