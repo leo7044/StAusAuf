@@ -14,6 +14,32 @@ $(document).ready(function(){
 	// msDropDownCountries = $("#dropDownListCountries").msDropdown().data("dd"); // Country-Flags
 	// $(document).tooltip({delay: {show: null}});
 	$('#div-ReportName, #div-NickName, #div-Date, #div-Highlight, #div-Attention, #div-Lecture, #div-Internship').removeClass('has-success has-error');
+	initializeFileInput();
+	// setzt Email ins modal ein, falls vorhanden
+	var data =
+	{
+		action: "getOwnEmail"
+	}
+	$.ajaxSetup({async: false});
+	$.post('php/manageBackend.php', data)
+	.always(function(data)
+	{
+		if (data.responseText != 'no Email' && data.responseText != 'no Database')
+		{
+			originalOwnEmail = data.responseText;
+			document.getElementById('modalEmail').value = data.responseText;
+		}
+	});
+	$.ajaxSetup({async: true});
+	// Password-Match
+	$('#modalNewPw, #modalNewPwConfirm').keyup(checkPasswordMatch).blur(checkPasswordMatch);
+	// Länder und Länder sortieren
+	getCountryData();
+	$('#dropDownListCountries').change(changeCountry);
+});
+
+function initializeFileInput()
+{
 	$("#FileInputUploadTitle").fileinput({ // FileUploadTitle
         showUpload: false, // Zeile 674 in "fileinput.js" bearbeitet, showUpload auf false gesetzt; Zeile 3.797 in "fileinput.js" bearbeitet, um "Remove"-Button rot einzufärben
 		// uploadUrl: 'img_public',
@@ -40,35 +66,14 @@ $(document).ready(function(){
 		maxFileCount: 20,
         overwriteInitial: true
     });
-	// setzt Email ins modal ein, falls vorhanden
-	var data =
-	{
-		action: "getOwnEmail"
-	}
-	$.ajaxSetup({async: false});
-	$.post('php/manageBackend.php', data)
-	.always(function(data)
-	{
-		if (data.responseText != 'no Email' && data.responseText != 'no Database')
-		{
-			originalOwnEmail = data.responseText;
-			document.getElementById('modalEmail').value = data.responseText;
-		}
-	});
-	$.ajaxSetup({async: true});
-	// Password-Match
-	$('#modalNewPw, #modalNewPwConfirm').keyup(checkPasswordMatch).blur(checkPasswordMatch);
-	// Länder und Länder sortieren
-	getCountryData();
-	$('#dropDownListCountries').change(changeCountry);
-});
+}
 
 // holt Country-Data aus einer externen API
 function getCountryData()
 {
 	$.ajaxSetup({async: false});
-	$.get('https://restcountries.eu/rest/v2/all') // for less traffic but more dependency
-	// $.post('js/countryApi.json') // in case extern API goes offline
+	// $.get('https://restcountries.eu/rest/v2/all') // for less traffic but more dependency
+	$.post('js/countryApi.json') // in case extern API goes offline
 	.always(function(data)
 	{
 		countryData = data;
