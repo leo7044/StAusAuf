@@ -50,6 +50,7 @@
 		</div>
 		<div class="center-block own-box-admin"> <!-- wird onload dynamisch mit .js generiert -->
 			<noscript>Please activate JavaScript</noscript>
+			<h3 id="User" class="trans-innerHTML text-center">User</h3>
 			<div id="divFormButtonNewUser">
 				<button onclick="showFormNewUser();" class="btn btn-primary">
 					<span class="glyphicon glyphicon-plus-sign"></span> <span id="AddUser" class="trans-innerHTML">Add User</span>
@@ -169,6 +170,32 @@
 				<tbody id="userTable">
 				</tbody>
 			</table>
+		</div>
+		<br/>
+		<div class="center-block own-box-admin">
+			<h3 id="Stats" class="trans-innerHTML text-center">Stats</h3>
+			<div class="row">
+				<div class="col-md-6">
+					<table class="table table-striped table-hover">
+						<thead>
+							<th id="Website" class="trans-innerHTML">Website</th>
+							<th id="Views" class="trans-innerHTML">Views</th>
+						</thead>
+						<tbody id="statsPage">
+						</tbody>
+					</table>
+				</div>
+				<div class="col-md-6">
+					<table class="table table-striped table-hover">
+						<thead>
+							<th id="Report" class="trans-innerHTML">Report</th>
+							<th id="Views" class="trans-innerHTML">Views</th>
+						</thead>
+						<tbody id="statsReports">
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

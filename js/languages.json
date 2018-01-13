@@ -71,6 +71,11 @@
 		"Administrator"
 	],
 	"CopyToClipboard":["copy password to clipboard","Passwort in Zwischenablage kopieren"],
+	"User":["User","Benutzer"],
+	"Stats":["Stats","Statistiken"],
+	"Website":["Website","Webseite"],
+	"Report":["Report","Bericht"],
+	"Views":["Views","Ansichten"],
 
 	"CreateNewReport":["Create a new report","Erstellen eines neuen Berichts"],
 	"Profile":["Profile","Profil"],
