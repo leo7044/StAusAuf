@@ -3,6 +3,8 @@ var pictureData = null;
 var countryData = null;
 var reportData = null;
 var ownUser = new Array();
+var arrayTitle = new Array();
+var arrayContent = new Array();
 
 $(document).ready(function()
 {
@@ -229,8 +231,8 @@ function loadContentOfModal(longModalId, loadingPage)
 	var indexOfObjectInReportData = $.inArray(modalId, idArray); // auf welches Objekt in den ReportData muss zugegriffen werden
 	var modal = document.getElementById('modalReport');
 	var currentLanguageIndex = document.getElementById('language').selectedIndex;
-	var arrayTitle = objectLanguages.ArrayTitle[currentLanguageIndex];
-	var arrayContent = new Array(reportData[indexOfObjectInReportData].reportName,
+	arrayTitle = objectLanguages.ArrayTitle[currentLanguageIndex];
+	arrayContent = new Array(reportData[indexOfObjectInReportData].reportName,
 								reportData[indexOfObjectInReportData].nickName,
 								'<span id="OneReportCountry">' + getCountryInCorrectLanguage(indexOfObjectInReportData) + '</span>',
 								reportData[indexOfObjectInReportData].city,
@@ -256,10 +258,31 @@ function loadContentOfModal(longModalId, loadingPage)
 		{
 			modalBody +=
 				'<div id="modalButtonBasicView">' +
-					'<button type="button" class="btn btn-info" onclick="buttonGeneralInformationEdit();">' +
-						'<span class="glyphicon glyphicon-pencil"></span> <span id="Edit" class="trans-innerHTML">Edit</span>' +
-					'</button>' +
-				'</div>' +
+					'<div class="form-group">' +
+						'<button type="button" class="btn btn-info" onclick="buttonGeneralInformationEdit();">' +
+							'<span class="glyphicon glyphicon-pencil"></span> <span id="Edit" class="trans-innerHTML">Edit</span>' +
+						'</button>' +
+					'</div>';
+		}
+	}
+		modalBody += '<h4 id="GeneralInformation" class="list-group-item-heading trans-innerHTML">General Information</h4>' +
+					'<p class="list-group-item-text">';
+						for (var i = 0; i < arrayTitle.length; i++)
+						{
+							modalBody +=
+								'<div class="row">' +
+									'<div class="col-md-3">' +
+										'<label class="trans-innerHTML-array">' + arrayTitle[i] + '</label>' +
+									'</div>' +
+									'<div class="col-md-9">' +
+										arrayContent[i] +
+									'</div>' +
+								'</div>';
+						}
+		modalBody +=
+					'</p>' +
+				'</div>';
+		modalBody +=
 				'<div id="modalButtonEditView" class="hide">' +
 					'<div class="row">' +
 						'<div class="col-md-1"></div>' +
@@ -274,31 +297,12 @@ function loadContentOfModal(longModalId, loadingPage)
 							'</div>' +
 						'</div>' +
 					'</div>' +
+					'<h4 id="GeneralInformation" class="list-group-item-heading trans-innerHTML">General Information</h4>' +
+					'<p class="list-group-item-text">' +
+					'<div id="informationFields"></div>';
+		modalBody +=
+					'</p>' +
 				'</div>' +
-				'<br/>';
-		}
-	}
-	modalBody += '<h4 id="GeneralInformation" class="list-group-item-heading trans-innerHTML">General Information</h4>' +
-				'<p class="list-group-item-text">';
-					for (var i = 0; i < arrayTitle.length; i++)
-					{
-						modalBody +=
-							'<div class="row">' +
-								'<div class="col-md-3" text-right>' +
-									'<label class="trans-innerHTML-array">' + arrayTitle[i] + '</label>' +
-								'</div>' +
-								'<div name="GeneralInformationView" class="col-md-9">' +
-									arrayContent[i] +
-								'</div>' +
-								'<div name="GeneralInformationEdit" class="col-md-9 hide">' +
-									'<div class="form-group">' +
-										'<input class="form-control" maxlength="255" value="' + arrayContent[i] + '" />' +
-									'</div>' +
-								'</div>' +
-							'</div>';
-					}
-	modalBody +=
-				'</p>' +
 			'</a>' +
 		'</div>';
 	if (pictureData[modalId][0].toString() != '')
@@ -440,9 +444,18 @@ function buttonGeneralInformationEdit()
 {
 	$('#modalButtonBasicView').addClass('hide');
 	$('#modalButtonEditView').removeClass('hide');
-	$('[name=GeneralInformationView]').addClass('hide');
-	$('[name=GeneralInformationEdit]').removeClass('hide');
 	// Felder Bearbeitungsmodus
+	var strHTML = '';
+	for (var i = 0; i < arrayTitle.length; i++)
+	{
+		strHTML +=
+			'<div class="form-group">' +
+				'<label class="trans-innerHTML-array">' + arrayTitle[i] + '</label>' +
+				'<input class="form-control" value="' + arrayContent[i] +'" />' +
+			'</div>';
+	}
+	$('#informationFields')[0].innerHTML = strHTML;
+	changeLanguage();
 }
 
 // speichert Bericht
@@ -458,8 +471,6 @@ function buttonGeneralInformationCancel()
 {
 	$('#modalButtonBasicView').removeClass('hide');
 	$('#modalButtonEditView').addClass('hide');
-	$('[name=GeneralInformationView]').removeClass('hide');
-	$('[name=GeneralInformationEdit]').addClass('hide');
 	// Felder betrachtungsmodus
 }
 
