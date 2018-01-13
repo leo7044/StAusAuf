@@ -13,6 +13,7 @@ $(document).ready(function()
 		.keyup(function() {checkPasswordMatch('formPassword', 'formPasswordConfirm', false);})
 		.blur(function() {checkPasswordMatch('formPassword', 'formPasswordConfirm', false);});*/
 	incrementViews('admin');
+	fillViewTables();
 })
 
 // gibt die eigene Id mit UserName zurück
@@ -439,4 +440,58 @@ function giveMemberRoleName(memberRole)
 			break;
 	}
 	return returnValue;
+}
+
+// befüllt View-Tabellen
+function fillViewTables()
+{
+	var arrayViews = getViews();
+	var strHTML = '';
+	for (var key in arrayViews[0])
+	{
+		strHTML +=
+		'<tr>' +
+			'<td>' + arrayViews[0][key]['page'] + '</td>' +
+			'<td>' + arrayViews[0][key]['views'] + '</td>' +
+		'<tr>';
+	}
+	$('#statsPage')[0].innerHTML = strHTML;
+	var strHTML = '';
+	for (var key in arrayViews[1])
+	{
+		strHTML +=
+		'<tr style="cursor: pointer;" onclick="forwardToLink(\'report\', ' + arrayViews[1][key]['Id'] + ');">' +
+			'<td>' + arrayViews[1][key]['Id'] + '</td>' +
+			'<td>' + arrayViews[1][key]['reportName'] + '</td>' +
+			'<td>' + arrayViews[1][key]['views'] + '</td>' +
+		'<tr>';
+	}
+	$('#statsReports')[0].innerHTML = strHTML;
+}
+
+// holt Daten für View
+function getViews()
+{
+	var arrayViews = null;
+	var data =
+	{
+		action: "getViews"
+	}
+	$.ajaxSetup({async: false});
+	$.post('php/manageBackend.php', data)
+	.always(function(data)
+	{
+		arrayViews = data;
+	});
+	$.ajaxSetup({async: true});
+	return arrayViews;
+}
+
+// leitet den USer zu einem anderen Link weiter
+function forwardToLink(link, id)
+{
+	if (link == 'report')
+	{
+		window.location = "./?Id=" + id;
+	}
 }
