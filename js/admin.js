@@ -460,7 +460,7 @@ function fillViewTables()
 	for (var key in arrayViews[1])
 	{
 		strHTML +=
-		'<tr style="cursor: pointer;" onclick="forwardToLink(\'report\', ' + arrayViews[1][key]['Id'] + ');">' +
+		'<tr style="cursor: pointer;" onclick="forwardToLink(\'Id\', ' + arrayViews[1][key]['Id'] + ');">' +
 			'<td>' + arrayViews[1][key]['Id'] + '</td>' +
 			'<td>' + arrayViews[1][key]['reportName'] + '</td>' +
 			'<td>' + arrayViews[1][key]['views'] + '</td>' +
@@ -490,8 +490,5 @@ function getViews()
 // leitet den USer zu einem anderen Link weiter
 function forwardToLink(link, id)
 {
-	if (link == 'report')
-	{
-		window.location = "./?Id=" + id;
-	}
+	window.location = './?' + link + '=' + id;
 }
