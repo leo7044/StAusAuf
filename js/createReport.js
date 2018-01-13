@@ -15,7 +15,18 @@ $(document).ready(function(){
 	// $(document).tooltip({delay: {show: null}});
 	$('#div-ReportName, #div-NickName, #div-Date, #div-Highlight, #div-Attention, #div-Lecture, #div-Internship').removeClass('has-success has-error');
 	initializeFileInput();
-	// setzt Email ins modal ein, falls vorhanden
+	getOwnEmail();
+	// Password-Match
+	$('#modalNewPw, #modalNewPwConfirm').keyup(checkPasswordMatch).blur(checkPasswordMatch);
+	// Länder und Länder sortieren
+	getCountryData();
+	$('#dropDownListCountries').change(changeCountry);
+	incrementViews('createReport');
+});
+
+// setzt E-Mail ins Modal ein, falls vorhanden und in DB hinterlegt
+function getOwnEmail()
+{
 	var data =
 	{
 		action: "getOwnEmail"
@@ -31,13 +42,9 @@ $(document).ready(function(){
 		}
 	});
 	$.ajaxSetup({async: true});
-	// Password-Match
-	$('#modalNewPw, #modalNewPwConfirm').keyup(checkPasswordMatch).blur(checkPasswordMatch);
-	// Länder und Länder sortieren
-	getCountryData();
-	$('#dropDownListCountries').change(changeCountry);
-});
+}
 
+// initialisiert die beiden Input-Felder für das hochladen von Bildern
 function initializeFileInput()
 {
 	$("#FileInputUploadTitle").fileinput({ // FileUploadTitle

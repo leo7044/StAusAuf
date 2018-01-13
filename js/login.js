@@ -15,10 +15,11 @@ function initializeForm()
 		document.formLogin.onsubmit =
 		function()
 		{
-			return login();
+			return login('loginCreateReport');
 		}
 		$('#LoginHeaderEdit').addClass("hide");
 		$('#LoginHeaderAdmin').addClass("hide");
+		incrementViews('loginCreateReport');
 	}
 	else if ($_GET().edit)
 	{
@@ -26,10 +27,11 @@ function initializeForm()
 		document.formLogin.onsubmit =
 		function()
 		{
-			return login();
+			return login('loginEdit');
 		}
 		$('#LoginHeaderCreate').addClass("hide");
 		$('#LoginHeaderAdmin').addClass("hide");
+		incrementViews('loginEdit');
 	}
 	else if ($_GET().admin)
 	{
@@ -37,17 +39,17 @@ function initializeForm()
 		document.formLogin.onsubmit =
 		function()
 		{
-			return login(true);
+			return login('loginAdmin');
 		}
 		$('#LoginHeaderCreate').addClass("hide");
 		$('#LoginHeaderEdit').addClass("hide");
+		incrementViews('loginAdmin');
 	}
 }
 
 //Login
-function login(isAdminLogin)
+function login(loginSite)
 {
-	isAdminLogin = isAdminLogin || false;
 	var returnValue = false;
 	var UserName = document.getElementById('UserName').value;
 	var Password = document.getElementById('Password').value;
@@ -64,17 +66,20 @@ function login(isAdminLogin)
 		if (data.responseText == 'Login erfolgreich')
 		{
 			$('#formLogin-divErrorPw, #ErrorDb, #formLogin-divErrorPermission').addClass('hide');
+			incrementViews(loginSite + 'Success');
 			returnValue = true;
 		}
 		else if (data.responseText == 'Member permission')
 		{
 			$('#formLogin-divErrorPw, #ErrorDb').addClass('hide');
-			if (isAdminLogin)
+			if (loginSite == 'loginAdmin')
 			{
 				$('#formLogin-divErrorPermission').removeClass('hide');
+				incrementViews(loginSite + 'Fail');
 			}
 			else
 			{
+				incrementViews(loginSite + 'Success');
 				returnValue = true;
 			}
 		}
@@ -82,17 +87,18 @@ function login(isAdminLogin)
 		{
 			$('#formLogin-divErrorPw').removeClass('hide');
 			$('#ErrorDb').addClass('hide');
-			if (isAdminLogin)
+			if (loginSite == 'loginAdmin')
 			{
 				$('#formLogin-divErrorPermission').addClass('hide');
 			}
+			incrementViews(loginSite + 'Fail');
 			document.getElementById('Password').focus();
 		}
 		else if (data.responseText == 'noDatabase')
 		{
 			$('#formLogin-divErrorPw').addClass('hide');
 			$('#ErrorDb').removeClass('hide');
-			if (isAdminLogin)
+			if (loginSite == 'loginAdmin')
 			{
 				$('#formLogin-divErrorPermission').addClass('hide');
 			}

@@ -153,3 +153,28 @@ function translateEachElement(currentLanguageIndex)
         }
     }
 }
+
+// erhöht die Zahl der Besucher um 1
+function incrementViews(element)
+{
+    var data = null;
+    if (isNaN(element))
+    {
+        data =
+        {
+            action: "incrementViews",
+            page: element
+        }
+    }
+    else
+    {
+        data =
+        {
+            action: "incrementViews",
+            id: element
+        }
+    }
+	$.ajaxSetup({async: false});
+	$.post('php/manageBackend.php', data);
+	$.ajaxSetup({async: true});
+}

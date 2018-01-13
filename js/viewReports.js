@@ -13,6 +13,7 @@ $(document).ready(function()
 	getReportData();
 	createIdArray();
 	fillReportTable();
+	incrementViews('viewReports');
 })
 
 // gibt die eigene Id mit UserName zurück

@@ -12,6 +12,7 @@ $(document).ready(function()
 	/*$('#formPassword, #formPasswordConfirm')
 		.keyup(function() {checkPasswordMatch('formPassword', 'formPasswordConfirm', false);})
 		.blur(function() {checkPasswordMatch('formPassword', 'formPasswordConfirm', false);});*/
+	incrementViews('admin');
 })
 
 // gibt die eigene Id mit UserName zurück

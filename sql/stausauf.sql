@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
--- http://www.phpmyadmin.net
+-- version 4.7.7
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Erstellungszeit: 21. Nov 2017 um 17:27
--- Server-Version: 10.0.31-MariaDB-0ubuntu0.16.04.2
--- PHP-Version: 7.0.22-0ubuntu0.16.04.1
+-- Host: 127.0.0.1
+-- Erstellungszeit: 12. Jan 2018 um 15:39
+-- Server-Version: 10.1.29-MariaDB
+-- PHP-Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -61,8 +63,38 @@ CREATE TABLE `reports` (
   `lecture` text NOT NULL,
   `internship` text NOT NULL,
   `commentBox` text NOT NULL,
+  `views` int(11) NOT NULL,
   `showRow` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `stats`
+--
+
+CREATE TABLE `stats` (
+  `page` text NOT NULL,
+  `views` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Daten für Tabelle `stats`
+--
+
+INSERT INTO `stats` (`page`, `views`) VALUES
+('admin', 0),
+('createReport', 0),
+('loginAdmin', 0),
+('loginAdminFail', 0),
+('loginAdminSuccess', 0),
+('loginCreateReportFail', 0),
+('loginCreateReportSuccess', 0),
+('loginCreateReport', 0),
+('loginEdit', 0),
+('loginEditFail', 0),
+('loginEditSuccess', 0),
+('viewReports', 0);
 
 -- --------------------------------------------------------
 
@@ -7433,6 +7465,12 @@ ALTER TABLE `reports`
   ADD PRIMARY KEY (`Id`);
 
 --
+-- Indizes für die Tabelle `stats`
+--
+ALTER TABLE `stats`
+  ADD UNIQUE KEY `pageUnique` (`page`(20));
+
+--
 -- Indizes für die Tabelle `world_cities`
 --
 ALTER TABLE `world_cities`
@@ -7446,12 +7484,15 @@ ALTER TABLE `world_cities`
 -- AUTO_INCREMENT für Tabelle `login`
 --
 ALTER TABLE `login`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT für Tabelle `reports`
 --
 ALTER TABLE `reports`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -132,7 +132,7 @@ if (!$conn->connect_error)
 				$lecture = $_post['lecture'];
 				$internship = $_post['internship'];
 				$commentBox = $_post['commentBox'];
-				$conn->query("INSERT INTO `reports`(`userId`, `reportName`, `nickName`, `country`, `city`, `dateRange`, `highlight`, `attention`, `lecture`, `internship`, `commentBox`, `showRow`) VALUES ('$Id', '$reportName', '$nickName', '$country', '$city', '$dateRange', '$highlight', '$attention', '$lecture', '$internship', '$commentBox', true);");
+				$conn->query("INSERT INTO `reports`(`userId`, `reportName`, `nickName`, `country`, `city`, `dateRange`, `highlight`, `attention`, `lecture`, `internship`, `commentBox`, `views`, `showRow`) VALUES ('$Id', '$reportName', '$nickName', '$country', '$city', '$dateRange', '$highlight', '$attention', '$lecture', '$internship', '$commentBox', 0, true);");
 				$userAnswer = array();
 				if ($conn->affected_rows > 0)
 				{
@@ -346,6 +346,20 @@ if (!$conn->connect_error)
 					$userAnswer[1] = 'UserName schon vergeben';
 				}
 				echo json_encode($userAnswer);
+			}
+			break;
+		}
+		case 'incrementViews':
+		{
+			if (isset($_post['page']))
+			{
+				$page = $_post['page'];
+				$conn->query("UPDATE `stats` SET `views`=`views`+1 WHERE `page`='$page';");
+			}
+			else if (isset($_post['Id']))
+			{
+				$Id = $_post['Id'];
+				$conn->query("UPDATE `reports` SET `views`=`views`+1 WHERE `page`='$Id';");
 			}
 			break;
 		}
