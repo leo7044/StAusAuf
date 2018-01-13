@@ -249,8 +249,36 @@ function loadContentOfModal(longModalId, loadingPage)
 			'</div>' +
 		'</div>' +
 		'<div class="list-group">' +
-			'<a class="list-group-item">' +
-				'<h4 id="GeneralInformation" class="list-group-item-heading trans-innerHTML">General Information</h4>' +
+			'<a class="list-group-item">';
+	if (ownUser[0] != undefined)
+	{
+		if (ownUser[0].MemberRole >= 1 || ownUser[0].Id == reportData[indexOfObjectInReportData].userId)
+		{
+			modalBody +=
+				'<div id="modalButtonBasicView">' +
+					'<button type="button" class="btn btn-info" onclick="buttonGeneralInformationEdit();">' +
+						'<span class="glyphicon glyphicon-pencil"></span> <span id="Edit" class="trans-innerHTML">Edit</span>' +
+					'</button>' +
+				'</div>' +
+				'<div id="modalButtonEditView" class="hide">' +
+					'<div class="row">' +
+						'<div class="col-md-1"></div>' +
+						'<div class="col-md-11">' +
+							'<div class="form-group">' +
+								'<button type="button" class="btn btn-danger" onclick="buttonGeneralInformationCancel();">' +
+									'<span class="glyphicon glyphicon-remove"></span> <span id="Cancel" class="trans-innerHTML">Cancel</span>' +
+								'</button>&nbsp;' +
+								'<button type="button" class="btn btn-success" onclick="buttonGeneralInformationConfirm();">' +
+									'<span class="glyphicon glyphicon-ok"></span> <span id="Confirm" class="trans-innerHTML">Confirm</span>' +
+								'</button>' +
+							'</div>' +
+						'</div>' +
+					'</div>' +
+				'</div>' +
+				'<br/>';
+		}
+	}
+	modalBody += '<h4 id="GeneralInformation" class="list-group-item-heading trans-innerHTML">General Information</h4>' +
 				'<p class="list-group-item-text">';
 					for (var i = 0; i < arrayTitle.length; i++)
 					{
@@ -259,8 +287,13 @@ function loadContentOfModal(longModalId, loadingPage)
 								'<div class="col-md-3" text-right>' +
 									'<label class="trans-innerHTML-array">' + arrayTitle[i] + '</label>' +
 								'</div>' +
-								'<div class="col-md-9">' +
+								'<div name="GeneralInformationView" class="col-md-9">' +
 									arrayContent[i] +
+								'</div>' +
+								'<div name="GeneralInformationEdit" class="col-md-9 hide">' +
+									'<div class="form-group">' +
+										'<input class="form-control" maxlength="255" value="' + arrayContent[i] + '" />' +
+									'</div>' +
 								'</div>' +
 							'</div>';
 					}
@@ -400,6 +433,34 @@ function loadContentOfModal(longModalId, loadingPage)
 	prepareLanguageSelection(true);
 	changeLanguage();
 	incrementViews(parseInt(modalId));
+}
+
+// editiert Bericht
+function buttonGeneralInformationEdit()
+{
+	$('#modalButtonBasicView').addClass('hide');
+	$('#modalButtonEditView').removeClass('hide');
+	$('[name=GeneralInformationView]').addClass('hide');
+	$('[name=GeneralInformationEdit]').removeClass('hide');
+	// Felder Bearbeitungsmodus
+}
+
+// speichert Bericht
+function buttonGeneralInformationConfirm()
+{
+	// DB update
+	// Array update
+	buttonGeneralInformationCancel();
+}
+
+// setzt Felder in Ausgangsstand zurück
+function buttonGeneralInformationCancel()
+{
+	$('#modalButtonBasicView').removeClass('hide');
+	$('#modalButtonEditView').addClass('hide');
+	$('[name=GeneralInformationView]').removeClass('hide');
+	$('[name=GeneralInformationEdit]').addClass('hide');
+	// Felder betrachtungsmodus
 }
 
 // löscht Bericht
