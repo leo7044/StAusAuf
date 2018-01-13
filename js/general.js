@@ -171,10 +171,10 @@ function incrementViews(element)
         data =
         {
             action: "incrementViews",
-            id: element
+            Id: element
         }
     }
 	$.ajaxSetup({async: false});
-	$.post('php/manageBackend.php', data);
+    $.post('php/manageBackend.php', data);
 	$.ajaxSetup({async: true});
 }

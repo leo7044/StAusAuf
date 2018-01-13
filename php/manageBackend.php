@@ -359,7 +359,7 @@ if (!$conn->connect_error)
 			else if (isset($_post['Id']))
 			{
 				$Id = $_post['Id'];
-				$conn->query("UPDATE `reports` SET `views`=`views`+1 WHERE `page`='$Id';");
+				$conn->query("UPDATE `reports` SET `views`=`views`+1 WHERE `Id`='$Id';");
 			}
 			break;
 		}

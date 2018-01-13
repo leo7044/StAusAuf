@@ -399,6 +399,7 @@ function loadContentOfModal(longModalId, loadingPage)
 	modal.innerHTML = modalContent;
 	prepareLanguageSelection(true);
 	changeLanguage();
+	incrementViews(parseInt(modalId));
 }
 
 // löscht Bericht
