@@ -498,6 +498,19 @@ function buttonGeneralInformationEdit()
 			'</div>' +
 		'</div>';
 	strHTML +=
+		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[4] + '</label>' +
+		'<div class="form-group">' +
+			'<div class="input-group">' +
+				'<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>' +
+				'<input class="form-control trans-placeholder" style="background: white;" name="daterange" id="daterange" placeholder="Travel-Period*" value="' + arrayContent[4] + '" readonly />' +
+				'<span class="input-group-addon">' +
+					'<a name="ToolTipDateRange" data-toggle="tooltip" data-placement="top" title="Please select startdate and enddate of your travel." class="trans-name-title">' +
+						'<i class="glyphicon glyphicon-question-sign"></i>' +
+					'</a>' +
+				'</span>' +
+			'</div>' +
+		'</div>';
+	strHTML +=
 		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[5] + '</label>' +
 		'<div class="form-group">' +
 			'<div class="input-group">' +
@@ -554,6 +567,7 @@ function buttonGeneralInformationEdit()
 			'*) required' +
 		'</div>';
 	$('#informationFieldsEdit')[0].innerHTML = strHTML;
+	initializeDateRangePicker();
 	changeLanguage();
 }
 
@@ -601,6 +615,25 @@ function closeModal()
 {
 	window.history.pushState('', '', '?');
 }
+
+// DateRangePicker
+function initializeDateRangePicker()
+{
+	$('#modalReport').scroll(function() {
+		$('.cancelBtn.btn.btn-danger').click();
+	}); 
+	$('input[name="daterange"]').daterangepicker({
+	"autoUpdateInput": false,
+	"format": 'DD.MM.YYYY',
+    "opens": "right", /* right means: it opens from left to right */
+	"buttonClasses": "btn",
+    "cancelClass": "btn-danger"
+	}, function(){
+		$('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
+			$(this).val(picker.startDate.format('DD.MM.YYYY') + ' - ' + picker.endDate.format('DD.MM.YYYY'));
+		});
+	});
+};
 
 // =============================================
 // für Übersetzungen
