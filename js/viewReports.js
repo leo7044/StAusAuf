@@ -472,6 +472,84 @@ function buttonGeneralInformationEdit()
 			'</div>' +
 		'</div>';
 	strHTML +=
+		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[1] + '</label>' +
+		'<div class="form-group">' +
+			'<div class="input-group">' +
+				'<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>' +
+				'<input class="form-control trans-placeholder" name="NickName" id="NickName" maxlength="255" placeholder="NickName (author of report)*" value="' + arrayContent[1] + '" required />' +
+				'<span class="input-group-addon">' +
+					'<a name="ToolTipNickName" data-toggle="tooltip" data-placement="top" title="Please enter a NickName. The NickName will be shown as author of your report." class="trans-name-title">' +
+						'<i class="glyphicon glyphicon-question-sign"></i>' +
+					'</a>' +
+				'</span>' +
+			'</div>' +
+		'</div>';
+	strHTML += // Überschrift falsch, durch Übersetzung -> wird automatisch richtig, wenn Land eingefügt
+		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[3] + '</label>' +
+		'<div class="form-group">' +
+			'<div class="input-group">' +
+				'<span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>' +
+				'<input class="form-control trans-placeholder" name="Input_City" id="Input_City" maxlength="255" placeholder="Destination-City*" value="' + arrayContent[3] + '" required />' +
+				'<span class="input-group-addon">' +
+					'<a name="ToolTipDestinationCity" data-toggle="tooltip" data-placement="top" title="Please enter your destination-city." class="trans-name-title">' +
+						'<i class="glyphicon glyphicon-question-sign"></i>' +
+					'</a>' +
+				'</span>' +
+			'</div>' +
+		'</div>';
+	strHTML +=
+		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[5] + '</label>' +
+		'<div class="form-group">' +
+			'<div class="input-group">' +
+				'<span class="input-group-addon"><i class="glyphicon glyphicon-thumbs-up"></i></span>' +
+				'<input class="form-control trans-placeholder" name="Input_Highlight" id="Input_Highlight" maxlength="255" placeholder="Your personal highlights*" value="' + arrayContent[5] + '" required />' +
+				'<span class="input-group-addon">' +
+					'<a name="ToolTipHighlight" data-toggle="tooltip" data-placement="top" title="Please enter your personal highlights." class="trans-name-title">' +
+						'<i class="glyphicon glyphicon-question-sign"></i>' +
+					'</a>' +
+				'</span>' +
+			'</div>' +
+		'</div>';
+	strHTML +=
+		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[6] + '</label>' +
+		'<div class="form-group">' +
+			'<div class="input-group">' +
+				'<span class="input-group-addon"><i class="glyphicon glyphicon-warning-sign"></i></span>' +
+				'<input class="form-control trans-placeholder" name="Input_Attention" id="Input_Attention" maxlength="255" placeholder="What must be considered?*" value="' + arrayContent[6] + '" required />' +
+				'<span class="input-group-addon">' +
+					'<a name="Input_Attention" data-toggle="tooltip" data-placement="top" title="What must be considered?" class="trans-name-title">' +
+						'<i class="glyphicon glyphicon-question-sign"></i>' +
+					'</a>' +
+				'</span>' +
+			'</div>' +
+		'</div>';
+	strHTML +=
+		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[7] + '</label>' +
+		'<div class="form-group">' +
+			'<div class="input-group">' +
+				'<span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>' +
+				'<input class="form-control trans-placeholder" name="Lecture" id="Lecture" maxlength="255" placeholder="Attended lectures" value="' + arrayContent[7] + '" />' +
+				'<span class="input-group-addon">' +
+					'<a name="ToolTipLecture" data-toggle="tooltip" data-placement="top" title="Please enter your attended lectures." class="trans-name-title">' +
+						'<i class="glyphicon glyphicon-question-sign"></i>' +
+					'</a>' +
+				'</span>' +
+			'</div>' +
+		'</div>';
+	strHTML +=
+		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[8] + '</label>' +
+		'<div class="form-group">' +
+			'<div class="input-group">' +
+				'<span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>' +
+				'<input class="form-control trans-placeholder" name="Internship" id="Internship" maxlength="255" placeholder="Attended internships" value="' + arrayContent[8] + '" />' +
+				'<span class="input-group-addon">' +
+					'<a name="ToolTipInternship" data-toggle="tooltip" data-placement="top" title="Please enter your attended internship." class="trans-name-title">' +
+						'<i class="glyphicon glyphicon-question-sign"></i>' +
+					'</a>' +
+				'</span>' +
+			'</div>' +
+		'</div>';
+	strHTML +=
 		'<div id="form-required" class="trans-innerHTML">' +
 			'*) required' +
 		'</div>';
@@ -494,6 +572,7 @@ function buttonGeneralInformationCancel()
 {
 	$('#modalButtonBasicView').removeClass('hide');
 	$('#modalButtonEditView').addClass('hide');
+	changeLanguage();
 	return false;
 }
 
