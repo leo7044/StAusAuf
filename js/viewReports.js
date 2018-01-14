@@ -492,9 +492,9 @@ function buttonGeneralInformationConfirm()
 // setzt Felder in Ausgangsstand zurück
 function buttonGeneralInformationCancel()
 {
-	// Felder betrachtungsmodus
 	$('#modalButtonBasicView').removeClass('hide');
 	$('#modalButtonEditView').addClass('hide');
+	return false;
 }
 
 // löscht Bericht
