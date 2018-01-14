@@ -261,7 +261,7 @@ function loadContentOfModal(longModalId, loadingPage)
 			modalBody +=
 				'<div id="modalButtonBasicView">' +
 					'<div class="form-group">' +
-						'<button type="button" class="btn btn-info" onclick="buttonGeneralInformationEdit();">' +
+						'<button type="button" class="btn btn-info" onclick="buttonGeneralInformationEdit(' + indexOfObjectInReportData + ');">' +
 							'<span class="glyphicon glyphicon-pencil"></span> <span id="Edit" class="trans-innerHTML">Edit</span>' +
 						'</button>' +
 					'</div>';
@@ -452,7 +452,7 @@ function fillInformationFieldsView()
 }
 
 // editiert Bericht
-function buttonGeneralInformationEdit()
+function buttonGeneralInformationEdit(indexOfObjectInReportData)
 {
 	$('#modalButtonBasicView').addClass('hide');
 	$('#modalButtonEditView').removeClass('hide');
@@ -484,7 +484,20 @@ function buttonGeneralInformationEdit()
 				'</span>' +
 			'</div>' +
 		'</div>';
-	strHTML += // Überschrift falsch, durch Übersetzung -> wird automatisch richtig, wenn Land eingefügt
+	strHTML +=
+		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[2] + '</label>' +
+		'<div class="form-group">' +
+			'<div class="input-group">' +
+				'<span class="input-group-addon"><i class="glyphicon glyphicon-flag"></i></span>' +
+				'<select class="form-control" id="dropDownListCountries" required></select>' +
+				'<span class="input-group-addon">' +
+					'<a name="ToolTipDestinationCountry" data-toggle="tooltip" data-placement="top" title="Please select your destination-country." class="trans-name-title">' +
+						'<i class="glyphicon glyphicon-question-sign"></i>' +
+					'</a>' +
+				'</span>' +
+			'</div>' +
+		'</div>';
+	strHTML +=
 		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[3] + '</label>' +
 		'<div class="form-group">' +
 			'<div class="input-group">' +
@@ -568,8 +581,19 @@ function buttonGeneralInformationEdit()
 		'</div>';
 	$('#informationFieldsEdit')[0].innerHTML = strHTML;
 	initializeDateRangePicker();
-	
+	getCountryData();
 	changeLanguage();
+	selectCorrectCountry(indexOfObjectInReportData);
+}
+
+// richtiges Land zu Beginn ausgewählt
+function selectCorrectCountry(id)
+{
+	$('#dropDownListCountries option[value=""]').remove();
+	$('#dropDownListCountries option').filter(function()
+	{
+		return $(this).val() == reportData[id].country;
+	}).prop('selected', true);
 }
 
 // speichert Bericht

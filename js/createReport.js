@@ -3,7 +3,6 @@
 var originalOwnEmail = '';
 var countryData = null;
 // var sortedCountryData = null;
-var currentSelectedCountry = '';
 var currentSelectedLanguage = '';
 // var msDropDownCountries = '';
 var affectedIdWhenUpload = '';
@@ -75,62 +74,6 @@ function initializeFileInput()
     });
 }
 
-// holt Country-Data aus einer externen API
-function getCountryData()
-{
-	$.ajaxSetup({async: false});
-	// $.get('https://restcountries.eu/rest/v2/all') // for less traffic but more dependency
-	$.post('js/countryApi.json') // in case extern API goes offline
-	.always(function(data)
-	{
-		countryData = data;
-	});
-	$.ajaxSetup({async: true});
-	createDropDownListCountries();
-}
-
-// sortiert dropDownList 
-function sortCountryList(dropDownList)
-{
-	$(dropDownList).html($(dropDownList).children('option').sort(function (x, y)
-	{
-		return $(x).text().toUpperCase() < $(y).text().toUpperCase() ? -1 : 1;
-	}));
-}
-
-// kreiert oder updatet die dropDownList der Länder
-function createDropDownListCountries(language)
-{
-	if (countryData)
-	{
-		language = language || '';
-		var numberCountries = countryData.length;
-		currentSelectedCountry = $('#dropDownListCountries').val();
-		$('#dropDownListCountries').empty();
-		for (var i = 0; i < numberCountries; i++)
-		{
-			if (language == 'br' || language == 'de' || language == 'es' || language == 'fa' || language == 'fr' || language == 'hr' || language == 'it' || language == 'ja' || language == 'nl' || language == 'pl')
-			{
-				$('#dropDownListCountries').append('<option value="' + countryData[i].alpha2Code +'">' + countryData[i].translations[language] + '</option>');
-			}
-			else
-			{
-				$('#dropDownListCountries').append('<option value="' + countryData[i].alpha2Code +'">' + countryData[i].name + '</option>');
-			}
-		}
-		sortCountryList('#dropDownListCountries');
-		// setFlagPictures();
-		setCurrentSelectedItem();
-	}
-	else
-	{
-		setTimeout(function()
-		{
-			createDropDownListCountries();
-		}, 1000);
-	}
-}
-
 // setzt die Flaggen in der DropDownList
 /*function setFlagPictures()
 {
@@ -141,24 +84,6 @@ function createDropDownListCountries(language)
 	}
 	$('#dropDownListCountries_child').children('ul').children('li').children('img').attr('width', 32);
 }*/
-
-// Auswahl bleibt bei Sprachenänderung erhalten
-function setCurrentSelectedItem()
-{
-	if (currentSelectedCountry == null || currentSelectedCountry == '')
-	{
-		var currentLanguageIndex = document.getElementById('language').selectedIndex;
-		var pleaseSelect = objectLanguages.DestinationCountry[currentLanguageIndex];
-		$('#dropDownListCountries').prepend('<option value="" selected="selected">' + pleaseSelect + '</option>');
-	}
-	else
-	{
-		$('#dropDownListCountries option').filter(function()
-		{
-			return $(this).val() == currentSelectedCountry;
-		}).prop('selected', true);
-	}
-}
 
 // DatePicker
 $(function() {
