@@ -4,6 +4,7 @@ var countryData = null;
 var reportData = null;
 var ownUser = new Array();
 var arrayTitle = new Array();
+var arrayTitleEdit = new Array();
 var arrayContent = new Array();
 
 $(document).ready(function()
@@ -232,6 +233,7 @@ function loadContentOfModal(longModalId, loadingPage)
 	var modal = document.getElementById('modalReport');
 	var currentLanguageIndex = document.getElementById('language').selectedIndex;
 	arrayTitle = objectLanguages.ArrayTitle[currentLanguageIndex];
+	arrayTitleEdit = objectLanguages.ArrayTitleEdit[currentLanguageIndex];
 	arrayContent = new Array(reportData[indexOfObjectInReportData].reportName,
 								reportData[indexOfObjectInReportData].nickName,
 								'<span id="OneReportCountry">' + getCountryInCorrectLanguage(indexOfObjectInReportData) + '</span>',
@@ -266,43 +268,33 @@ function loadContentOfModal(longModalId, loadingPage)
 		}
 	}
 		modalBody += '<h4 id="GeneralInformation" class="list-group-item-heading trans-innerHTML">General Information</h4>' +
-					'<p class="list-group-item-text">';
-						for (var i = 0; i < arrayTitle.length; i++)
-						{
-							modalBody +=
-								'<div class="row">' +
-									'<div class="col-md-3">' +
-										'<label class="trans-innerHTML-array">' + arrayTitle[i] + '</label>' +
-									'</div>' +
-									'<div class="col-md-9">' +
-										arrayContent[i] +
-									'</div>' +
-								'</div>';
-						}
-		modalBody +=
+					'<p class="list-group-item-text">' +
+						'<div id="informationFieldsView"></div>' +
 					'</p>' +
 				'</div>';
 		modalBody +=
-				'<div id="modalButtonEditView" class="hide">' +
-					'<div class="row">' +
-						'<div class="col-md-1"></div>' +
-						'<div class="col-md-11">' +
-							'<div class="form-group">' +
-								'<button type="button" class="btn btn-danger" onclick="buttonGeneralInformationCancel();">' +
-									'<span class="glyphicon glyphicon-remove"></span> <span id="Cancel" class="trans-innerHTML">Cancel</span>' +
-								'</button>&nbsp;' +
-								'<button type="button" class="btn btn-success" onclick="buttonGeneralInformationConfirm();">' +
-									'<span class="glyphicon glyphicon-ok"></span> <span id="Confirm" class="trans-innerHTML">Confirm</span>' +
-								'</button>' +
+				'<form method="post" action="" id="formModalGeneralInformationEdit" name="formModalGeneralInformationEdit" onsubmit="return buttonGeneralInformationConfirm()">' +
+					'<div id="modalButtonEditView" class="hide">' +
+						'<div class="row">' +
+							'<div class="col-md-1"></div>' +
+							'<div class="col-md-11">' +
+								'<div class="form-group">' +
+									'<button type="button" class="btn btn-danger" onclick="return buttonGeneralInformationCancel();">' +
+										'<span class="glyphicon glyphicon-remove"></span> <span id="Cancel" class="trans-innerHTML">Cancel</span>' +
+									'</button>&nbsp;' +
+									'<button type="submit" class="btn btn-success">' +
+										'<span class="glyphicon glyphicon-ok"></span> <span id="Confirm" class="trans-innerHTML">Confirm</span>' +
+									'</button>' +
+								'</div>' +
 							'</div>' +
 						'</div>' +
+						'<h4 id="GeneralInformation" class="list-group-item-heading trans-innerHTML">General Information</h4>' +
+						'<p class="list-group-item-text">' +
+						'<div id="informationFieldsEdit"></div>';
+			modalBody +=
+						'</p>' +
 					'</div>' +
-					'<h4 id="GeneralInformation" class="list-group-item-heading trans-innerHTML">General Information</h4>' +
-					'<p class="list-group-item-text">' +
-					'<div id="informationFields"></div>';
-		modalBody +=
-					'</p>' +
-				'</div>' +
+				'</form>' +
 			'</a>' +
 		'</div>';
 	if (pictureData[modalId][0].toString() != '')
@@ -435,8 +427,28 @@ function loadContentOfModal(longModalId, loadingPage)
 			'</div>';
 	modal.innerHTML = modalContent;
 	prepareLanguageSelection(true);
+	fillInformationFieldsView();
 	changeLanguage();
 	incrementViews(parseInt(modalId));
+}
+
+// befüllt generelle Informationen in der Betrachtungsebene
+function fillInformationFieldsView()
+{
+	var strHTML = '';
+	for (var i = 0; i < arrayTitle.length; i++)
+	{
+		strHTML +=
+			'<div class="row">' +
+				'<div class="col-md-3">' +
+					'<label class="trans-innerHTML-array">' + arrayTitle[i] + '</label>' +
+				'</div>' +
+				'<div class="col-md-9">' +
+					arrayContent[i] +
+				'</div>' +
+			'</div>';
+	}
+	$('#informationFieldsView')[0].innerHTML = strHTML;
 }
 
 // editiert Bericht
@@ -446,15 +458,24 @@ function buttonGeneralInformationEdit()
 	$('#modalButtonEditView').removeClass('hide');
 	// Felder Bearbeitungsmodus
 	var strHTML = '';
-	for (var i = 0; i < arrayTitle.length; i++)
-	{
-		strHTML +=
-			'<div class="form-group">' +
-				'<label class="trans-innerHTML-array">' + arrayTitle[i] + '</label>' +
-				'<input class="form-control" value="' + arrayContent[i] +'" />' +
-			'</div>';
-	}
-	$('#informationFields')[0].innerHTML = strHTML;
+	strHTML +=
+		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[0] + '</label>' +
+		'<div class="form-group">' +
+			'<div class="input-group">' +
+				'<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>' +
+				'<input class="form-control trans-placeholder" name="ReportName" id="ReportName" maxlength="255" placeholder="Title of report*" value="' + arrayContent[0] + '" required />' +
+				'<span class="input-group-addon">' +
+					'<a name="ToolTipReportName" data-toggle="tooltip" data-placement="top" title="Please enter a title for your report." class="trans-name-title">' +
+						'<i class="glyphicon glyphicon-question-sign"></i>' +
+					'</a>' +
+				'</span>' +
+			'</div>' +
+		'</div>';
+	strHTML +=
+		'<div id="form-required" class="trans-innerHTML">' +
+			'*) required' +
+		'</div>';
+	$('#informationFieldsEdit')[0].innerHTML = strHTML;
 	changeLanguage();
 }
 
@@ -463,15 +484,17 @@ function buttonGeneralInformationConfirm()
 {
 	// DB update
 	// Array update
+	fillInformationFieldsView();
 	buttonGeneralInformationCancel();
+	return false;
 }
 
 // setzt Felder in Ausgangsstand zurück
 function buttonGeneralInformationCancel()
 {
+	// Felder betrachtungsmodus
 	$('#modalButtonBasicView').removeClass('hide');
 	$('#modalButtonEditView').addClass('hide');
-	// Felder betrachtungsmodus
 }
 
 // löscht Bericht

@@ -123,7 +123,11 @@ function translateEachElement(currentLanguageIndex)
     }
     for (var i = 0; i < $('.trans-innerHTML-array').length; i++)
     {
-        $('.trans-innerHTML-array')[i].innerHTML = objectLanguages.ArrayTitle[currentLanguageIndex][i%9];
+        $('.trans-innerHTML-array')[i].innerHTML = objectLanguages.ArrayTitle[currentLanguageIndex][i];
+    }
+    for (var i = 0; i < $('.trans-innerHTML-arrayEdit').length; i++)
+    {
+        $('.trans-innerHTML-arrayEdit')[i].innerHTML = objectLanguages.ArrayTitleEdit[currentLanguageIndex][i];
     }
     for (var i = 0; i < $('.trans-name-placeholder').length; i++)
     {

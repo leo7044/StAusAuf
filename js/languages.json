@@ -44,6 +44,31 @@
 			"Absolvierte Praktika: "
 		]
 	],
+	"ArrayTitleEdit":
+	[
+		[
+			"Title of report*",
+			"Author*",
+			"Country*",
+			"City*",
+			"Travel-Period*",
+			"Highlights*",
+			"Pay attention for*",
+			"Attended lectures",
+			"Attended internships"
+		],
+		[
+			"Titel des Berichts*",
+			"Autor*",
+			"Land*",
+			"Stadt*",
+			"Reisezeitraum*",
+			"Höhepunkte*",
+			"Wichtige Hinweise*",
+			"Besuchte Vorlesungen",
+			"Absolvierte Praktika"
+		]
+	],
 
 	"HeaderAdmin":["Adminpanel","Administrative Verwaltung"],
 	"Logout":["Logout","Ausloggen"],
