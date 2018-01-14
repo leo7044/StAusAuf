@@ -568,6 +568,7 @@ function buttonGeneralInformationEdit()
 		'</div>';
 	$('#informationFieldsEdit')[0].innerHTML = strHTML;
 	initializeDateRangePicker();
+	
 	changeLanguage();
 }
 
@@ -619,9 +620,6 @@ function closeModal()
 // DateRangePicker
 function initializeDateRangePicker()
 {
-	$('#modalReport').scroll(function() {
-		$('.cancelBtn.btn.btn-danger').click();
-	}); 
 	$('input[name="daterange"]').daterangepicker({
 	"autoUpdateInput": false,
 	"format": 'DD.MM.YYYY',
@@ -632,6 +630,12 @@ function initializeDateRangePicker()
 		$('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
 			$(this).val(picker.startDate.format('DD.MM.YYYY') + ' - ' + picker.endDate.format('DD.MM.YYYY'));
 		});
+	});
+	$('#modalReport').scroll(function() {
+		if ($('.daterangepicker')[0].style.cssText.indexOf('block') != -1)
+		{
+			$('.cancelBtn.btn.btn-danger').click();
+		}
 	});
 };
 
