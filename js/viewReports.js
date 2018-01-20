@@ -2,6 +2,7 @@
 var pictureData = null;
 var countryData = null;
 var reportData = null;
+var reportDataOriginal = null;
 var ownUser = new Array();
 var arrayTitle = new Array();
 var arrayTitleEdit = new Array();
@@ -35,15 +36,6 @@ function getOwnUser()
 	});
 	$.ajaxSetup({async: true});
 }
-
-// fällt das ownUserArray falls kein Login existiert
-/* function prepareUserIfNoLogin()
-{
-	ownUser[0] = new Object();
-	ownUser[0]['Id'] = 0;
-	ownUser[0]['MemberRole'] = 'noLogin';
-	ownUser[0]['UserName'] = 'noLogin';
-} */
 
 // erstellt Id-Array um ArrayId und RealId zu suchen
 function createIdArray()
@@ -107,9 +99,50 @@ function getReportData()
 	$.post('php/manageBackend.php', data)
 	.always(function(data)
 	{
-		reportData = data;
+		reportDataOriginal = reportData = data;
 	});
 	$.ajaxSetup({async: true});
+}
+
+// verändert die ReportDaten, wenn gesucht wird oder gesucht wurde
+function prepareReportData()
+{
+	var searchStr = $('#SearchReport')[0].value;
+	reportData = Array();
+	var i = 0;
+	for (var key in reportDataOriginal)
+	{
+		if (proveIfSearchStringExists(key, searchStr))
+		{
+			reportData[i] = reportDataOriginal[key];
+			i++;
+		}
+	}
+	window.history.pushState('', '', '?');
+	getGetParas();
+	createIdArray();
+	fillReportTable();
+	changeLanguage();
+}
+
+// iteriert durch ReportStrings und sucht nach String
+function proveIfSearchStringExists(indexOfReport, searchStr)
+{
+	var longStr = '';
+	for (var key in reportDataOriginal[indexOfReport])
+	{
+		if (key == 'country')
+		{
+			longStr += getCountryInCorrectLanguage(indexOfReport, 'originalData');
+		}
+		longStr += reportDataOriginal[indexOfReport][key];
+	}
+	var returnValue = false;
+	if (longStr.toLowerCase().indexOf(searchStr.toLowerCase()) != -1)
+	{
+		returnValue = true;
+	}
+	return returnValue;
 }
 
 // fällt die ReportTable beim onLoad
@@ -162,6 +195,7 @@ function fillReportTable()
 					strHtml += '</a>';
 					strHtml += '<br/>' + reportData[i].reportName + ' (' + reportData[i].nickName + ')';
 					strHtml += '<br/><span name="ReportCountry">' + getCountryInCorrectLanguage(i) + '</span>';
+					strHtml += '<br/><span id="Views" class="trans-innerHTML">Views</span>: ' + reportData[i].views;
 					strHtml += '</center>'
 					strHtml += '</div>';
 					break;
@@ -181,6 +215,7 @@ function fillReportTable()
 					strHtml += '<br/>' + reportData[i].reportName + ' (' + reportData[i].nickName + ')';
 					var indexOfCountry = $.inArray(reportData[i].country, countryIso);
 					strHtml += '<br/><span name="ReportCountry">' + getCountryInCorrectLanguage(i) + '</span>';
+					strHtml += '<br/><span id="Views" class="trans-innerHTML">Views</span>: ' + reportData[i].views;
 					strHtml += '</center>'
 					strHtml += '</div>';
 					break;
@@ -200,6 +235,7 @@ function fillReportTable()
 					strHtml += '<br/>' + reportData[i].reportName + ' (' + reportData[i].nickName + ')';
 					var indexOfCountry = $.inArray(reportData[i].country, countryIso);
 					strHtml += '<br/><span name="ReportCountry">' + getCountryInCorrectLanguage(i) + '</span>';
+					strHtml += '<br/><span id="Views" class="trans-innerHTML">Views</span>: ' + reportData[i].views;
 					strHtml += '</center>'
 					strHtml += '</div>';
 					strHtml += '</div><br/><br/>';
@@ -230,7 +266,8 @@ function loadContentOfModal(longModalId, loadingPage)
 	var modalId = longModalId.substr(6, LengthLongModalId); // 'modal_' muss abgeschnitten werden
 	window.history.pushState('', '', '?Id=' + modalId);
 	var indexOfObjectInReportData = $.inArray(modalId, idArray); // auf welches Objekt in den ReportData muss zugegriffen werden
-	var modal = document.getElementById('modalReport');
+	incrementViews(parseInt(modalId));
+	reportData[indexOfObjectInReportData].views = parseInt(reportData[indexOfObjectInReportData].views) + 1;
 	var currentLanguageIndex = document.getElementById('language').selectedIndex;
 	arrayTitle = objectLanguages.ArrayTitle[currentLanguageIndex];
 	arrayTitleEdit = objectLanguages.ArrayTitleEdit[currentLanguageIndex];
@@ -242,85 +279,78 @@ function loadContentOfModal(longModalId, loadingPage)
 								reportData[indexOfObjectInReportData].highlight,
 								reportData[indexOfObjectInReportData].attention,
 								reportData[indexOfObjectInReportData].lecture,
-								reportData[indexOfObjectInReportData].internship);
-	var modalBody =
-		'<div class="row">' +
-			'<div class="col-md-9"></div>' +
-			'<div class="col-md-3">' +
-				'<div class="form-group">' +
-					'<select class="form-control" id="languageModal" onchange="changeLanguage(this.selectedIndex);"></select>' +
-				'</div>' +
-			'</div>' +
-		'</div>' +
-		'<div class="list-group">' +
-			'<a class="list-group-item">';
+								reportData[indexOfObjectInReportData].internship,
+								reportData[indexOfObjectInReportData].views);
+	var strHtml =
+		'<div id="modalButtonBasicView">';
 	if (ownUser[0] != undefined)
 	{
 		if (ownUser[0].MemberRole >= 1 || ownUser[0].Id == reportData[indexOfObjectInReportData].userId)
 		{
-			modalBody +=
-				'<div id="modalButtonBasicView">' +
-					'<div class="form-group">' +
-						'<button type="button" class="btn btn-info" onclick="buttonGeneralInformationEdit(' + indexOfObjectInReportData + ');">' +
-							'<span class="glyphicon glyphicon-pencil"></span> <span id="Edit" class="trans-innerHTML">Edit</span>' +
-						'</button>' +
-					'</div>';
+			strHtml +=
+			'<div class="form-group">' +
+				'<button type="button" class="btn btn-info" onclick="buttonGeneralInformationEdit(' + indexOfObjectInReportData + ');">' +
+					'<span class="glyphicon glyphicon-pencil"></span> <span id="Edit" class="trans-innerHTML">Edit</span>' +
+				'</button>' +
+			'</div>';
 		}
 	}
-		modalBody += '<h4 id="GeneralInformation" class="list-group-item-heading trans-innerHTML">General Information</h4>' +
-					'<p class="list-group-item-text">' +
-						'<div id="informationFieldsView"></div>' +
-					'</p>' +
-				'</div>';
-		modalBody +=
-				'<form method="post" action="" id="formModalGeneralInformationEdit" name="formModalGeneralInformationEdit" onsubmit="return buttonGeneralInformationConfirm()">' +
-					'<div id="modalButtonEditView" class="hide">' +
-						'<div class="row">' +
-							'<div class="col-md-1"></div>' +
-							'<div class="col-md-11">' +
-								'<div class="form-group">' +
-									'<button type="button" class="btn btn-danger" onclick="return buttonGeneralInformationCancel();">' +
-										'<span class="glyphicon glyphicon-remove"></span> <span id="Cancel" class="trans-innerHTML">Cancel</span>' +
-									'</button>&nbsp;' +
-									'<button type="submit" class="btn btn-success">' +
-										'<span class="glyphicon glyphicon-ok"></span> <span id="Confirm" class="trans-innerHTML">Confirm</span>' +
-									'</button>' +
-								'</div>' +
-							'</div>' +
-						'</div>' +
-						'<h4 id="GeneralInformation" class="list-group-item-heading trans-innerHTML">General Information</h4>' +
-						'<p class="list-group-item-text">' +
-						'<div id="informationFieldsEdit"></div>';
-			modalBody +=
-						'</p>' +
-					'</div>' +
-				'</form>' +
-			'</a>' +
+	strHtml +=
+			'<h4 id="GeneralInformation" class="list-group-item-heading trans-innerHTML">General Information</h4>' +
+			'<p class="list-group-item-text">' +
+				'<div id="informationFieldsView"></div>' +
+			'</p>' +
 		'</div>';
+	strHtml +=
+		'<form method="post" action="" name="formModalGeneralInformationEdit" onsubmit="return buttonGeneralInformationConfirm(' + modalId + ', ' + reportData[indexOfObjectInReportData].userId + ')">' +
+			'<div id="modalButtonEditView" class="hide">' +
+				'<div class="row">' +
+					'<div class="col-md-1"></div>' +
+					'<div class="col-md-11">' +
+						'<div class="form-group">' +
+							'<button type="button" class="btn btn-danger" onclick="return buttonGeneralInformationCancel();">' +
+								'<span class="glyphicon glyphicon-remove"></span> <span id="Cancel" class="trans-innerHTML">Cancel</span>' +
+							'</button>&nbsp;' +
+							'<button type="submit" class="btn btn-success">' +
+								'<span class="glyphicon glyphicon-ok"></span> <span id="Confirm" class="trans-innerHTML">Confirm</span>' +
+							'</button>' +
+						'</div>' +
+					'</div>' +
+				'</div>' +
+				'<h4 id="GeneralInformation" class="list-group-item-heading trans-innerHTML">General Information</h4>' +
+				'<p class="list-group-item-text">' +
+					'<div id="informationFieldsEdit"></div>' +
+				'</p>' +
+			'</div>' +
+		'</form>';
+	$('#ModalListItemGroupGeneralInformation')[0].innerHTML = strHtml;
+	strHtml = '';
 	if (pictureData[modalId][0].toString() != '')
 	{
-		modalBody +=
-			'<div class="list-group">' +
-				'<div class="list-group-item">' +
-					'<h4 id="TitlePicture" class="list-group-item-heading trans-innerHTML">Title Picture</h4>' +
-					'<p class="list-group-item-text">';
+		strHtml +=
+			'<h4 id="TitlePicture" class="list-group-item-heading trans-innerHTML">Title Picture</h4>' +
+			'<p class="list-group-item-text">';
 		var picUrl = pictureData[modalId][0].toString();
 		var pfadToTitlePicThumb = 'img_upload/' + modalId + '/thumb_Title/' + picUrl;
 		var pfadToTitlePicBig = 'img_upload/' + modalId + '/big_Title/' + picUrl;
-		modalBody += '<a href="' + pfadToTitlePicBig + '" rel="lightbox" title="' + picUrl + '">' +
-						'<img src="' + pfadToTitlePicThumb + '" class="picture-size-small">' +
-					'</a>';
-		modalBody += '</p>' +
+		strHtml +=
+				'<a href="' + pfadToTitlePicBig + '" rel="lightbox" title="' + picUrl + '">' +
+					'<img src="' + pfadToTitlePicThumb + '" class="picture-size-small">' +
 				'</a>' +
-			'</div><br/>';
+			'</p>';
+		$('#ModalListItemGroupTitlePicture').removeClass('hide');
 	}
+	else
+	{
+		$('#ModalListItemGroupTitlePicture').addClass('hide');
+	}
+	$('#ModalListItemGroupTitlePicture')[0].innerHTML = strHtml;
+	strHtml = '';
 	if (pictureData[modalId][3].toString() != '')
 	{
-		modalBody +=
-			'<div class="list-group">' +
-				'<div class="list-group-item">' +
-					'<h4 id="PictureGallery" class="list-group-item-heading trans-innerHTML">Picture Gallery</h4>' +
-					'<p class="list-group-item-text">';
+		strHtml +=
+			'<h4 id="PictureGallery" class="list-group-item-heading trans-innerHTML">Picture Gallery</h4>' +
+			'<p class="list-group-item-text">';
 		var lastColumn = 0;
 		for (var i = 0; i < pictureData[modalId][3].length; i++)
 		{
@@ -334,40 +364,44 @@ function loadContentOfModal(longModalId, loadingPage)
 			{
 				case 0:
 				{
-					modalBody += '<div class="row">' +
-									'<div class="col-md-3">' +
-										'<a href="' + pfadToGalleryPicBig + '" rel="lightbox" title="' + picUrl + '">' +
-											'<img src="' + pfadToGalleryPicThumb + '" class="picture-size-small">' +
-										'</a>' +
-									'</div>';
+					strHtml +=
+				'<div class="row">' +
+					'<div class="col-md-3">' +
+						'<a href="' + pfadToGalleryPicBig + '" rel="lightbox" title="' + picUrl + '">' +
+							'<img src="' + pfadToGalleryPicThumb + '" class="picture-size-small">' +
+						'</a>' +
+					'</div>';
 					break;
 				}
 				case 1:
 				{
-					modalBody += '<div class="col-md-3">' +
-									'<a href="' + pfadToGalleryPicBig + '" rel="lightbox" title="' + picUrl + '">' +
-										'<img src="' + pfadToGalleryPicThumb + '" class="picture-size-small">' +
-									'</a>' +
-								'</div>';
+					strHtml +=
+					'<div class="col-md-3">' +
+						'<a href="' + pfadToGalleryPicBig + '" rel="lightbox" title="' + picUrl + '">' +
+							'<img src="' + pfadToGalleryPicThumb + '" class="picture-size-small">' +
+						'</a>' +
+					'</div>';
 					break;
 				}
 				case 2:
 				{
-					modalBody += '<div class="col-md-3">' +
-									'<a href="' + pfadToGalleryPicBig + '" rel="lightbox" title="' + picUrl + '">' +
-										'<img src="' + pfadToGalleryPicThumb + '" class="picture-size-small">' +
-									'</a>' +
-								'</div>';
+					strHtml +=
+					'<div class="col-md-3">' +
+						'<a href="' + pfadToGalleryPicBig + '" rel="lightbox" title="' + picUrl + '">' +
+							'<img src="' + pfadToGalleryPicThumb + '" class="picture-size-small">' +
+						'</a>' +
+					'</div>';
 					break;
 				}
 				case 3:
 				{
-					modalBody += '<div class="col-md-3">' +
-									'<a href="' + pfadToGalleryPicBig + '" rel="lightbox" title="' + picUrl + '">' +
-										'<img src="' + pfadToGalleryPicThumb + '" class="picture-size-small">' +
-									'</a>' +
-								'</div>' +
-							'</div>';
+					strHtml +=
+					'<div class="col-md-3">' +
+						'<a href="' + pfadToGalleryPicBig + '" rel="lightbox" title="' + picUrl + '">' +
+							'<img src="' + pfadToGalleryPicThumb + '" class="picture-size-small">' +
+						'</a>' +
+					'</div>' +
+				'</div>';
 					break;
 				}
 				default:
@@ -376,69 +410,58 @@ function loadContentOfModal(longModalId, loadingPage)
 		}
 		if (lastColumn != 3)
 		{
-			modalBody += '</div>';
+			strHtml += '</div>';
 		}
-		modalBody += '</p>' +
-				'</a>' +
-			'</div><br/>';
+		strHtml += '</p>';
+		$('#ModalListItemGroupGallery').removeClass('hide');
 	}
-	modalBody +=
-		'<div class="list-group">' +
-			'<div class="list-group-item">' +
-				'<h4 id="Comment" class="list-group-item-heading trans-innerHTML">Comment</h4>' +
-				'<p class="list-group-item-text">' +
-					reportData[indexOfObjectInReportData].commentBox +
-				'</p>' +
-			'</div>' +
-		'</div>';
-	// modalBody = 'This is our modalId: ' + modalId;
-	var modalContent =
-			'<div class="modal-dialog modal-lg" role="document">' + 
-				'<div class="modal-content">' +
-					'<div class="modal-header">' +
-						'<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModal();"><span aria-hidden="true">&times;</span></button>' +
-					'</div>' +
-					'<div class="modal-body">';
-					if (loadingPage)
-					{
-						modalContent += '<div class="alert alert-success alert-dismissable fade in">' +
-											'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><span id="ReportSaved" class="trans-innerHTML">Your report has been successfully saved.</span>' +
-										'</div>';
-					}
-					modalContent += modalBody +
-					'</div>' +
-					'<div class="modal-footer">' +
-						'<div class="form-group">';
-					if (ownUser[0] != undefined)
-					{
-						if (ownUser[0].MemberRole >= 1)
-						{
-							modalContent += '<button type="button" class="btn btn-danger pull-left" onclick="deleteReport(' + modalId + ');">' +
-									'<span class="glyphicon glyphicon glyphicon-remove-sign"></span> <span id="DeleteReport" class="trans-innerHTML">Delete Report</span>' +
-								'</button>';
-						}
-					}
-					modalContent += '<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="closeModal();">' +
-								'<span class="glyphicon glyphicon glyphicon-ok-sign"></span> <span id="Close" class="trans-innerHTML">Close</span>' +
-							'</button>' +
-						'</div>' +
-					'</div>' +
-				'</div>' +
-			'</div>';
-	modal.innerHTML = modalContent;
+	else
+	{
+		$('#ModalListItemGroupGallery').addClass('hide');
+	}
+	$('#ModalListItemGroupGallery')[0].innerHTML = strHtml;
+	$('#ModalComment')[0].innerHTML = reportData[indexOfObjectInReportData].commentBox;
+	strHtml = '';
+	if (ownUser[0] != undefined)
+	{
+		if (ownUser[0].MemberRole >= 1 || ownUser[0].Id == reportData[indexOfObjectInReportData].userId)
+		{
+			strHtml +=
+				'<button type="button" class="btn btn-danger pull-left" onclick="deleteReport(' + modalId + ', ' + indexOfObjectInReportData + ');">' +
+					'<span class="glyphicon glyphicon glyphicon-remove-sign"></span> <span id="DeleteReport" class="trans-innerHTML">Delete Report</span>' +
+				'</button>';
+		}
+	}
+	strHtml +=
+		'<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="closeModal();">' +
+			'<span class="glyphicon glyphicon glyphicon-ok-sign"></span> <span id="Close" class="trans-innerHTML">Close</span>' +
+		'</button>';
+	$('#ModalFooterFormGroup')[0].innerHTML = strHtml;
+	if (loadingPage)
+	{
+		$('#ModalSuccessAlert').removeClass('hide');
+	}
 	prepareLanguageSelection(true);
 	fillInformationFieldsView();
 	changeLanguage();
-	incrementViews(parseInt(modalId));
 }
 
 // befüllt generelle Informationen in der Betrachtungsebene
 function fillInformationFieldsView()
 {
-	var strHTML = '';
+	var strHtml = '';
+	strHtml +=
+		'<div id="successAlertUpdateReport" class="alert alert-success alert-dismissable fade in hide">' +
+			'<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>' +
+			'<span id="ReportUpdated" class="trans-innerHTML">Your report has been successfully updated.</span>' +
+		'</div>' +
+		'<div id="noChangeAlertUpdateReport" class="alert alert-warning alert-dismissable fade in hide">' +
+			'<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>' +
+			'<span id="ReportNoChange" class="trans-innerHTML">No changes were made.</span>' +
+		'</div>';
 	for (var i = 0; i < arrayTitle.length; i++)
 	{
-		strHTML +=
+		strHtml +=
 			'<div class="row">' +
 				'<div class="col-md-3">' +
 					'<label class="trans-innerHTML-array">' + arrayTitle[i] + '</label>' +
@@ -448,7 +471,7 @@ function fillInformationFieldsView()
 				'</div>' +
 			'</div>';
 	}
-	$('#informationFieldsView')[0].innerHTML = strHTML;
+	$('#informationFieldsView')[0].innerHTML = strHtml;
 }
 
 // editiert Bericht
@@ -457,8 +480,8 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 	$('#modalButtonBasicView').addClass('hide');
 	$('#modalButtonEditView').removeClass('hide');
 	// Felder Bearbeitungsmodus
-	var strHTML = '';
-	strHTML +=
+	var strHtml = '';
+	strHtml +=
 		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[0] + '</label>' +
 		'<div class="form-group">' +
 			'<div class="input-group">' +
@@ -471,7 +494,7 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 				'</span>' +
 			'</div>' +
 		'</div>';
-	strHTML +=
+	strHtml +=
 		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[1] + '</label>' +
 		'<div class="form-group">' +
 			'<div class="input-group">' +
@@ -484,12 +507,12 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 				'</span>' +
 			'</div>' +
 		'</div>';
-	strHTML +=
+	strHtml +=
 		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[2] + '</label>' +
 		'<div class="form-group">' +
 			'<div class="input-group">' +
 				'<span class="input-group-addon"><i class="glyphicon glyphicon-flag"></i></span>' +
-				'<select class="form-control" id="dropDownListCountries" required></select>' +
+				'<select class="form-control" name="dropDownListCountries" id="dropDownListCountries" required></select>' +
 				'<span class="input-group-addon">' +
 					'<a name="ToolTipDestinationCountry" data-toggle="tooltip" data-placement="top" title="Please select your destination-country." class="trans-name-title">' +
 						'<i class="glyphicon glyphicon-question-sign"></i>' +
@@ -497,7 +520,7 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 				'</span>' +
 			'</div>' +
 		'</div>';
-	strHTML +=
+	strHtml +=
 		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[3] + '</label>' +
 		'<div class="form-group">' +
 			'<div class="input-group">' +
@@ -510,7 +533,7 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 				'</span>' +
 			'</div>' +
 		'</div>';
-	strHTML +=
+	strHtml +=
 		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[4] + '</label>' +
 		'<div class="form-group">' +
 			'<div class="input-group">' +
@@ -523,7 +546,7 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 				'</span>' +
 			'</div>' +
 		'</div>';
-	strHTML +=
+	strHtml +=
 		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[5] + '</label>' +
 		'<div class="form-group">' +
 			'<div class="input-group">' +
@@ -536,7 +559,7 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 				'</span>' +
 			'</div>' +
 		'</div>';
-	strHTML +=
+	strHtml +=
 		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[6] + '</label>' +
 		'<div class="form-group">' +
 			'<div class="input-group">' +
@@ -549,7 +572,7 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 				'</span>' +
 			'</div>' +
 		'</div>';
-	strHTML +=
+	strHtml +=
 		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[7] + '</label>' +
 		'<div class="form-group">' +
 			'<div class="input-group">' +
@@ -562,7 +585,7 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 				'</span>' +
 			'</div>' +
 		'</div>';
-	strHTML +=
+	strHtml +=
 		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[8] + '</label>' +
 		'<div class="form-group">' +
 			'<div class="input-group">' +
@@ -575,11 +598,11 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 				'</span>' +
 			'</div>' +
 		'</div>';
-	strHTML +=
+	strHtml +=
 		'<div id="form-required" class="trans-innerHTML">' +
 			'*) required' +
 		'</div>';
-	$('#informationFieldsEdit')[0].innerHTML = strHTML;
+	$('#informationFieldsEdit')[0].innerHTML = strHtml;
 	initializeDateRangePicker();
 	getCountryData();
 	changeLanguage();
@@ -596,34 +619,75 @@ function selectCorrectCountry(id)
 	}).prop('selected', true);
 }
 
-// speichert Bericht
-function buttonGeneralInformationConfirm()
+// speichert Bericht in aktualisierter Form
+function buttonGeneralInformationConfirm(id, userIdOfReport)
 {
-	// DB update
-	// Array update
-	fillInformationFieldsView();
-	buttonGeneralInformationCancel();
-	return false;
+	var data =
+	{
+		action: "updateReport",
+		userIdOfReport: userIdOfReport,
+		reportId: id,
+		ReportName: document.formModalGeneralInformationEdit.ReportName.value,
+		NickName: document.formModalGeneralInformationEdit.NickName.value,
+		dropDownListCountries: document.formModalGeneralInformationEdit.dropDownListCountries.value,
+		Input_City: document.formModalGeneralInformationEdit.Input_City.value,
+		daterange: document.formModalGeneralInformationEdit.daterange.value,
+		Input_Highlight: document.formModalGeneralInformationEdit.Input_Highlight.value,
+		Input_Attention: document.formModalGeneralInformationEdit.Input_Attention.value,
+		Lecture: document.formModalGeneralInformationEdit.Lecture.value,
+		Internship: document.formModalGeneralInformationEdit.Internship.value
+	}
+	var success = false;
+	$.ajaxSetup({async: false});
+	$.post('php/manageBackend.php', data)
+	.always(function(data)
+	{
+		if (data.responseText == 'Update erfolgreich')
+		{
+			success = true;
+		}
+	});
+	$.ajaxSetup({async: true});
+	getReportData();
+	createIdArray();
+	fillReportTable();
+	buttonGeneralInformationCancel(success);
 }
 
 // setzt Felder in Ausgangsstand zurück
-function buttonGeneralInformationCancel()
+function buttonGeneralInformationCancel(success)
 {
 	$('#modalButtonBasicView').removeClass('hide');
 	$('#modalButtonEditView').addClass('hide');
+	if (success)
+	{
+		$('#successAlertUpdateReport').removeClass('hide');
+		$('#noChangeAlertUpdateReport').addClass('hide');
+	}
+	else if (success == false)
+	{
+		$('#successAlertUpdateReport').addClass('hide');
+		$('#noChangeAlertUpdateReport').removeClass('hide');
+	}
+	else
+	{
+		$('#successAlertUpdateReport').addClass('hide');
+		$('#noChangeAlertUpdateReport').addClass('hide');
+	}
 	changeLanguage();
 	return false;
 }
 
 // löscht Bericht
-function deleteReport(Id)
+function deleteReport(Id, indexOfObjectInReportData)
 {
 	if (confirm('Are you sure you want to delete this report?'))
 	{
 		var data =
 		{
 			action: "deleteReport",
-			reportIdToDelete: Id
+			reportIdToDelete: Id,
+			userIdOfReport: reportData[indexOfObjectInReportData].userId
 		}
 		$.ajaxSetup({async: false});
 		$.post('php/manageBackend.php', data);
@@ -632,6 +696,7 @@ function deleteReport(Id)
 		createIdArray();
 		fillReportTable();
 		$("#modalReport").modal("hide");
+		window.history.pushState('', '', '?');
 	}
 }
 
@@ -639,6 +704,9 @@ function deleteReport(Id)
 function closeModal()
 {
 	window.history.pushState('', '', '?');
+	getReportData();
+	prepareReportData();
+	changeLanguage();
 }
 
 // DateRangePicker
@@ -668,10 +736,18 @@ function initializeDateRangePicker()
 // =============================================
 
 // liefert den Ländernamen in der richtigen Sprache zurück
-function getCountryInCorrectLanguage(id)
+function getCountryInCorrectLanguage(id, additionalString)
 {
 	var strHtml = '';
-	var indexOfCountry = $.inArray(reportData[id].country, countryIso);
+	var indexOfCountry = 0;
+	if (additionalString != 'originalData')
+	{
+		indexOfCountry = $.inArray(reportData[id].country, countryIso);
+	}
+	else
+	{
+		indexOfCountry = $.inArray(reportDataOriginal[id].country, countryIso);
+	}
 	var currentLanguageIndex = $('#language')[0].selectedIndex;
 	if (currentLanguageIndex)
 	{

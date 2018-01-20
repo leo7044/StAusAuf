@@ -245,14 +245,44 @@ if (!$conn->connect_error)
 			break;
 		}
 		// Admin
+		case 'updateReport':
+		{
+			$Id = $_SESSION['StAusAuf_Id'];
+			$userIdOfReport = $_post['userIdOfReport'];
+			setMemberRole($conn);
+			if ($_SESSION['StAusAuf_memberRole'] >= 1 || $userIdOfReport == $_SESSION['StAusAuf_Id'])
+			{
+				$reportId = $_post['reportId'];
+				$ReportName = $_post['ReportName'];
+				$NickName = $_post['NickName'];
+				$dropDownListCountries = $_post['dropDownListCountries'];
+				$Input_City = $_post['Input_City'];
+				$daterange = $_post['daterange'];
+				$Input_Highlight = $_post['Input_Highlight'];
+				$Input_Attention = $_post['Input_Attention'];
+				$Lecture = $_post['Lecture'];
+				$Internship = $_post['Internship'];
+				$conn->query("UPDATE `reports` SET `reportName`='$ReportName', `nickName`='$NickName', `country`='$dropDownListCountries', `city`='$Input_City', `dateRange`='$daterange', `highlight`='$Input_Highlight', `attention`='$Input_Attention', `lecture`='$Lecture', `internship`='$Internship' WHERE `Id`='$reportId';");
+				if ($conn->affected_rows > 0)
+				{
+					echo 'Update erfolgreich';
+				}
+				else
+				{
+					echo 'kein Update vorgenommen';
+				}
+			}
+			break;
+		}
 		case 'deleteReport':
 		{
 			$Id = $_SESSION['StAusAuf_Id'];
-			$reportIdToDelete = $_post['reportIdToDelete'];
+			$userIdOfReport = $_post['userIdOfReport'];
 			setMemberRole($conn);
-			if ($_SESSION['StAusAuf_memberRole'] >= 1)
+			if ($_SESSION['StAusAuf_memberRole'] >= 1 || $userIdOfReport == $_SESSION['StAusAuf_Id'])
 			{
-				$conn-> query("UPDATE `reports` SET `showRow`=0 WHERE `Id`='$reportIdToDelete'");
+				$reportIdToDelete = $_post['reportIdToDelete'];
+				$conn->query("UPDATE `reports` SET `showRow`=0 WHERE `Id`='$reportIdToDelete'");
 				/* Bilder verschieben notwendig? Grund: es wird mit dem Ordnernamen zugegriffen, nicht über den Index */
 			}
 			break;

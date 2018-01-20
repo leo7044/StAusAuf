@@ -13,12 +13,15 @@
 
 	"ViewReportsHeader":["HWR experience reports","HWR Reiseberichte"],
 	"ReportSaved":["Your report has been successfully saved.","Ihr Bericht wurde erfolgreich gespeichert."],
+	"ReportUpdated":["Your report has been successfully updated.","Ihr Bericht wurde erfolgreich aktualisiert."],
+	"ReportNoChange":["No changes were made.","Es wurden keine Änderungnen vorgenommen."],
 	"GeneralInformation":["General Information","Allgemeine Informationen"],
 	"TitlePicture":["Title Picture","Titelbild"],
 	"PictureGallery":["Picture Gallery","Bildergalerie"],
 	"Comment":["Comment","Kommentar"],
 	"DeleteReport":["Delete Report", "Bericht löschen"],
 	"Close":["Close","Schließen"],
+	"SearchReport":["Search for reports", "Suche nach Berichten"],
 	"ArrayTitle":
 	[
 		[
@@ -30,7 +33,8 @@
 			"Highlights: ",
 			"Pay attention for: ",
 			"Attended lectures: ",
-			"Attended internships: "
+			"Attended internships: ",
+			"Views: "
 		],
 		[
 			"Titel des Berichts: ",
@@ -41,7 +45,8 @@
 			"Höhepunkte: ",
 			"Wichtige Hinweise: ",
 			"Besuchte Vorlesungen: ",
-			"Absolvierte Praktika: "
+			"Absolvierte Praktika: ",
+			"Ansichten: "
 		]
 	],
 	"ArrayTitleEdit":
@@ -142,5 +147,18 @@
 	"ToolTipModalNewPwConfirm":["Please confirm your new password.","Bitte bestätigen Sie Ihr neues Passwort."],
 	"formModalProfile-divSuccess":["<b>Success!</b> The profile has been updated successfully.","<b>Erfolg!</b> Das Profil wurde erfolgreich aktualisiert."],
 	"formModalProfile-divErrorUpdate":["<b>Error!</b> The profile could not be updated.","<b>Fehler!</b> Das Profil konnte nicht aktualisiert werden."],
-	"formModalProfile-divErrorWrongPw":["<b>Error!</b> Old password is wrong.","<b>Fehler!</b> Das alte Passwort ist falsch."]
+	"formModalProfile-divErrorWrongPw":["<b>Error!</b> Old password is wrong.","<b>Fehler!</b> Das alte Passwort ist falsch."],
+
+	"stats_admin":["Adminpanel","Administrative Verwaltung"],
+	"stats_createReport":["Create a new report","Erstellen eines neuen Berichts"],
+	"stats_loginAdmin":["Login to administrate users","Einloggen für die Benutzerverwaltung"],
+	"stats_loginAdminFail":["Login to administrate users (not successful)","Einloggen für die Benutzerverwaltung (nicht erfolgreich)"],
+	"stats_loginAdminSuccess":["Login to administrate users (successful)","Einloggen für die Benutzerverwaltung (erfolgreich)"],
+	"stats_loginCreateReport":["Login to create a report","Einloggen für Berichterstellung"],
+	"stats_loginCreateReportFail":["Login to create a report (not successful)","Einloggen für Berichterstellung (nicht erfolgreich)"],
+	"stats_loginCreateReportSuccess":["Login to create a report (successful)","Einloggen für Berichterstellung (erfolgreich)"],
+	"stats_loginEdit":["Login to edit a report","Einloggen fürs Bearbeiten eines Berichts"],
+	"stats_loginEditFail":["Login to edit a report (not successful)","Einloggen fürs Bearbeiten eines Berichts (nicht erfolgreich)"],
+	"stats_loginEditSuccess":["Login to edit a report (successful)","Einloggen fürs Bearbeiten eines Berichts (erfolgreich)"],
+	"stats_viewReports":["HWR experience reports","HWR Reiseberichte"]
 }

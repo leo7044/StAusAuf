@@ -446,27 +446,28 @@ function giveMemberRoleName(memberRole)
 function fillViewTables()
 {
 	var arrayViews = getViews();
-	var strHTML = '';
+	var strHtml = '';
 	for (var key in arrayViews[0])
 	{
-		strHTML +=
+		strHtml +=
 		'<tr>' +
-			'<td>' + arrayViews[0][key]['page'] + '</td>' +
+			'<td><span id="stats_' + arrayViews[0][key]['page'] + '" class="trans-innerHTML">' + arrayViews[0][key]['page'] + '</span></td>' +
 			'<td>' + arrayViews[0][key]['views'] + '</td>' +
 		'<tr>';
 	}
-	$('#statsPage')[0].innerHTML = strHTML;
-	var strHTML = '';
+	$('#statsPage')[0].innerHTML = strHtml;
+	var strHtml = '';
 	for (var key in arrayViews[1])
 	{
-		strHTML +=
+		strHtml +=
 		'<tr style="cursor: pointer;" onclick="forwardToLink(\'Id\', ' + arrayViews[1][key]['Id'] + ');">' +
 			'<td>' + arrayViews[1][key]['Id'] + '</td>' +
 			'<td>' + arrayViews[1][key]['reportName'] + '</td>' +
 			'<td>' + arrayViews[1][key]['views'] + '</td>' +
 		'<tr>';
 	}
-	$('#statsReports')[0].innerHTML = strHTML;
+	$('#statsReports')[0].innerHTML = strHtml;
+	changeLanguage();
 }
 
 // holt Daten für View

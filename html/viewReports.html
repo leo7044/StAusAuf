@@ -50,11 +50,65 @@ Bildergalerie? https://bootsnipp.com/snippets/featured/carousel-with-gallery-thu
 				</div>
 			</div>
 		</div>
-		<div class="center-block own-box" id="bigDivForReportTable"> <!-- wird onload dynamisch mit .js generiert -->
+		<div class="center-block own-box"> <!-- wird onload dynamisch mit .js generiert -->
+			<div class="row">
+				<div class="col-md-9"></div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<div class="input-group">
+							<input class="form-control trans-placeholder" id="SearchReport" placeholder="Search for reports" onkeyup="prepareReportData();" />
+							<span class="input-group-addon" style="cursor: pointer;" onclick="prepareReportData();"><i class="glyphicon glyphicon-search"></i></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="bigDivForReportTable"></div>
 			<noscript>Please activate JavaScript</noscript>
 		</div>
 		<!-- Modal-Report -->
-		<div class="modal fade" id="modalReport" tabindex="-1" role="dialog" aria-labelledby="modalReportThisIsTheHeadline">
+		<div class="modal fade" id="modalReport" tabindex="-1" role="dialog">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModal();">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-9"></div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<select class="form-control" id="languageModal" onchange="changeLanguage(this.selectedIndex);"></select>
+								</div>
+							</div>
+						</div>
+						<div class="alert alert-success alert-dismissable fade in hide" id="ModalSuccessAlert">
+							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><span id="ReportSaved" class="trans-innerHTML">Your report has been successfully saved.</span>
+						</div>
+						<div class="list-group">
+							<a class="list-group-item" id="ModalListItemGroupGeneralInformation"></a>
+						</div>
+						<div class="list-group">
+							<div class="list-group-item" id="ModalListItemGroupTitlePicture"></div>
+						</div>
+						<div class="list-group">
+							<div class="list-group-item" id="ModalListItemGroupGallery"></div>
+						</div>
+						<div class="list-group">
+							<div class="list-group">
+								<div class="list-group-item">
+									<h4 id="Comment" class="list-group-item-heading trans-innerHTML">Comment</h4>
+									<p class="list-group-item-text" id="ModalComment"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<div class="form-group" id="ModalFooterFormGroup"></div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
