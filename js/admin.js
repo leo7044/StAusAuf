@@ -5,7 +5,6 @@ var memberRolesArray = null;
 
 $(document).ready(function()
 {
-	// $('[data-toggle="tooltip"]').tooltip(); // tooltip for help-flag
 	memberRolesArray = objectLanguages.ArrayMemberRoles;
 	getOwnUser();
 	getUserFromDB();
@@ -156,8 +155,6 @@ function buildEditRow(rowId)
 	{
 		strHtml += '<td><select id="memberRole_' + rowId +'" class="form-control" disabled>';
 	}
-	/* var currentLanguageIndex = document.getElementById('language').selectedIndex;
-	var memberRolesArray = objectLanguages.ArrayMemberRoles[currentLanguageIndex]; */
 	for (var j = 0; j < memberRolesArray.length; j++)
 	{
 		if (UserData[rowId].MemberRole != j)
@@ -254,85 +251,46 @@ function copyPwToClipboard()
 	hidePassword('formPassword');
 }
 
-// überprüft Passwörter auf Übereinstimmung
-/* function checkPasswordMatch(field1, field2, forced)
-{
-	forced = forced || false;
-	var returnValue = false;
-	var newPw = document.getElementById(field1).value;
-	var newPwConfirm = document.getElementById(field2).value;
-	if (newPw && newPw == newPwConfirm)
-	{
-		$('#divFormPassword, #divFormPasswordConfirm').addClass('has-success').removeClass('has-error');
-		$('#DivErrorPwNoMatch').addClass('hide');
-		returnValue = true;
-	}
-	else if (!newPw && !newPwConfirm)
-	{
-		// do nothing - form is empty (onload)
-		// resetFormNewUser();
-	}
-	else
-	{
-		forced = forced || false;
-		if (forced == true)
-		{
-			$('#divFormPassword, #divFormPasswordConfirm').addClass('has-error').removeClass('has-success');
-			$('#DivErrorPwNoMatch').removeClass('hide');
-		}
-		else
-		{
-			$('#divFormPassword, #divFormPasswordConfirm').removeClass('has-success has-error');
-			$('#DivErrorPwNoMatch').addClass('hide');
-		}
-	}
-	$('#formNewUser-divErrorUserExists').addClass('hide'); // erst PW-check, dann Rest
-	return returnValue;
-}*/
-
 // kreiert einen neuen User
 function createNewUser()
 {
-	/* if (checkPasswordMatch('formPassword', 'formPasswordConfirm', true))
-	{ */
-		// im BackEnd speichern
-		var userName = document.formNewUser.formUserName.value;
-		var password = document.formNewUser.formPassword.value;
-		var memberRole = document.formNewUser.selectMemberRole.value;
-		var email = document.formNewUser.formEmail.value;
-		var data =
+	// im BackEnd speichern
+	var userName = document.formNewUser.formUserName.value;
+	var password = document.formNewUser.formPassword.value;
+	var memberRole = document.formNewUser.selectMemberRole.value;
+	var email = document.formNewUser.formEmail.value;
+	var data =
+	{
+		action: "createUser",
+		userName: userName,
+		password: password,
+		memberRole: memberRole,
+		email: email
+	}
+	var requestData = null;
+	$.ajaxSetup({async: false});
+	$.post('php/manageBackend.php', data)
+	.always(function(data)
+	{
+		requestData = data;
+	});
+	$.ajaxSetup({async: true});
+	if (requestData != 'noDatabase')
+	{
+		if (requestData[0] != 0 && requestData[1] == 'User erfolgreich angelegt')
 		{
-			action: "createUser",
-			userName: userName,
-			password: password,
-			memberRole: memberRole,
-			email: email
-		}
-		var requestData = null;
-		$.ajaxSetup({async: false});
-		$.post('php/manageBackend.php', data)
-		.always(function(data)
-		{
-			requestData = data;
-		});
-		$.ajaxSetup({async: true});
-		if (requestData != 'noDatabase')
-		{
-			if (requestData[0] != 0 && requestData[1] == 'User erfolgreich angelegt')
-			{
-				hideFormNewUser();
-				getUserFromDB();
-			}
-			else
-			{
-				$('#formNewUser-divErrorUserExists').removeClass('hide');
-			}
+			hideFormNewUser();
+			getUserFromDB();
 		}
 		else
 		{
-			// DB nicht erreichbar
+			$('#formNewUser-divErrorUserExists').removeClass('hide');
 		}
-	/* } */
+	}
+	else
+	{
+		// DB nicht erreichbar
+	}
 	return false;
 }
 
@@ -374,7 +332,6 @@ function updateUser(Id, rowId)
 					UserData[rowId].UserName = userName;
 					UserData[rowId].MemberRole = memberRole;
 					UserData[rowId].Email = email;
-					// console.log(data.responseText);
 				}
 				else if (data.responseText == 'kein Update vorgenommen')
 				{
@@ -382,7 +339,7 @@ function updateUser(Id, rowId)
 				}
 				else
 				{
-					// JS-Manipulation oder realTime-Problem (mehrere Personen gleichzeitig fuschen irgendwo rum -> Lsg: reload?)
+					// JS-Manipulation oder realTime-Problem (mehrere Personen gleichzeitig fuschen irgendwo rum -> Lsg: reload)
 				}
 			}
 			else
@@ -428,8 +385,6 @@ function deleteUser(Id)
 // gibt die MemberRolle in Klartext aus
 function giveMemberRoleName(memberRole)
 {
-	/* var currentLanguageIndex = document.getElementById('language').selectedIndex;
-	var memberRolesArray = objectLanguages.ArrayMemberRoles[currentLanguageIndex]; */
 	returnValue = 'Error';
 	switch(memberRole)
 	{

@@ -153,7 +153,7 @@ function translateEachElement(currentLanguageIndex)
         {
             // beim PageLoad wird es beim ersten Mal immer einen Fehler geben.
             // Der Grund ist, dass der FileInput noch nicht aufgebaut ist, wenn das erste Mal übersetzt wird.
-            // theoretische Lösungen: abfangen oder dieses eine Problemelement abfangen ==> praktische Lösung: abfangen
+            // theoretische Lösungen: if, else-technisch lösen oder dieses eine Problemelement abfangen ==> praktische Lösung: abfangen
             // console.log(e);
         }
     }
@@ -228,7 +228,6 @@ function createDropDownListCountries(language)
 			}
 		}
 		sortCountryList('#dropDownListCountries');
-		// setFlagPictures();
 		setCurrentSelectedItem();
 	}
 	else

@@ -9,15 +9,10 @@ var affectedIdWhenUpload = '';
 
 // zum Laden der Seite ausführen
 $(document).ready(function(){
-	// $('[data-toggle="tooltip"]').tooltip(); // tooltip for help-flag
-	// msDropDownCountries = $("#dropDownListCountries").msDropdown().data("dd"); // Country-Flags
-	// $(document).tooltip({delay: {show: null}});
 	$('#div-ReportName, #div-NickName, #div-Date, #div-Highlight, #div-Attention, #div-Lecture, #div-Internship').removeClass('has-success has-error');
 	initializeFileInput();
 	getOwnEmail();
-	// Password-Match
 	$('#modalNewPw, #modalNewPwConfirm').keyup(checkPasswordMatch).blur(checkPasswordMatch);
-	// Länder und Länder sortieren
 	getCountryData();
 	$('#dropDownListCountries').change(changeCountry);
 	incrementViews('createReport');
@@ -47,22 +42,21 @@ function getOwnEmail()
 function initializeFileInput()
 {
 	$("#FileInputUploadTitle").fileinput({ // FileUploadTitle
-        showUpload: false, // Zeile 674 in "fileinput.js" bearbeitet, showUpload auf false gesetzt; Zeile 3.797 in "fileinput.js" bearbeitet, um "Remove"-Button rot einzufärben
-		// uploadUrl: 'img_public',
+        showUpload: false,
 		allowedFileTypes: ["image"],
-		// allowedFileTypes: ['jpg', 'png', 'gif'],
+		// allowedFileTypes: ["jpg", "png", "gif"],
         // maxFileSize: 1024,
 		// maxFilePreviewSize: 1024,
 		overwriteInitial: true,
 		removeClass: "btn btn-danger",
-		browseLabel: "<span id='ChooseTitle' class='trans-innerHTML'>Choose title-picture...</span>"
-		// defaultPreviewContent: '<img src="img/default_avatar_male.jpg" alt="Your Title" style="width:160px"><h6 class="text-muted">Drag & drop an title-picture here</h6>'
+		browseLabel: "<span id='ChooseTitle' class='trans-innerHTML'>Choose title-picture...</span>",
+        overwriteInitial: true
     });
 	$("#FileInputUploadGallery").fileinput({ // FileUploadGallery
 		showUpload: false,
 		previewFileType: "image",
 		allowedFileTypes: ["image"],
-		// allowedFileTypes: ['jpg', 'png', 'gif'],
+		// allowedFileTypes: ["jpg", "png", "gif"],
 		browseClass: "btn btn-success",
         browseLabel: "<span id='PickImages' class='trans-innerHTML'>Pick Images...</span>",
         browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
@@ -74,17 +68,6 @@ function initializeFileInput()
     });
 }
 
-// setzt die Flaggen in der DropDownList
-/*function setFlagPictures()
-{
-	var numberCountries = sortedCountryData.length;
-	for (var i = 0; i < numberCountries; i++)
-	{
-		msDropDownCountries.add({text: sortedCountryData[i].name, value: sortedCountryData[i].alpha2Code, image: sortedCountryData[i].flag});
-	}
-	$('#dropDownListCountries_child').children('ul').children('li').children('img').attr('width', 32);
-}*/
-
 // DatePicker
 $(function() {
 	$('input[name="daterange"]').daterangepicker({
@@ -94,14 +77,7 @@ $(function() {
     "buttonClasses": "btn",
     "cancelClass": "btn-danger"
 	}, function() {
-		/*if (document.formCreateReport.daterange.value != "")
-		{*/
-			$('#div-Date').addClass('has-success').removeClass('has-error');
-		/*}
-		else
-		{
-			$('#div-Date').addClass('has-error').removeClass('has-success');
-		}*/
+		$('#div-Date').addClass('has-success').removeClass('has-error');
 		$('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
 			$(this).val(picker.startDate.format('DD.MM.YYYY') + ' - ' + picker.endDate.format('DD.MM.YYYY'));
 		});
@@ -161,15 +137,14 @@ function checkInputFormCreateReport()
 		window.frames[0].document.body.focus();
 		return false;
 	}
-	// tmp Button "save" in "in bearbeitung umändern, um 2. mal raufklicken zu verhindern"
+	$('#ButtonSubmitForm').attr('disabled', true);
 	var success = saveFormReportInDb(NickName, Country, city, dateRange, highlight, attention, frame_textreport);
 	if (success == 'ReportSpeicherung erfolgreich')
 	{
 		uploadFilesTitle(affectedIdWhenUpload);
 		uploadFilesGallery(affectedIdWhenUpload);
 		document.formCreateReport.action = './?Id=' + affectedIdWhenUpload + '&success=true';
-		// hide button and link to report or whatever // nicht mehr nötig, weil auf nächste Seite weitergeleitet
-		return true; // vielleicht ein true returnen, um Bilder zu speichern wegen $_FILES?
+		return true;
 	}
 	else
 	{
@@ -186,20 +161,6 @@ function saveFormReportInDb(NickName, Country, city, dateRange, highlight, atten
 	var Internship = document.formCreateReport.Internship.value;
 	var numPicsTitle = document.formCreateReport.FileInputUploadTitle.files.length;
 	var numPicsGallery = document.formCreateReport.FileInputUploadGallery.files.length;
-	/*var picsTitle = new Array();
-	var picsGallery = new Array();
-	for (var i = 0; i < numPicsTitle; i++)
-	{
-		picsTitle[i] = new Object();
-		picsTitle[i].name = document.formCreateReport.FileInputUploadTitle.files[i].name;
-		picsTitle[i].type = document.formCreateReport.FileInputUploadTitle.files[i].type;
-	}
-	for (var i = 0; i < numPicsGallery; i++)
-	{
-		picsGallery[i] = new Object();
-		picsGallery[i].name = document.formCreateReport.FileInputUploadGallery.files[i].name;
-		picsGallery[i].type = document.formCreateReport.FileInputUploadGallery.files[i].type;
-	}*/
 	var data =
 	{
 		'action': "saveFormReport",
@@ -212,8 +173,6 @@ function saveFormReportInDb(NickName, Country, city, dateRange, highlight, atten
 		'attention': attention,
 		'lecture': Lecture,
 		'internship': Internship,
-		/*'picsTitle': picsTitle,
-		'picsGallery': picsGallery,*/
 		'commentBox': frame_textreport
 	};
 	$.ajaxSetup({async: false});
@@ -222,21 +181,14 @@ function saveFormReportInDb(NickName, Country, city, dateRange, highlight, atten
 	{
 		if (data.responseText != 'noDatabase')
 		{
-			// Bilder speichern (http://php.net/manual/de/function.imagecopyresized.php)
 			if (data[1] == 'ReportSpeicherung erfolgreich')
 			{
-				// erfolgreich (eventuelle returnValue für große Funktion?)
 				affectedIdWhenUpload = data[0];
 				returnValue = 'ReportSpeicherung erfolgreich';
 			}
-			else if (data[1] == 'ReportSpeicherung fehlgeschlagen')
-			{
-				// Meldung, nicht erfolgreich beim speichern
-				returnValue = 'ReportSpeicherung fehlgeschlagen';
-			}
 			else
 			{
-				// console.log(data.responseText); // Debug
+				returnValue = 'ReportSpeicherung fehlgeschlagen';
 			}
 		}
 		else
@@ -245,7 +197,6 @@ function saveFormReportInDb(NickName, Country, city, dateRange, highlight, atten
 		}
 	});
 	$.ajaxSetup({async: true});
-	// console.log(returnValue); // Debug
 	return returnValue;
 }
 
@@ -264,7 +215,7 @@ function uploadFilesTitle(id)
 	$.ajaxSetup({async: false});
 	$.ajax({
 		url: './php/manageBackend.php', // point to server-side PHP script
-		dataType: 'text',  // what to expect back from the PHP script, if anything
+		dataType: 'text',  // what to expect back from the PHP script (in case)
 		cache: false,
 		contentType: false,
 		processData: false,
@@ -272,7 +223,6 @@ function uploadFilesTitle(id)
 		type: 'post',
 		success: function(data)
 		{
-			console.log(data);
 			returnValue = true;
 		}
 	});
@@ -295,7 +245,7 @@ function uploadFilesGallery(id)
 	$.ajaxSetup({async: false});
 	$.ajax({
 		url: './php/manageBackend.php', // point to server-side PHP script
-		dataType: 'text',  // what to expect back from the PHP script, if anything
+		dataType: 'text',  // what to expect back from the PHP script (in case)
 		cache: false,
 		contentType: false,
 		processData: false,
@@ -551,14 +501,6 @@ function checkPasswordMatch(forced)
 	}
 	return returnValue;
 }
-
-// leave page? // if you test the page... comment it out ;) // necessary because otherwise you could leave the page when you drag a pic into the comment-box and I guess nobody wants this ;)
-/*window.onbeforeunload = function (e) {
-    e = e || window.event;
-    if (e) {
-        e.returnValue = 'Do you want to reload the page?';
-    }
-};*/
 
 // =============================================
 // für Übersetzungen

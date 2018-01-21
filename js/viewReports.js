@@ -82,7 +82,7 @@ function getPictureData()
 		}
 		else
 		{
-			// DB nicht erreichbar - überleg dir was
+			// DB nicht erreichbar
 		}
 	});
 	$.ajaxSetup({async: true});
@@ -153,9 +153,6 @@ function fillReportTable()
 		var strHtml = "";
 		if ($_GET().Id)
 		{
-			/* strHtml += '<div class="alert alert-success alert-dismissable fade in">';
-			strHtml += '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>The report has been successfully saved.';
-			strHtml += '</div>'; */
 			try
 			{
 				if ($_GET().success == 'true')
@@ -249,12 +246,11 @@ function fillReportTable()
 		{
 			strHtml += '</div>';
 		}
-		// console.log(reportData); // Debug
 		document.getElementById('bigDivForReportTable').innerHTML = strHtml;
 	}
 	else
 	{
-		// DB nicht erreichbar - überleg dir was
+		// DB nicht erreichbar
 	}
 }
 
@@ -265,7 +261,7 @@ function loadContentOfModal(longModalId, loadingPage)
 	var LengthLongModalId = longModalId.length;
 	var modalId = longModalId.substr(6, LengthLongModalId); // 'modal_' muss abgeschnitten werden
 	window.history.pushState('', '', '?Id=' + modalId);
-	var indexOfObjectInReportData = $.inArray(modalId, idArray); // auf welches Objekt in den ReportData muss zugegriffen werden
+	var indexOfObjectInReportData = $.inArray(modalId, idArray); // auf dieses Objekt in den ReportData muss zugegriffen werden
 	incrementViews(parseInt(modalId));
 	reportData[indexOfObjectInReportData].views = parseInt(reportData[indexOfObjectInReportData].views) + 1;
 	var currentLanguageIndex = document.getElementById('language').selectedIndex;

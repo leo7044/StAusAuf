@@ -17,13 +17,10 @@
 		<script src="js/angular-daterangepicker.min.js"></script> <!-- RealTime-Änderung der Klassen -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script> <!-- DatePicker -->
 		<script src="js/daterangepicker_edited.min.js"></script> <!-- DatePicker -->
-		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.25/daterangepicker.min.js"></script> <!-- DatePicker -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-messages/1.6.5/angular-messages.min.js"></script> <!-- RealTime-Änderung der Klassen -->
-		<!-- <script src="js/jquery.dd.min.js"></script> <!-- Länder-Flaggen -->
 		<script src="js/general.js"></script> <!-- alles eigene -->
 		<script src="js/createReport.js"></script> <!-- alles eigene -->
 		<script src="sceditor/minified/jquery.sceditor.bbcode.min.js"></script> <!-- BB-Codes -->
-		<!-- <script src="sceditor/languages/de.js"></script> <!-- Sprache für SCEditor -->
 		<script src="js/fileinput.min.js"></script> <!-- FileInput v4.4.6-18 -->
 
 		<!-- CSS -->
@@ -31,7 +28,6 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"> <!-- Bootstrap -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.25/daterangepicker.min.css"> <!-- DatePicker nebeneinander -->
 		<link rel="stylesheet" href="sceditor/minified/themes/default.min.css" /> <!-- BB-Codes -->
-		<!-- <link rel="stylesheet" href="css/msdropdown.min.css" /> <!-- Länder-Flaggen -->
 		<link rel="stylesheet" href="css/fileinput.min.css" /> <!-- FileInput v4.4.6-18 -->
 		<link rel="stylesheet" href="css/own.css"> <!-- alles eigene -->
 	</head>
@@ -199,7 +195,7 @@
 					<textarea id="textarea_textreport" class="form-control" style="width: 100px; height: 350px" name="textreport"></textarea>
 				</div>
 				<div class="form-group">
-					<button type="submit" class="btn btn-success">
+					<button id="ButtonSubmitForm" type="submit" class="btn btn-success">
 						<span class="glyphicon glyphicon-plus-sign"></span> <span id="UploadReport" class="trans-innerHTML">Upload report</span>
 					</button>
 				</div>
