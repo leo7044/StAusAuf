@@ -55,9 +55,9 @@ function getLanguages()
 function prepareLanguageSelection(modal)
 {
     var strHtml = '';
-    for (var key in objectLanguages.languageShort)
+    for (var key in objectLanguages.LanguageShort)
     {
-        strHtml += '<option value="' + objectLanguages.languageShort[key] + '">' + objectLanguages.languageLong[key] + '</option>';
+        strHtml += '<option value="' + objectLanguages.LanguageShort[key] + '">' + objectLanguages.LanguageLong[key] + '</option>';
     }
     if (!modal)
     {
@@ -106,7 +106,7 @@ function changeLanguage(currentLanguageIndex)
     // createReport
     if (document.getElementById('dropDownListCountries'))
     {
-        var currentSelectedLanguage = objectLanguages.languageShort[currentLanguageIndex];
+        var currentSelectedLanguage = objectLanguages.LanguageShort[currentLanguageIndex];
         createDropDownListCountries(currentSelectedLanguage);
     }
 }

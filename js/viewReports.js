@@ -521,7 +521,7 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 		'<div class="form-group">' +
 			'<div class="input-group">' +
 				'<span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>' +
-				'<input class="form-control trans-placeholder" name="Input_City" id="Input_City" maxlength="255" placeholder="Destination-City*" value="' + arrayContent[3] + '" required />' +
+				'<input class="form-control trans-placeholder" name="InputCity" id="InputCity" maxlength="255" placeholder="Destination-City*" value="' + arrayContent[3] + '" required />' +
 				'<span class="input-group-addon">' +
 					'<a name="ToolTipDestinationCity" data-toggle="tooltip" data-placement="top" title="Please enter your destination-city." class="trans-name-title">' +
 						'<i class="glyphicon glyphicon-question-sign"></i>' +
@@ -534,7 +534,7 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 		'<div class="form-group">' +
 			'<div class="input-group">' +
 				'<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>' +
-				'<input class="form-control trans-placeholder" style="background: white;" name="daterange" id="daterange" placeholder="Travel-Period*" value="' + arrayContent[4] + '" readonly />' +
+				'<input class="form-control trans-placeholder" style="background: white;" name="DateRange" id="DateRange" placeholder="Travel-Period*" value="' + arrayContent[4] + '" readonly />' +
 				'<span class="input-group-addon">' +
 					'<a name="ToolTipDateRange" data-toggle="tooltip" data-placement="top" title="Please select startdate and enddate of your travel." class="trans-name-title">' +
 						'<i class="glyphicon glyphicon-question-sign"></i>' +
@@ -547,7 +547,7 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 		'<div class="form-group">' +
 			'<div class="input-group">' +
 				'<span class="input-group-addon"><i class="glyphicon glyphicon-thumbs-up"></i></span>' +
-				'<input class="form-control trans-placeholder" name="Input_Highlight" id="Input_Highlight" maxlength="255" placeholder="Your personal highlights*" value="' + arrayContent[5] + '" required />' +
+				'<input class="form-control trans-placeholder" name="InputHighlight" id="InputHighlight" maxlength="255" placeholder="Your personal highlights*" value="' + arrayContent[5] + '" required />' +
 				'<span class="input-group-addon">' +
 					'<a name="ToolTipHighlight" data-toggle="tooltip" data-placement="top" title="Please enter your personal highlights." class="trans-name-title">' +
 						'<i class="glyphicon glyphicon-question-sign"></i>' +
@@ -560,9 +560,9 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 		'<div class="form-group">' +
 			'<div class="input-group">' +
 				'<span class="input-group-addon"><i class="glyphicon glyphicon-warning-sign"></i></span>' +
-				'<input class="form-control trans-placeholder" name="Input_Attention" id="Input_Attention" maxlength="255" placeholder="What must be considered?*" value="' + arrayContent[6] + '" required />' +
+				'<input class="form-control trans-placeholder" name="InputAttention" id="InputAttention" maxlength="255" placeholder="What must be considered?*" value="' + arrayContent[6] + '" required />' +
 				'<span class="input-group-addon">' +
-					'<a name="Input_Attention" data-toggle="tooltip" data-placement="top" title="What must be considered?" class="trans-name-title">' +
+					'<a name="InputAttention" data-toggle="tooltip" data-placement="top" title="What must be considered?" class="trans-name-title">' +
 						'<i class="glyphicon glyphicon-question-sign"></i>' +
 					'</a>' +
 				'</span>' +
@@ -595,7 +595,7 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 			'</div>' +
 		'</div>';
 	strHtml +=
-		'<div id="form-required" class="trans-innerHTML">' +
+		'<div id="FormRequired" class="trans-innerHTML">' +
 			'*) required' +
 		'</div>';
 	$('#informationFieldsEdit')[0].innerHTML = strHtml;
@@ -626,10 +626,10 @@ function buttonGeneralInformationConfirm(id, userIdOfReport)
 		ReportName: document.formModalGeneralInformationEdit.ReportName.value,
 		NickName: document.formModalGeneralInformationEdit.NickName.value,
 		dropDownListCountries: document.formModalGeneralInformationEdit.dropDownListCountries.value,
-		Input_City: document.formModalGeneralInformationEdit.Input_City.value,
-		daterange: document.formModalGeneralInformationEdit.daterange.value,
-		Input_Highlight: document.formModalGeneralInformationEdit.Input_Highlight.value,
-		Input_Attention: document.formModalGeneralInformationEdit.Input_Attention.value,
+		InputCity: document.formModalGeneralInformationEdit.InputCity.value,
+		DateRange: document.formModalGeneralInformationEdit.DateRange.value,
+		InputHighlight: document.formModalGeneralInformationEdit.InputHighlight.value,
+		InputAttention: document.formModalGeneralInformationEdit.InputAttention.value,
 		Lecture: document.formModalGeneralInformationEdit.Lecture.value,
 		Internship: document.formModalGeneralInformationEdit.Internship.value
 	}
@@ -708,14 +708,14 @@ function closeModal()
 // DateRangePicker
 function initializeDateRangePicker()
 {
-	$('input[name="daterange"]').daterangepicker({
+	$('input[name="DateRange"]').daterangepicker({
 	"autoUpdateInput": false,
 	"format": 'DD.MM.YYYY',
     "opens": "right", /* right means: it opens from left to right */
 	"buttonClasses": "btn",
     "cancelClass": "btn-danger"
 	}, function(){
-		$('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
+		$('input[name="DateRange"]').on('apply.daterangepicker', function(ev, picker) {
 			$(this).val(picker.startDate.format('DD.MM.YYYY') + ' - ' + picker.endDate.format('DD.MM.YYYY'));
 		});
 	});
@@ -747,7 +747,7 @@ function getCountryInCorrectLanguage(id, additionalString)
 	var currentLanguageIndex = $('#language')[0].selectedIndex;
 	if (currentLanguageIndex)
 	{
-		var lang = objectLanguages.languageShort[currentLanguageIndex];
+		var lang = objectLanguages.LanguageShort[currentLanguageIndex];
 		strHtml += countryData[indexOfCountry].translations[lang];
 	}
 	else

@@ -8,9 +8,6 @@ $(document).ready(function()
 	memberRolesArray = objectLanguages.ArrayMemberRoles;
 	getOwnUser();
 	getUserFromDB();
-	/*$('#formPassword, #formPasswordConfirm')
-		.keyup(function() {checkPasswordMatch('formPassword', 'formPasswordConfirm', false);})
-		.blur(function() {checkPasswordMatch('formPassword', 'formPasswordConfirm', false);});*/
 	incrementViews('admin');
 	fillViewTables();
 })
@@ -199,8 +196,8 @@ function showFormNewUser()
 		selectOptions += '<option value="' + i + '">' + giveMemberRoleName(i) + '</option>';
 	}
 	document.getElementById('selectMemberRole').innerHTML = selectOptions;
-	$('#formUserName').focus();
-	$('#formPassword')[0].value = generateRandomPassword();
+	$('#FormUserName').focus();
+	$('#FormPassword')[0].value = generateRandomPassword();
 }
 
 // verbirgt Form für neuen User
@@ -216,10 +213,10 @@ function hideFormNewUser()
 function resetFormNewUser()
 {
 	$('#divFormPassword, #divFormPasswordConfirm').removeClass('has-success has-error');
-	$('#DivErrorPwNoMatch, #formNewUser-divErrorUserExists').addClass('hide');
+	$('#DivErrorPwNoMatch, #FormNewUserDivErrorUserExists').addClass('hide');
 	document.getElementById('formNewUser').reset();
-	$('#formUserName').focus();
-	$('#formPassword')[0].value = generateRandomPassword();
+	$('#FormUserName').focus();
+	$('#FormPassword')[0].value = generateRandomPassword();
 	return false;
 }
 
@@ -244,19 +241,19 @@ function generateRandomPassword()
 // kopiert das Password in den Arbeitsspeicher
 function copyPwToClipboard()
 {
-	showPassword('formPassword');
-	var textToCopy = $('#formPassword');
+	showPassword('FormPassword');
+	var textToCopy = $('#FormPassword');
 	textToCopy.select();
 	document.execCommand('copy');
-	hidePassword('formPassword');
+	hidePassword('FormPassword');
 }
 
 // kreiert einen neuen User
 function createNewUser()
 {
 	// im BackEnd speichern
-	var userName = document.formNewUser.formUserName.value;
-	var password = document.formNewUser.formPassword.value;
+	var userName = document.formNewUser.FormUserName.value;
+	var password = document.formNewUser.FormPassword.value;
 	var memberRole = document.formNewUser.selectMemberRole.value;
 	var email = document.formNewUser.formEmail.value;
 	var data =
@@ -284,7 +281,7 @@ function createNewUser()
 		}
 		else
 		{
-			$('#formNewUser-divErrorUserExists').removeClass('hide');
+			$('#FormNewUserDivErrorUserExists').removeClass('hide');
 		}
 	}
 	else
@@ -406,7 +403,7 @@ function fillViewTables()
 	{
 		strHtml +=
 		'<tr>' +
-			'<td><span id="stats_' + arrayViews[0][key]['page'] + '" class="trans-innerHTML">' + arrayViews[0][key]['page'] + '</span></td>' +
+			'<td><span id="Stats_' + arrayViews[0][key]['page'] + '" class="trans-innerHTML">' + arrayViews[0][key]['page'] + '</span></td>' +
 			'<td>' + arrayViews[0][key]['views'] + '</td>' +
 		'<tr>';
 	}

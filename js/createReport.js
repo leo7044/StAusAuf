@@ -12,7 +12,7 @@ $(document).ready(function(){
 	$('#div-ReportName, #div-NickName, #div-Date, #div-Highlight, #div-Attention, #div-Lecture, #div-Internship').removeClass('has-success has-error');
 	initializeFileInput();
 	getOwnEmail();
-	$('#modalNewPw, #modalNewPwConfirm').keyup(checkPasswordMatch).blur(checkPasswordMatch);
+	$('#ModalNewPw, #ModalNewPwConfirm').keyup(checkPasswordMatch).blur(checkPasswordMatch);
 	getCountryData();
 	$('#dropDownListCountries').change(changeCountry);
 	incrementViews('createReport');
@@ -32,7 +32,7 @@ function getOwnEmail()
 		if (data.responseText != 'no Email' && data.responseText != 'no Database')
 		{
 			originalOwnEmail = data.responseText;
-			document.getElementById('modalEmail').value = data.responseText;
+			document.getElementById('ModalEmail').value = data.responseText;
 		}
 	});
 	$.ajaxSetup({async: true});
@@ -70,7 +70,7 @@ function initializeFileInput()
 
 // DatePicker
 $(function() {
-	$('input[name="daterange"]').daterangepicker({
+	$('input[name="DateRange"]').daterangepicker({
 	"autoUpdateInput": false,
 	"format": 'DD.MM.YYYY',
     "opens": "right", /* right means: it opens from left to right */
@@ -78,7 +78,7 @@ $(function() {
     "cancelClass": "btn-danger"
 	}, function() {
 		$('#div-Date').addClass('has-success').removeClass('has-error');
-		$('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
+		$('input[name="DateRange"]').on('apply.daterangepicker', function(ev, picker) {
 			$(this).val(picker.startDate.format('DD.MM.YYYY') + ' - ' + picker.endDate.format('DD.MM.YYYY'));
 		});
 	});
@@ -109,11 +109,11 @@ function checkInputFormCreateReport()
 		document.formCreateReport.City.focus();
 		return false;
 	}
-	var dateRange = document.formCreateReport.daterange.value;
+	var dateRange = document.formCreateReport.DateRange.value;
 	if (dateRange == "")
 	{
 		$('#div-Date').addClass('has-error').removeClass('has-success');
-		document.formCreateReport.daterange.focus();
+		document.formCreateReport.DateRange.focus();
 		return false;
 	}
 	var highlight = document.formCreateReport.Highlight.value;
@@ -360,24 +360,24 @@ myApp.controller('angModCreateReport', function($scope) {
 	{
 		form.$setUntouched();
 		form.$setPristine();
-		$('#formModalProfile-divSuccess, #formModalProfile-divErrorUpdate, #formModalProfile-divErrorWrongPw, #DivErrorPwNoMatch, #ErrorDb, #modalClose, #div-changePw').addClass('hide');
+		$('#FormModalProfileDivSuccess, #FormModalProfileDivErrorUpdate, #FormModalProfileDivErrorWrongPw, #DivErrorPwNoMatch, #ErrorDb, #modalClose, #div-changePw').addClass('hide');
 		$('#modalCancel, #modalSave, #modalButtonEditPw').removeClass('hide');
 		$('#modal-div-OldPw, #modal-div-NewPw, #modal-div-NewPwConfirm').removeClass('has-success has-error');
 		document.getElementById('formModalProfile').reset();
-		document.getElementById('modalEmail').value = originalOwnEmail;
+		document.getElementById('ModalEmail').value = originalOwnEmail;
 	};
 });
 
 //Eingaben ModalProfile überprüfgen
 function checkInputFormModalProfile()
 {
-	var emailAddress = document.getElementById('modalEmail').value;
+	var emailAddress = document.getElementById('ModalEmail').value;
 	if ($('#div-changePw').hasClass(''))
 	{
 		if (checkPasswordMatch(true))
 		{
-			var oldPw = document.getElementById('modalOldPw').value;
-			var newPw = document.getElementById('modalNewPw').value;
+			var oldPw = document.getElementById('ModalOldPw').value;
+			var newPw = document.getElementById('ModalNewPw').value;
 			var data =
 			{
 				action: "updateProfile",
@@ -392,24 +392,24 @@ function checkInputFormModalProfile()
 				if (data.responseText == 'Profil Aktualisierung erfolgreich')
 				{
 					originalOwnEmail = emailAddress;
-					$('#formModalProfile-divErrorUpdate, #formModalProfile-divErrorWrongPw, #DivErrorPwNoMatch, #ErrorDb, #modalButtonEditPw, #modalButtonEditPwCancel, #modalCancel, #modalSave').addClass('hide');
-					$('#formModalProfile-divSuccess, #modalClose').removeClass('hide');
+					$('#FormModalProfileDivErrorUpdate, #FormModalProfileDivErrorWrongPw, #DivErrorPwNoMatch, #ErrorDb, #modalButtonEditPw, #modalButtonEditPwCancel, #modalCancel, #modalSave').addClass('hide');
+					$('#FormModalProfileDivSuccess, #modalClose').removeClass('hide');
 					$('#modal-div-OldPw').addClass('has-success').removeClass('has-error');
 				}
 				else if (data.responseText == 'Altes Passwort falsch')
 				{
 					$('#ErrorDb').addClass('hide');
-					$('#formModalProfile-divErrorWrongPw').removeClass('hide');
+					$('#FormModalProfileDivErrorWrongPw').removeClass('hide');
 					$('#modal-div-OldPw').addClass('has-error').removeClass('has-success');
 				}
 				else if (data.responseText == 'Profil Aktualisierung fehlgeschlagen') // tritt auf, wenn das Passwort auf das selbige geändert wurde
 				{
-					$('#formModalProfile-divErrorWrongPw, #ErrorDb').addClass('hide');
-					$('#formModalProfile-divErrorUpdate').removeClass('hide');
+					$('#FormModalProfileDivErrorWrongPw, #ErrorDb').addClass('hide');
+					$('#FormModalProfileDivErrorUpdate').removeClass('hide');
 				}
 				else
 				{
-					$('#formModalProfile-divErrorUpdate, #formModalProfile-divErrorWrongPw').addClass('hide');
+					$('#FormModalProfileDivErrorUpdate, #FormModalProfileDivErrorWrongPw').addClass('hide');
 					$('#ErrorDb').removeClass('hide');
 				}
 			});
@@ -417,7 +417,7 @@ function checkInputFormModalProfile()
 		}
 		else
 		{
-			$('#formModalProfile-divSuccess, #formModalProfile-divErrorUpdate, #formModalProfile-divErrorWrongPw, #ErrorDb').addClass('hide');
+			$('#FormModalProfileDivSuccess, #FormModalProfileDivErrorUpdate, #FormModalProfileDivErrorWrongPw, #ErrorDb').addClass('hide');
 		}
 	}
 	else
@@ -434,17 +434,17 @@ function checkInputFormModalProfile()
 			if (data.responseText == 'Email Aktualisierung erfolgreich')
 			{
 				originalOwnEmail = emailAddress;
-				$('#formModalProfile-divErrorUpdate, #formModalProfile-divErrorWrongPw, #DivErrorPwNoMatch, #ErrorDb, #modalButtonEditPw, #modalButtonEditPwCancel, #modalCancel, #modalSave').addClass('hide');
-				$('#formModalProfile-divSuccess, #modalClose').removeClass('hide');
+				$('#FormModalProfileDivErrorUpdate, #FormModalProfileDivErrorWrongPw, #DivErrorPwNoMatch, #ErrorDb, #modalButtonEditPw, #modalButtonEditPwCancel, #modalCancel, #modalSave').addClass('hide');
+				$('#FormModalProfileDivSuccess, #modalClose').removeClass('hide');
 			}
 			else if (data.responseText == 'Email Aktualisierung fehlgeschlagen') // tritt praktisch nie auf
 			{
-				$('#formModalProfile-divErrorWrongPw, #ErrorDb').addClass('hide');
-				$('#formModalProfile-divErrorUpdate').removeClass('hide');
+				$('#FormModalProfileDivErrorWrongPw, #ErrorDb').addClass('hide');
+				$('#FormModalProfileDivErrorUpdate').removeClass('hide');
 			}
 			else
 			{
-				$('#formModalProfile-divErrorUpdate, #formModalProfile-divErrorWrongPw').addClass('hide');
+				$('#FormModalProfileDivErrorUpdate, #FormModalProfileDivErrorWrongPw').addClass('hide');
 				$('#ErrorDb').removeClass('hide');
 			}
 		});
@@ -458,13 +458,13 @@ function buttonChangePassword()
 {
 	$('#modalButtonEditPw').addClass('hide');
 	$('#modalButtonEditPwCancel, #div-changePw').removeClass('hide');
-	$('#modalOldPw').focus();
+	$('#ModalOldPw').focus();
 }
 
 // onclick auf cancel change Password
 function buttonChangePasswordCancel()
 {
-	$('#modalButtonEditPwCancel, #formModalProfile-divErrorWrongPw, #div-changePw').addClass('hide');
+	$('#modalButtonEditPwCancel, #FormModalProfileDivErrorWrongPw, #div-changePw').addClass('hide');
 	$('#modalButtonEditPw').removeClass('hide');
 }
 
@@ -472,8 +472,8 @@ function buttonChangePasswordCancel()
 function checkPasswordMatch(forced)
 {
 	var returnValue = false;
-	var newPw = document.getElementById('modalNewPw').value;
-	var newPwConfirm = document.getElementById('modalNewPwConfirm').value;
+	var newPw = document.getElementById('ModalNewPw').value;
+	var newPwConfirm = document.getElementById('ModalNewPwConfirm').value;
 	if (newPw && newPw == newPwConfirm)
 	{
 		$('#DivErrorPwNoMatch').addClass('hide');

@@ -256,13 +256,13 @@ if (!$conn->connect_error)
 				$ReportName = $_post['ReportName'];
 				$NickName = $_post['NickName'];
 				$dropDownListCountries = $_post['dropDownListCountries'];
-				$Input_City = $_post['Input_City'];
-				$daterange = $_post['daterange'];
-				$Input_Highlight = $_post['Input_Highlight'];
-				$Input_Attention = $_post['Input_Attention'];
+				$InputCity = $_post['InputCity'];
+				$DateRange = $_post['DateRange'];
+				$InputHighlight = $_post['InputHighlight'];
+				$InputAttention = $_post['InputAttention'];
 				$Lecture = $_post['Lecture'];
 				$Internship = $_post['Internship'];
-				$conn->query("UPDATE `reports` SET `reportName`='$ReportName', `nickName`='$NickName', `country`='$dropDownListCountries', `city`='$Input_City', `dateRange`='$daterange', `highlight`='$Input_Highlight', `attention`='$Input_Attention', `lecture`='$Lecture', `internship`='$Internship' WHERE `Id`='$reportId';");
+				$conn->query("UPDATE `reports` SET `reportName`='$ReportName', `nickName`='$NickName', `country`='$dropDownListCountries', `city`='$InputCity', `dateRange`='$DateRange', `highlight`='$InputHighlight', `attention`='$InputAttention', `lecture`='$Lecture', `internship`='$Internship' WHERE `Id`='$reportId';");
 				if ($conn->affected_rows > 0)
 				{
 					echo 'Update erfolgreich';

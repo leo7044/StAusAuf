@@ -3,7 +3,6 @@
 $(document).ready(function() {
 	getGetParas();
 	initializeForm();
-	$('#formLogin-divError').hide();
 });
 
 // initialisiert das Formular (richtige ZielPage)
@@ -11,8 +10,8 @@ function initializeForm()
 {
 	if ($_GET().createReport)
 	{
-		document.formLogin.action = './?createReport';
-		document.formLogin.onsubmit =
+		document.FormLogin.action = './?createReport';
+		document.FormLogin.onsubmit =
 		function()
 		{
 			return login('loginCreateReport');
@@ -23,8 +22,8 @@ function initializeForm()
 	}
 	else if ($_GET().edit)
 	{
-		document.formLogin.action = '.';
-		document.formLogin.onsubmit =
+		document.FormLogin.action = '.';
+		document.FormLogin.onsubmit =
 		function()
 		{
 			return login('loginEdit');
@@ -35,8 +34,8 @@ function initializeForm()
 	}
 	else if ($_GET().admin)
 	{
-		document.formLogin.action = './?admin';
-		document.formLogin.onsubmit =
+		document.FormLogin.action = './?admin';
+		document.FormLogin.onsubmit =
 		function()
 		{
 			return login('loginAdmin');
@@ -65,16 +64,16 @@ function login(loginSite)
 	{
 		if (data.responseText == 'Login erfolgreich')
 		{
-			$('#formLogin-divErrorPw, #ErrorDb, #formLogin-divErrorPermission').addClass('hide');
+			$('#FormLoginDivErrorPw, #ErrorDb, #FormLoginDivErrorPermission').addClass('hide');
 			incrementViews(loginSite + 'Success');
 			returnValue = true;
 		}
 		else if (data.responseText == 'Member permission')
 		{
-			$('#formLogin-divErrorPw, #ErrorDb').addClass('hide');
+			$('#FormLoginDivErrorPw, #ErrorDb').addClass('hide');
 			if (loginSite == 'loginAdmin')
 			{
-				$('#formLogin-divErrorPermission').removeClass('hide');
+				$('#FormLoginDivErrorPermission').removeClass('hide');
 				incrementViews(loginSite + 'Fail');
 			}
 			else
@@ -85,22 +84,22 @@ function login(loginSite)
 		}
 		else if (data.responseText == 'Login fehlgeschlagen')
 		{
-			$('#formLogin-divErrorPw').removeClass('hide');
+			$('#FormLoginDivErrorPw').removeClass('hide');
 			$('#ErrorDb').addClass('hide');
 			if (loginSite == 'loginAdmin')
 			{
-				$('#formLogin-divErrorPermission').addClass('hide');
+				$('#FormLoginDivErrorPermission').addClass('hide');
 			}
 			incrementViews(loginSite + 'Fail');
 			document.getElementById('Password').focus();
 		}
 		else if (data.responseText == 'noDatabase')
 		{
-			$('#formLogin-divErrorPw').addClass('hide');
+			$('#FormLoginDivErrorPw').addClass('hide');
 			$('#ErrorDb').removeClass('hide');
 			if (loginSite == 'loginAdmin')
 			{
-				$('#formLogin-divErrorPermission').addClass('hide');
+				$('#FormLoginDivErrorPermission').addClass('hide');
 			}
 			document.getElementById('Password').focus();
 		}

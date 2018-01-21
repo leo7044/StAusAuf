@@ -80,7 +80,7 @@
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-									<input id="formUserName" name="formUserName" class="form-control trans-placeholder" maxlength="255" placeholder="Username*" required autofocus />
+									<input id="FormUserName" name="FormUserName" class="form-control trans-placeholder" maxlength="255" placeholder="Username*" required autofocus />
 								</div>
 							</div>
 						</div>
@@ -92,25 +92,13 @@
 							<div class="form-group" id="divFormPassword">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-									<input type="password" id="formPassword" name="formPassword" class="form-control trans-placeholder" maxlength="255" placeholder="Password*" onfocus="showPassword(this.id);" onblur="hidePassword(this.id);" required />
+									<input type="password" id="FormPassword" name="FormPassword" class="form-control trans-placeholder" maxlength="255" placeholder="Password*" onfocus="showPassword(this.id);" onblur="hidePassword(this.id);" required />
 									<span id="CopyToClipboard" class="input-group-addon trans-id-title" style="cursor: pointer;" onclick="copyPwToClipboard();" data-toggle="tooltip" data-placement="top" title="copy password to clipboard"><i class="glyphicon glyphicon-copy"></i></span>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-1"></div>
 					</div>
-					<!-- <div class="row">
-						<div class="col-md-1"></div>
-						<div class="col-md-10">
-							<div class="form-group" id="divFormPasswordConfirm">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-									<input type="password" id="formPasswordConfirm" name="formPasswordConfirm" class="form-control trans-placeholder" maxlength="255" placeholder="Confirm Password*" required />
-								</div>
-							</div>
-						</div>
-						<div class="col-md-1"></div>
-					</div> -->
 					<div class="row">
 						<div class="col-md-1"></div>
 						<div class="col-md-10">
@@ -137,7 +125,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-1"></div>
-						<div id="form-required" class="col-md-2 trans-innerHTML">
+						<div id="FormRequired" class="col-md-2 trans-innerHTML">
 							*) required
 						</div>
 					</div>
@@ -150,7 +138,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-1"></div>
-						<div id='formNewUser-divErrorUserExists' class="col-md-10 alert alert-danger hide trans-innerHTML">
+						<div id='FormNewUserDivErrorUserExists' class="col-md-10 alert alert-danger hide trans-innerHTML">
 							<b>Error!</b> User exists already.
 						</div>
 						<div class="col-md-1"></div>

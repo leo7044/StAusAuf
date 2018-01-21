@@ -103,7 +103,7 @@
 				<div class="form-group hide" id="div-City" ng-class="{'has-error': formCreateReport.City.$invalid, 'has-success': formCreateReport.City.$valid}"> <!-- ng-show="Country" -->
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
-						<input class="form-control trans-placeholder" name="City" id="Input_City" ng-model="City" list="dataListCity" ng-required="{{true" maxlength="255" placeholder="Destination-City*" />
+						<input class="form-control trans-placeholder" name="City" id="InputCity" ng-model="City" list="dataListCity" ng-required="{{true" maxlength="255" placeholder="Destination-City*" />
 						<datalist id="dataListCity">
 						</datalist>
 						<span class="input-group-addon">
@@ -113,21 +113,12 @@
 						</span>
 					</div>
 				</div>
-				<!-- http://simplemaps.com/resources/world-cities-data -->
-				<!-- City -->
-				<!-- http://www.freeformatter.com/iso-country-list-html-select.html -->
-				<!-- http://www.daterangepicker.com/ -->
-				<!-- Reisezeitraum -->
 				<div class="form-group" id="div-Date" ng-class="{'has-error': formCreateReport.DateRange.$invalid, 'has-success': formCreateReport.DateRange.$valid}">
 					<div class="input-group">
 						<span class="input-group-addon">
 							<span class="glyphicon glyphicon-calendar"></span>
 						</span>
-						<!-- http://html5pattern.com/Dates -->
-						<!-- mit Substring in PHP auswerten: http://php.net/manual/de/function.substr.php -->
-						<!-- pattern nicht notwendig, wenn readonly; readonly -> no required -->
-						<!-- http://fragaria.github.io/angular-daterangepicker/ -->
-						<input class="form-control trans-placeholder" style="background: white;" name="daterange" id="daterange" ng-model="DateRange" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Date', true)" placeholder="Travel-Period*" readonly />
+						<input class="form-control trans-placeholder" style="background: white;" name="DateRange" id="DateRange" ng-model="DateRange" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Date', true)" placeholder="Travel-Period*" readonly />
 						<span class="input-group-addon">
 							<a name="ToolTipDateRange" data-toggle="tooltip" data-placement="top" title="Please select startdate and enddate of your travel." class="trans-name-title">
 								<i class="glyphicon glyphicon-question-sign"></i>
@@ -138,7 +129,7 @@
 				<div class="form-group" id="div-Highlight" ng-class="{'has-error': formCreateReport.Highlight.$invalid, 'has-success': formCreateReport.Highlight.$valid}">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-thumbs-up"></i></span>
-						<input class="form-control trans-placeholder" name="Highlight" id="Input_Highlight" ng-model="Highlight" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Highlight', true)" ng-required="{{true" ngMinlength="1" maxlength="255" placeholder="Your personal highlights*" />
+						<input class="form-control trans-placeholder" name="Highlight" id="InputHighlight" ng-model="Highlight" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Highlight', true)" ng-required="{{true" ngMinlength="1" maxlength="255" placeholder="Your personal highlights*" />
 						<span class="input-group-addon">
 							<a name="ToolTipHighlight" data-toggle="tooltip" data-placement="top" title="Please enter your personal highlights." class="trans-name-title">
 								<i class="glyphicon glyphicon-question-sign"></i>
@@ -149,9 +140,9 @@
 				<div class="form-group" id="div-Attention" ng-class="{'has-error': formCreateReport.Attention.$invalid, 'has-success': formCreateReport.Attention.$valid}">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-warning-sign"></i></span>
-						<input class="form-control trans-placeholder" name="Attention" id="Input_Attention" ng-model="Attention" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Attention', true)" ng-required="{{true" maxlength="255" placeholder="What must be considered?*" />
+						<input class="form-control trans-placeholder" name="Attention" id="InputAttention" ng-model="Attention" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Attention', true)" ng-required="{{true" maxlength="255" placeholder="What must be considered?*" />
 						<span class="input-group-addon">
-							<a name="Input_Attention" data-toggle="tooltip" data-placement="top" title="What must be considered?" class="trans-name-title">
+							<a name="InputAttention" data-toggle="tooltip" data-placement="top" title="What must be considered?" class="trans-name-title">
 								<i class="glyphicon glyphicon-question-sign"></i>
 							</a>
 						</span>
@@ -185,7 +176,7 @@
 				<div class="form-group">
 					<input id="FileInputUploadGallery" name="FileInputUploadGallery[]" type="file" class="file-loading trans-upload-placeholder" data-msg-placeholder="Select pictures for your picture-gallery (max. 20 pictures)" multiple />
 				</div>
-				<div id="form-required" class="trans-innerHTML">
+				<div id="FormRequired" class="trans-innerHTML">
 					*) required
 				</div>
 				<br/>
@@ -239,10 +230,10 @@
 									</div>
 								</div>
 							</div>
-							<div class="form-group" id="modal-div-Email" ng-class="{'has-error': formModalProfile.modalEmail.$invalid && formModalProfile.modalEmail.$touched , 'has-success': formModalProfile.modalEmail.$valid && formModalProfile.modalEmail.$touched}">
+							<div class="form-group" id="modal-div-Email" ng-class="{'has-error': formModalProfile.ModalEmail.$invalid && formModalProfile.ModalEmail.$touched , 'has-success': formModalProfile.ModalEmail.$valid && formModalProfile.ModalEmail.$touched}">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-									<input class="form-control trans-placeholder" name="modalEmail" id="modalEmail" ng-model="modalEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Enter your e-mail address" autofocus maxlength="255" />
+									<input class="form-control trans-placeholder" name="ModalEmail" id="ModalEmail" ng-model="ModalEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Enter your e-mail address" autofocus maxlength="255" />
 									<span class="input-group-addon">
 										<a name="ToolTipModalEmail" data-toggle="tooltip" data-placement="top" title="Please enter your e-mail address." class="trans-name-title">
 											<i class="glyphicon glyphicon-question-sign"></i>
@@ -264,7 +255,7 @@
 								<div class="form-group" id="modal-div-OldPw">
 									<div class="input-group">
 										<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-										<input type="password" class="form-control trans-placeholder" name="modalOldPw" id="modalOldPw" ng-model="modalOldPw" onblur="inputNotEmpty(this.id, 'modal-div-OldPw')" onkeyup="inputNotEmpty(this.id, 'modal-div-OldPw')" maxlength="255" placeholder="Old password" />
+										<input type="password" class="form-control trans-placeholder" name="ModalOldPw" id="ModalOldPw" ng-model="ModalOldPw" onblur="inputNotEmpty(this.id, 'modal-div-OldPw')" onkeyup="inputNotEmpty(this.id, 'modal-div-OldPw')" maxlength="255" placeholder="Old password" />
 										<span class="input-group-addon">
 											<a name="ToolTipModalOldPw" data-toggle="tooltip" data-placement="top" title="Please enter your old password." class="trans-name-title">
 												<i class="glyphicon glyphicon-question-sign"></i>
@@ -275,7 +266,7 @@
 								<div class="form-group" id="modal-div-NewPw">
 									<div class="input-group">
 										<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-										<input type="password" class="form-control trans-placeholder" name="modalNewPw" id="modalNewPw" ng-model="modalNewPw" maxlength="255" placeholder="New Password" />
+										<input type="password" class="form-control trans-placeholder" name="ModalNewPw" id="ModalNewPw" ng-model="ModalNewPw" maxlength="255" placeholder="New Password" />
 										<span class="input-group-addon">
 											<a name="ToolTipModalNewPw" data-toggle="tooltip" data-placement="top" title="Please enter your new password." class="trans-name-title">
 												<i class="glyphicon glyphicon-question-sign"></i>
@@ -286,7 +277,7 @@
 								<div class="form-group" id="modal-div-NewPwConfirm">
 									<div class="input-group">
 										<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-										<input type="password" class="form-control trans-placeholder" name="modalNewPwConfirm" id="modalNewPwConfirm" ng-model="modalNewPwConfirm" maxlength="255" placeholder="Confirm new passowrd" />
+										<input type="password" class="form-control trans-placeholder" name="ModalNewPwConfirm" id="ModalNewPwConfirm" ng-model="ModalNewPwConfirm" maxlength="255" placeholder="Confirm new passowrd" />
 										<span class="input-group-addon">
 											<a name="ToolTipModalNewPwConfirm" data-toggle="tooltip" data-placement="top" title="Please confirm your new password." class="trans-name-title">
 												<i class="glyphicon glyphicon-question-sign"></i>
@@ -295,13 +286,13 @@
 									</div>
 								</div>
 							</div>
-							<div id='formModalProfile-divSuccess' class="alert alert-success hide trans-innerHTML">
+							<div id='FormModalProfileDivSuccess' class="alert alert-success hide trans-innerHTML">
 								<b>Success!</b> The profile has been updated successfully.
 							</div>
-							<div id='formModalProfile-divErrorUpdate' class="alert alert-danger hide trans-innerHTML"> <!-- tritt praktisch nie auf -->
+							<div id='FormModalProfileDivErrorUpdate' class="alert alert-danger hide trans-innerHTML"> <!-- tritt praktisch nie auf -->
 								<b>Error!</b> The profile could not be updated.
 							</div>
-							<div id='formModalProfile-divErrorWrongPw' class="alert alert-danger hide trans-innerHTML">
+							<div id='FormModalProfileDivErrorWrongPw' class="alert alert-danger hide trans-innerHTML">
 								<b>Error!</b> Old password is wrong.
 							</div>
 							<div id='DivErrorPwNoMatch' class="alert alert-danger hide trans-innerHTML">
