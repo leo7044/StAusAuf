@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Adminpanel</title>
+		<title id="HeaderAdmin" class="trans-innerHTML">Adminpanel</title>
 		<meta charset="utf-8">
 		<meta name="author" content="Leo Brandenburg">
 		<link rel="shortcut icon" type="image/x-icon" href="img/logo.png">
@@ -28,7 +28,7 @@
 				</div>
 				<div class="col-md-2 text-right">
 					<form method="post" action="">
-						<!-- <a id="Profile" data-toggle="modal" data-target="#modalProfile" class="btn btn-primary">
+						<!-- <a id="Profile" data-toggle="modal" data-target="#ModalProfile" class="btn btn-primary">
 							<span class="glyphicon glyphicon-user"></span> Profile
 						</a>-->
 						<button type="submit" name="logout" class="btn btn-danger">
@@ -43,7 +43,7 @@
 				<div class="col-md-9"></div>
 				<div class="col-md-3">
 					<div class="form-group">
-						<select class="form-control" id="language" onchange="changeLanguage(this.selectedIndex);"></select>
+						<select class="form-control" id="Language" onchange="changeLanguage(this.selectedIndex);"></select>
 					</div>
 				</div>
 			</div>
@@ -51,13 +51,13 @@
 		<div class="center-block own-box-admin"> <!-- wird onload dynamisch mit .js generiert -->
 			<noscript>Please activate JavaScript</noscript>
 			<h3 id="User" class="trans-innerHTML text-center">User</h3>
-			<div id="divFormButtonNewUser">
+			<div id="DivFormButtonNewUser">
 				<button onclick="showFormNewUser();" class="btn btn-primary">
 					<span class="glyphicon glyphicon-plus-sign"></span> <span id="AddUser" class="trans-innerHTML">Add User</span>
 				</button>
 			</div>
-			<div id="divFormNewUser" class="hide">
-				<form id="formNewUser" name="formNewUser" method="post" action="" onsubmit="return createNewUser();">
+			<div id="DivFormNewUser" class="hide">
+				<form id="FormNewUser" name="FormNewUser" method="post" action="" onsubmit="return createNewUser();">
 					<div class="row">
 						<div class="col-md-1"></div>
 						<div class="col-md-11">
@@ -89,7 +89,7 @@
 					<div class="row">
 						<div class="col-md-1"></div>
 						<div class="col-md-10">
-							<div class="form-group" id="divFormPassword">
+							<div class="form-group" id="DivFormPassword">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 									<input type="password" id="FormPassword" name="FormPassword" class="form-control trans-placeholder" maxlength="255" placeholder="Password*" onfocus="showPassword(this.id);" onblur="hidePassword(this.id);" required />
@@ -105,7 +105,7 @@
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-									<select id="selectMemberRole" name="selectMemberRole" class="form-control" required /></select>
+									<select id="MemberRoleSelection" name="MemberRoleSelection" class="form-control" required /></select>
 								</div>
 							</div>
 						</div>
@@ -117,7 +117,7 @@
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-									<input id="formEmail" name="formEmail" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" maxlength="255" placeholder="Email" />
+									<input id="FormEmail" name="FormEmail" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" maxlength="255" placeholder="Email" />
 								</div>
 							</div>
 						</div>
@@ -131,14 +131,14 @@
 					</div>
 					<div class="row">
 						<div class="col-md-1"></div>
-						<div id='DivErrorPwNoMatch' class="col-md-10 alert alert-danger hide trans-innerHTML">
+						<div id="DivErrorPwNoMatch" class="col-md-10 alert alert-danger hide trans-innerHTML">
 							<b>Error!</b> New passwords do not match.
 						</div>
 						<div class="col-md-1"></div>
 					</div>
 					<div class="row">
 						<div class="col-md-1"></div>
-						<div id='FormNewUserDivErrorUserExists' class="col-md-10 alert alert-danger hide trans-innerHTML">
+						<div id="FormNewUserDivErrorUserExists" class="col-md-10 alert alert-danger hide trans-innerHTML">
 							<b>Error!</b> User exists already.
 						</div>
 						<div class="col-md-1"></div>
@@ -156,7 +156,7 @@
 						<th>Email</th>
 						<th id="Action" class="trans-innerHTML">Action</th>
 					</thead>
-					<tbody id="userTable">
+					<tbody id="UserTable">
 					</tbody>
 				</table>
 			</div>
@@ -171,7 +171,7 @@
 							<th id="Website" class="trans-innerHTML">Website</th>
 							<th id="Views" class="trans-innerHTML">Views</th>
 						</thead>
-						<tbody id="statsPage">
+						<tbody id="StatsPage">
 						</tbody>
 					</table>
 				</div>
@@ -182,7 +182,7 @@
 							<th id="Report" class="trans-innerHTML">Report</th>
 							<th id="Views" class="trans-innerHTML">Views</th>
 						</thead>
-						<tbody id="statsReports">
+						<tbody id="StatsReports">
 						</tbody>
 					</table>
 				</div>

@@ -1,33 +1,16 @@
 /* Developer: Leo Brandenburg */
-var UserData = null;
-var ownUser = null;
-var memberRolesArray = null;
+var ObjectOwnUser = null;
+var ArrayUserData = null;
+var ArrayMemberRoles = null;
 
 $(document).ready(function()
 {
-	memberRolesArray = objectLanguages.ArrayMemberRoles;
+	ArrayMemberRoles = ObjectLanguages.ArrayMemberRoles;
 	getOwnUser();
 	getUserFromDB();
 	incrementViews('admin');
 	fillViewTables();
 })
-
-// gibt die eigene Id mit UserName zurück
-function getOwnUser()
-{
-	$.ajaxSetup({async: false});
-	var data =
-	{
-		action: "getOwnUser"
-	}
-	$.ajaxSetup({async: false});
-	$.post('php/manageBackend.php', data)
-	.always(function(data)
-	{
-		ownUser = data;
-	});
-	$.ajaxSetup({async: true});
-}
 
 // holtUserDaten aus der DB
 function getUserFromDB()
@@ -40,7 +23,7 @@ function getUserFromDB()
 	$.post('php/manageBackend.php', data)
 	.always(function(data)
 	{
-		UserData = data;
+		ArrayUserData = data;
 	});
 	$.ajaxSetup({async: true});
 	buildHtmlForUserTable();
@@ -49,14 +32,14 @@ function getUserFromDB()
 // erzeugt die komplette Tabelle
 function buildHtmlForUserTable()
 {
-	if (UserData.responseText != 'noDatabase')
+	if (ArrayUserData.responseText != 'noDatabase')
 	{
 		var strHtml = '';
-		for (var i = 0; i < UserData.length; i++)
+		for (var i = 0; i < ArrayUserData.length; i++)
 		{
 			strHtml += buildOneRow(i);
 		}
-		document.getElementById('userTable').innerHTML = strHtml;
+		document.getElementById('UserTable').innerHTML = strHtml;
 		changeLanguage();
 	}
 	else
@@ -78,15 +61,15 @@ function buildOneRow(rowId)
 function buildDefaultRow(rowId)
 {
 	var strHtml = '';
-	strHtml += '<tr id="' + UserData[rowId].Id + '_actionDefault">';
-		strHtml += '<td>' + UserData[rowId].Id + '</td>';
-		strHtml += '<td>' + UserData[rowId].UserName + '</td>';
+	strHtml += '<tr id="' + ArrayUserData[rowId].Id + '_actionDefault">';
+		strHtml += '<td>' + ArrayUserData[rowId].Id + '</td>';
+		strHtml += '<td>' + ArrayUserData[rowId].UserName + '</td>';
 		strHtml += '<td>********</td>';
-		strHtml += '<td>' + giveMemberRoleName(UserData[rowId].MemberRole) + '</td>';
-		strHtml += '<td>' + UserData[rowId].Email + '</td>';
-		if (ownUser[0].MemberRole >= UserData[rowId].MemberRole)
+		strHtml += '<td>' + giveMemberRoleName(ArrayUserData[rowId].MemberRole) + '</td>';
+		strHtml += '<td>' + ArrayUserData[rowId].Email + '</td>';
+		if (ObjectOwnUser.MemberRole >= ArrayUserData[rowId].MemberRole)
 		{
-			strHtml += '<td><button class="btn btn-default" onclick="editUser(' + UserData[rowId].Id + ');"><span class="glyphicon glyphicon-pencil" style="color:#0000FF;"></span> <span id="Edit" class="trans-innerHTML">Edit</span></button>';
+			strHtml += '<td><button class="btn btn-default" onclick="editUser(' + ArrayUserData[rowId].Id + ');"><span class="glyphicon glyphicon-pencil" style="color:#0000FF;"></span> <span id="Edit" class="trans-innerHTML">Edit</span></button>';
 		}
 		else
 		{
@@ -96,11 +79,11 @@ function buildDefaultRow(rowId)
 		{
 			strHtml += '&nbsp;';
 		}
-		if (ownUser[0].Id != UserData[rowId].Id)
+		if (ObjectOwnUser.Id != ArrayUserData[rowId].Id)
 		{
-			if (ownUser[0].MemberRole >= UserData[rowId].MemberRole)
+			if (ObjectOwnUser.MemberRole >= ArrayUserData[rowId].MemberRole)
 			{
-				strHtml += '<button class="btn btn-default" onclick="deleteUser(' + UserData[rowId].Id + ');"><span style="color:#FF0000;">✘</span> <span id="Delete" class="trans-innerHTML">Delete</span></button></td>';
+				strHtml += '<button class="btn btn-default" onclick="deleteUser(' + ArrayUserData[rowId].Id + ');"><span style="color:#FF0000;">✘</span> <span id="Delete" class="trans-innerHTML">Delete</span></button></td>';
 			}
 			else
 			{
@@ -131,12 +114,12 @@ function hidePassword(Id)
 function buildEditRow(rowId)
 {
 	var strHtml = '';
-	strHtml += '<tr id="' + UserData[rowId].Id + '_actionEdit" class="hide">';
-	strHtml += '<td>' + UserData[rowId].Id + '</td>';
-	strHtml += '<td><input name="NotEmpty" id="userName_' + rowId +'" class="form-control trans-name-placeholder" value="' + UserData[rowId].UserName + '" placeholder="Field must not be empty" required /></td>';
+	strHtml += '<tr id="' + ArrayUserData[rowId].Id + '_actionEdit" class="hide">';
+	strHtml += '<td>' + ArrayUserData[rowId].Id + '</td>';
+	strHtml += '<td><input name="NotEmpty" id="UserName_' + rowId +'" class="form-control trans-name-placeholder" value="' + ArrayUserData[rowId].UserName + '" placeholder="Field must not be empty" required /></td>';
 	strHtml += '<td>' +
 					'<div class="input-group">' +
-						'<input type="password" name="NoChangeInPw" id="password_' + rowId +'" placeholder="leave empty -> no change of PW" class="form-control trans-name-placeholder" onfocus="showPassword(this.id);" onblur="hidePassword(this.id);" />' +
+						'<input type="password" name="NoChangeInPw" id="Password_' + rowId +'" placeholder="leave empty -> no change of PW" class="form-control trans-name-placeholder" onfocus="showPassword(this.id);" onblur="hidePassword(this.id);" />' +
 						'<span class="input-group-addon">' +
 							'<a name="TitleLeaveEmpty" data-toggle="tooltip" data-placement="top" title="Leave this field empty to not change the password." class="trans-name-title">' +
 								'<i class="glyphicon glyphicon-question-sign"></i>' +
@@ -144,41 +127,41 @@ function buildEditRow(rowId)
 						'</span>' +
 					'</div>' +
 				'</td>';
-	if (ownUser[0].Id != UserData[rowId].Id)
+	if (ObjectOwnUser.Id != ArrayUserData[rowId].Id)
 	{
-		strHtml += '<td><select id="memberRole_' + rowId +'" class="form-control">';
+		strHtml += '<td><select id="MemberRole_' + rowId +'" class="form-control">';
 	}
 	else
 	{
-		strHtml += '<td><select id="memberRole_' + rowId +'" class="form-control" disabled>';
+		strHtml += '<td><select id="MemberRole_' + rowId +'" class="form-control" disabled>';
 	}
-	for (var j = 0; j < memberRolesArray.length; j++)
+	for (var j = 0; j < ArrayMemberRoles.length; j++)
 	{
-		if (UserData[rowId].MemberRole != j)
+		if (ArrayUserData[rowId].MemberRole != j)
 		{
-			if (j <= ownUser[0].MemberRole)
+			if (j <= ObjectOwnUser.MemberRole)
 			{
-				strHtml += '<option value="' + j + '">' + memberRolesArray[j] + '</option>';
+				strHtml += '<option value="' + j + '">' + ArrayMemberRoles[j] + '</option>';
 			}
 			else
 			{
-				// strHtml += '<option value="' + j + '" disabled>' + memberRolesArray[j] + '</option>';
+				// strHtml += '<option value="' + j + '" disabled>' + ArrayMemberRoles[j] + '</option>';
 				break;
 			}
 		}
 		else
 		{
-			strHtml += '<option value="' + j + '" selected>' + memberRolesArray[j] + '</option>';
+			strHtml += '<option value="' + j + '" selected>' + ArrayMemberRoles[j] + '</option>';
 		}
 	}
 	strHtml += '</select></td>';
-	strHtml += '<td><input id="email_' + rowId +'" class="form-control" value="' + UserData[rowId].Email + '" /></td>';
-	strHtml += '<td><button class="btn btn-default" onclick="updateUser(' + UserData[rowId].Id + ', ' + rowId + ');"><span class="glyphicon glyphicon-ok" style="color:#5CB85C;"></span> <span id="Confirm" class="trans-innerHTML">Confirm</span></button>';
+	strHtml += '<td><input id="Email_' + rowId +'" class="form-control" value="' + ArrayUserData[rowId].Email + '" /></td>';
+	strHtml += '<td><button class="btn btn-default" onclick="updateUser(' + ArrayUserData[rowId].Id + ', ' + rowId + ');"><span class="glyphicon glyphicon-ok" style="color:#5CB85C;"></span> <span id="Confirm" class="trans-innerHTML">Confirm</span></button>';
 	for (var j = 0; j < 10; j++)
 	{
 		strHtml += '&nbsp;';
 	}
-	strHtml += '<button class="btn btn-default" onclick="resetUser(' + UserData[rowId].Id + ', ' + rowId + ');"><span class="glyphicon glyphicon-remove" style="color:#FF0000;"></span> <span id="Cancel" class="trans-innerHTML">Cancel</span></button></td>';
+	strHtml += '<button class="btn btn-default" onclick="resetUser(' + ArrayUserData[rowId].Id + ', ' + rowId + ');"><span class="glyphicon glyphicon-remove" style="color:#FF0000;"></span> <span id="Cancel" class="trans-innerHTML">Cancel</span></button></td>';
 	strHtml += '</tr>';
 	return strHtml;
 }
@@ -186,16 +169,16 @@ function buildEditRow(rowId)
 // zeigt Form für neuen User
 function showFormNewUser()
 {
-	$('#divFormButtonNewUser').addClass('hide');
-	$('#divFormNewUser').removeClass('hide');
-	var ownMemberRole = ownUser[0].MemberRole;
+	$('#DivFormButtonNewUser').addClass('hide');
+	$('#DivFormNewUser').removeClass('hide');
+	var ownMemberRole = ObjectOwnUser.MemberRole;
 	// var selectOptions = '<option value="-1"></option>';
 	var selectOptions = '';
 	for (var i = 0; i <= ownMemberRole; i++)
 	{
 		selectOptions += '<option value="' + i + '">' + giveMemberRoleName(i) + '</option>';
 	}
-	document.getElementById('selectMemberRole').innerHTML = selectOptions;
+	document.getElementById('MemberRoleSelection').innerHTML = selectOptions;
 	$('#FormUserName').focus();
 	$('#FormPassword')[0].value = generateRandomPassword();
 }
@@ -203,8 +186,8 @@ function showFormNewUser()
 // verbirgt Form für neuen User
 function hideFormNewUser()
 {
-	$('#divFormButtonNewUser').removeClass('hide');
-	$('#divFormNewUser').addClass('hide');
+	$('#DivFormButtonNewUser').removeClass('hide');
+	$('#DivFormNewUser').addClass('hide');
 	resetFormNewUser();
 	return false;
 }
@@ -212,9 +195,9 @@ function hideFormNewUser()
 // setzt Form zurück
 function resetFormNewUser()
 {
-	$('#divFormPassword, #divFormPasswordConfirm').removeClass('has-success has-error');
+	$('#DivFormPassword').removeClass('has-success has-error');
 	$('#DivErrorPwNoMatch, #FormNewUserDivErrorUserExists').addClass('hide');
-	document.getElementById('formNewUser').reset();
+	document.getElementById('FormNewUser').reset();
 	$('#FormUserName').focus();
 	$('#FormPassword')[0].value = generateRandomPassword();
 	return false;
@@ -245,17 +228,17 @@ function copyPwToClipboard()
 	var textToCopy = $('#FormPassword');
 	textToCopy.select();
 	document.execCommand('copy');
-	hidePassword('FormPassword');
+	// hidePassword('FormPassword');
 }
 
 // kreiert einen neuen User
 function createNewUser()
 {
 	// im BackEnd speichern
-	var userName = document.formNewUser.FormUserName.value;
-	var password = document.formNewUser.FormPassword.value;
-	var memberRole = document.formNewUser.selectMemberRole.value;
-	var email = document.formNewUser.formEmail.value;
+	var userName = document.FormNewUser.FormUserName.value;
+	var password = document.FormNewUser.FormPassword.value;
+	var memberRole = document.FormNewUser.MemberRoleSelection.value;
+	var email = document.FormNewUser.FormEmail.value;
 	var data =
 	{
 		action: "createUser",
@@ -301,11 +284,11 @@ function editUser(Id)
 // User speichern
 function updateUser(Id, rowId)
 {
-	// UserData updaten
-	var userName = $('#userName_' + rowId).val();
-	var password = $('#password_' + rowId).val();
-	var memberRole = $('#memberRole_' + rowId).val();
-	var email = $('#email_' + rowId).val();
+	// ArrayUserData updaten
+	var userName = $('#UserName_' + rowId).val();
+	var password = $('#Password_' + rowId).val();
+	var memberRole = $('#MemberRole_' + rowId).val();
+	var email = $('#Email_' + rowId).val();
 	// in BackEnd speichern
 	if (userName)
 	{
@@ -326,9 +309,9 @@ function updateUser(Id, rowId)
 			{
 				if (data.responseText == 'UserUpdate erfolgreich')
 				{
-					UserData[rowId].UserName = userName;
-					UserData[rowId].MemberRole = memberRole;
-					UserData[rowId].Email = email;
+					ArrayUserData[rowId].UserName = userName;
+					ArrayUserData[rowId].MemberRole = memberRole;
+					ArrayUserData[rowId].Email = email;
 				}
 				else if (data.responseText == 'kein Update vorgenommen')
 				{
@@ -350,11 +333,11 @@ function updateUser(Id, rowId)
 	}
 	else
 	{
-		$('#userName_' + rowId).focus();
+		$('#UserName_' + rowId).focus();
 	}
 }
 
-// setzt User auf Ursprungszustand (UserData) zurück - Achtung: UserData in saveUser müssen aktuell gehalten werden, weil updateUser auch auf resetUser aufbaut
+// setzt User auf Ursprungszustand (ArrayUserData) zurück - Achtung: ArrayUserData in saveUser müssen aktuell gehalten werden, weil updateUser auch auf resetUser aufbaut
 function resetUser(Id, rowId)
 {
 	document.getElementById(Id + '_actionDefault').outerHTML = buildDefaultRow(rowId);
@@ -386,7 +369,7 @@ function giveMemberRoleName(memberRole)
 	switch(memberRole)
 	{
 		case memberRole:
-			returnValue = memberRolesArray[memberRole];
+			returnValue = ArrayMemberRoles[memberRole];
 			break;
 		default:
 			break;
@@ -407,7 +390,7 @@ function fillViewTables()
 			'<td>' + arrayViews[0][key]['views'] + '</td>' +
 		'<tr>';
 	}
-	$('#statsPage')[0].innerHTML = strHtml;
+	$('#StatsPage')[0].innerHTML = strHtml;
 	var strHtml = '';
 	for (var key in arrayViews[1])
 	{
@@ -418,7 +401,7 @@ function fillViewTables()
 			'<td>' + arrayViews[1][key]['views'] + '</td>' +
 		'<tr>';
 	}
-	$('#statsReports')[0].innerHTML = strHtml;
+	$('#StatsReports')[0].innerHTML = strHtml;
 	changeLanguage();
 }
 

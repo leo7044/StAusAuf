@@ -1,12 +1,14 @@
 /* Developer: Leo Brandenburg */
-var pictureData = null;
-var countryData = null;
-var reportData = null;
-var reportDataOriginal = null;
-var ownUser = new Array();
-var arrayTitle = new Array();
-var arrayTitleEdit = new Array();
-var arrayContent = new Array();
+var ObjectPictureData = null;
+var ObjectOwnUser = null;
+var ArrayCountryData = null;
+var ArrayReportData = null;
+var ArrayReportDataOriginal = null;
+var ArrayTitle = null;
+var ArrayTitleEdit = null;
+var ArrayContent = null;
+var ArrayId = null;
+var ArrayCountryIso = null;
 
 $(document).ready(function()
 {
@@ -15,35 +17,18 @@ $(document).ready(function()
 	getCountryData();
 	getPictureData();
 	getReportData();
-	createIdArray();
+	createArrayId();
 	fillReportTable();
 	incrementViews('viewReports');
 })
 
-// gibt die eigene Id mit UserName zurück
-function getOwnUser()
-{
-	$.ajaxSetup({async: false});
-	var data =
-	{
-		action: "getOwnUser"
-	}
-	$.ajaxSetup({async: false});
-	$.post('php/manageBackend.php', data)
-	.always(function(data)
-	{
-		ownUser = data;
-	});
-	$.ajaxSetup({async: true});
-}
-
 // erstellt Id-Array um ArrayId und RealId zu suchen
-function createIdArray()
+function createArrayId()
 {
-	idArray = new Array();
-	for (var i = 0; i < reportData.length; i++)
+	ArrayId = new Array();
+	for (var i = 0; i < ArrayReportData.length; i++)
 	{
-		idArray[i] = reportData[i].Id;
+		ArrayId[i] = ArrayReportData[i].Id;
 	}
 };
 
@@ -51,17 +36,17 @@ function createIdArray()
 function getCountryData()
 {
 	$.ajaxSetup({async: false});
-	$.get('https://restcountries.eu/rest/v2/all') // for less traffic but more dependency
-	// $.post('js/countryApi.json') // in case extern API goes offline
+	// $.get('https://restcountries.eu/rest/v2/all') // for less traffic but more dependency
+	$.post('js/countryApi.json') // in case extern API goes offline
 	.always(function(data)
 	{
-		countryData = data;
+		ArrayCountryData = data;
 	});
 	$.ajaxSetup({async: true});
-	countryIso = new Array();
-	for (var i = 0; i < countryData.length; i++)
+	ArrayCountryIso = new Array();
+	for (var i = 0; i < ArrayCountryData.length; i++)
 	{
-		countryIso[i] = countryData[i].alpha2Code;
+		ArrayCountryIso[i] = ArrayCountryData[i].alpha2Code;
 	}
 }
 
@@ -78,7 +63,7 @@ function getPictureData()
 	{
 		if (data.responseText != 'noDatabase')
 		{
-			pictureData = data;
+			ObjectPictureData = data;
 		}
 		else
 		{
@@ -99,7 +84,7 @@ function getReportData()
 	$.post('php/manageBackend.php', data)
 	.always(function(data)
 	{
-		reportDataOriginal = reportData = data;
+		ArrayReportDataOriginal = ArrayReportData = data;
 	});
 	$.ajaxSetup({async: true});
 }
@@ -108,19 +93,19 @@ function getReportData()
 function prepareReportData()
 {
 	var searchStr = $('#SearchReport')[0].value;
-	reportData = Array();
+	ArrayReportData = Array();
 	var i = 0;
-	for (var key in reportDataOriginal)
+	for (var key in ArrayReportDataOriginal)
 	{
 		if (proveIfSearchStringExists(key, searchStr))
 		{
-			reportData[i] = reportDataOriginal[key];
+			ArrayReportData[i] = ArrayReportDataOriginal[key];
 			i++;
 		}
 	}
 	window.history.pushState('', '', '?');
 	getGetParas();
-	createIdArray();
+	createArrayId();
 	fillReportTable();
 	changeLanguage();
 }
@@ -129,13 +114,13 @@ function prepareReportData()
 function proveIfSearchStringExists(indexOfReport, searchStr)
 {
 	var longStr = '';
-	for (var key in reportDataOriginal[indexOfReport])
+	for (var key in ArrayReportDataOriginal[indexOfReport])
 	{
 		if (key == 'country')
 		{
 			longStr += getCountryInCorrectLanguage(indexOfReport, 'originalData');
 		}
-		longStr += reportDataOriginal[indexOfReport][key];
+		longStr += ArrayReportDataOriginal[indexOfReport][key];
 	}
 	var returnValue = false;
 	if (longStr.toLowerCase().indexOf(searchStr.toLowerCase()) != -1)
@@ -148,7 +133,7 @@ function proveIfSearchStringExists(indexOfReport, searchStr)
 // fällt die ReportTable beim onLoad
 function fillReportTable()
 {
-	if (reportData.responseText != 'noDatabase')
+	if (ArrayReportData.responseText != 'noDatabase')
 	{
 		var strHtml = "";
 		if ($_GET().Id)
@@ -163,15 +148,15 @@ function fillReportTable()
 				{
 					loadContentOfModal('modal_' + $_GET().Id);
 				}
-				$("#modalReport").modal("show");
+				$("#ModalReport").modal("show");
 			}
 			catch(e){/* Id existiert nicht */};
 		}
 		var lastColumn = 0;
-		for (var i = 0; i < reportData.length; i++)
+		for (var i = 0; i < ArrayReportData.length; i++)
 		{
 			var pfadToTitlePic = 'img/default_avatar_male.jpg';
-			var dataId = reportData[i].Id; // reason: deleted reports, offet from 1
+			var dataId = ArrayReportData[i].Id; // reason: deleted reports, offet from 1
 			var row = parseInt(i / 3);
 			lastColumn = row;
 			var column = parseInt(i % 3);
@@ -181,18 +166,18 @@ function fillReportTable()
 				{
 					strHtml += '<div class="row" id="row' + column + '">';
 					strHtml += '<div class="col-md-4" id="box' + row + column + '">';
-					var picUrl = pictureData[dataId][0].toString();
+					var picUrl = ObjectPictureData[dataId][0].toString();
 					if (picUrl != '')
 					{
 						pfadToTitlePic = 'img_upload/' + dataId + '/thumb_Title/' + picUrl;
 					}
 					strHtml += '<center>';
-					strHtml += '<a id="modal_' + dataId + '" data-toggle="modal" data-target="#modalReport" style="cursor: pointer;" onclick="loadContentOfModal(this.id);">';
+					strHtml += '<a id="modal_' + dataId + '" data-toggle="modal" data-target="#ModalReport" style="cursor: pointer;" onclick="loadContentOfModal(this.id);">';
 					strHtml += '<img src="' + pfadToTitlePic + '" class="picture-size-small"></img>';
 					strHtml += '</a>';
-					strHtml += '<br/>' + reportData[i].reportName + ' (' + reportData[i].nickName + ')';
+					strHtml += '<br/>' + ArrayReportData[i].reportName + ' (' + ArrayReportData[i].nickName + ')';
 					strHtml += '<br/><span name="ReportCountry">' + getCountryInCorrectLanguage(i) + '</span>';
-					strHtml += '<br/><span id="Views" class="trans-innerHTML">Views</span>: ' + reportData[i].views;
+					strHtml += '<br/><span id="Views" class="trans-innerHTML">Views</span>: ' + ArrayReportData[i].views;
 					strHtml += '</center>'
 					strHtml += '</div>';
 					break;
@@ -200,19 +185,19 @@ function fillReportTable()
 				case 1:
 				{
 					strHtml += '<div class="col-md-4" id="box' + row + column + '">';
-					var picUrl = pictureData[dataId][0].toString();
+					var picUrl = ObjectPictureData[dataId][0].toString();
 					if (picUrl != '')
 					{
 						pfadToTitlePic = 'img_upload/' + dataId + '/thumb_Title/' + picUrl;
 					}
 					strHtml += '<center>';
-					strHtml += '<a id="modal_' + dataId + '" data-toggle="modal" data-target="#modalReport" style="cursor: pointer;" onclick="loadContentOfModal(this.id);">';
+					strHtml += '<a id="modal_' + dataId + '" data-toggle="modal" data-target="#ModalReport" style="cursor: pointer;" onclick="loadContentOfModal(this.id);">';
 					strHtml += '<img src="' + pfadToTitlePic + '" class="picture-size-small"></img>';
 					strHtml += '</a>';
-					strHtml += '<br/>' + reportData[i].reportName + ' (' + reportData[i].nickName + ')';
-					var indexOfCountry = $.inArray(reportData[i].country, countryIso);
+					strHtml += '<br/>' + ArrayReportData[i].reportName + ' (' + ArrayReportData[i].nickName + ')';
+					var indexOfCountry = $.inArray(ArrayReportData[i].country, ArrayCountryIso);
 					strHtml += '<br/><span name="ReportCountry">' + getCountryInCorrectLanguage(i) + '</span>';
-					strHtml += '<br/><span id="Views" class="trans-innerHTML">Views</span>: ' + reportData[i].views;
+					strHtml += '<br/><span id="Views" class="trans-innerHTML">Views</span>: ' + ArrayReportData[i].views;
 					strHtml += '</center>'
 					strHtml += '</div>';
 					break;
@@ -220,19 +205,19 @@ function fillReportTable()
 				case 2:
 				{
 					strHtml += '<div class="col-md-4" id="box' + row + column + '">';
-					var picUrl = pictureData[dataId][0].toString();
+					var picUrl = ObjectPictureData[dataId][0].toString();
 					if (picUrl != '')
 					{
 						pfadToTitlePic = 'img_upload/' + dataId + '/thumb_Title/' + picUrl;
 					}
 					strHtml += '<center>';
-					strHtml += '<a id="modal_' + dataId + '" data-toggle="modal" data-target="#modalReport" style="cursor: pointer;" onclick="loadContentOfModal(this.id);">';
+					strHtml += '<a id="modal_' + dataId + '" data-toggle="modal" data-target="#ModalReport" style="cursor: pointer;" onclick="loadContentOfModal(this.id);">';
 					strHtml += '<img src="' + pfadToTitlePic + '" class="picture-size-small"></img>';
 					strHtml += '</a>';
-					strHtml += '<br/>' + reportData[i].reportName + ' (' + reportData[i].nickName + ')';
-					var indexOfCountry = $.inArray(reportData[i].country, countryIso);
+					strHtml += '<br/>' + ArrayReportData[i].reportName + ' (' + ArrayReportData[i].nickName + ')';
+					var indexOfCountry = $.inArray(ArrayReportData[i].country, ArrayCountryIso);
 					strHtml += '<br/><span name="ReportCountry">' + getCountryInCorrectLanguage(i) + '</span>';
-					strHtml += '<br/><span id="Views" class="trans-innerHTML">Views</span>: ' + reportData[i].views;
+					strHtml += '<br/><span id="Views" class="trans-innerHTML">Views</span>: ' + ArrayReportData[i].views;
 					strHtml += '</center>'
 					strHtml += '</div>';
 					strHtml += '</div><br/><br/>';
@@ -246,7 +231,7 @@ function fillReportTable()
 		{
 			strHtml += '</div>';
 		}
-		document.getElementById('bigDivForReportTable').innerHTML = strHtml;
+		document.getElementById('BigDivForReportTable').innerHTML = strHtml;
 	}
 	else
 	{
@@ -261,27 +246,27 @@ function loadContentOfModal(longModalId, loadingPage)
 	var LengthLongModalId = longModalId.length;
 	var modalId = longModalId.substr(6, LengthLongModalId); // 'modal_' muss abgeschnitten werden
 	window.history.pushState('', '', '?Id=' + modalId);
-	var indexOfObjectInReportData = $.inArray(modalId, idArray); // auf dieses Objekt in den ReportData muss zugegriffen werden
+	var indexOfObjectInReportData = $.inArray(modalId, ArrayId); // auf dieses Objekt in den ReportData muss zugegriffen werden
 	incrementViews(parseInt(modalId));
-	reportData[indexOfObjectInReportData].views = parseInt(reportData[indexOfObjectInReportData].views) + 1;
-	var currentLanguageIndex = document.getElementById('language').selectedIndex;
-	arrayTitle = objectLanguages.ArrayTitle[currentLanguageIndex];
-	arrayTitleEdit = objectLanguages.ArrayTitleEdit[currentLanguageIndex];
-	arrayContent = new Array(reportData[indexOfObjectInReportData].reportName,
-								reportData[indexOfObjectInReportData].nickName,
+	ArrayReportData[indexOfObjectInReportData].views = parseInt(ArrayReportData[indexOfObjectInReportData].views) + 1;
+	var currentLanguageIndex = document.getElementById('Language').selectedIndex;
+	ArrayTitle = ObjectLanguages.ArrayTitle[currentLanguageIndex];
+	ArrayTitleEdit = ObjectLanguages.ArrayTitleEdit[currentLanguageIndex];
+	ArrayContent = new Array(ArrayReportData[indexOfObjectInReportData].reportName,
+								ArrayReportData[indexOfObjectInReportData].nickName,
 								'<span id="OneReportCountry">' + getCountryInCorrectLanguage(indexOfObjectInReportData) + '</span>',
-								reportData[indexOfObjectInReportData].city,
-								reportData[indexOfObjectInReportData].dateRange,
-								reportData[indexOfObjectInReportData].highlight,
-								reportData[indexOfObjectInReportData].attention,
-								reportData[indexOfObjectInReportData].lecture,
-								reportData[indexOfObjectInReportData].internship,
-								reportData[indexOfObjectInReportData].views);
+								ArrayReportData[indexOfObjectInReportData].city,
+								ArrayReportData[indexOfObjectInReportData].dateRange,
+								ArrayReportData[indexOfObjectInReportData].highlight,
+								ArrayReportData[indexOfObjectInReportData].attention,
+								ArrayReportData[indexOfObjectInReportData].lecture,
+								ArrayReportData[indexOfObjectInReportData].internship,
+								ArrayReportData[indexOfObjectInReportData].views);
 	var strHtml =
 		'<div id="modalButtonBasicView">';
-	if (ownUser[0] != undefined)
+	if (ObjectOwnUser != undefined)
 	{
-		if (ownUser[0].MemberRole >= 1 || ownUser[0].Id == reportData[indexOfObjectInReportData].userId)
+		if (ObjectOwnUser.MemberRole >= 1 || ObjectOwnUser.Id == ArrayReportData[indexOfObjectInReportData].userId)
 		{
 			strHtml +=
 			'<div class="form-group">' +
@@ -298,7 +283,7 @@ function loadContentOfModal(longModalId, loadingPage)
 			'</p>' +
 		'</div>';
 	strHtml +=
-		'<form method="post" action="" name="formModalGeneralInformationEdit" onsubmit="return buttonGeneralInformationConfirm(' + modalId + ', ' + reportData[indexOfObjectInReportData].userId + ')">' +
+		'<form method="post" action="" name="formModalGeneralInformationEdit" onsubmit="return buttonGeneralInformationConfirm(' + modalId + ', ' + ArrayReportData[indexOfObjectInReportData].userId + ')">' +
 			'<div id="modalButtonEditView" class="hide">' +
 				'<div class="row">' +
 					'<div class="col-md-1"></div>' +
@@ -321,12 +306,12 @@ function loadContentOfModal(longModalId, loadingPage)
 		'</form>';
 	$('#ModalListItemGroupGeneralInformation')[0].innerHTML = strHtml;
 	strHtml = '';
-	if (pictureData[modalId][0].toString() != '')
+	if (ObjectPictureData[modalId][0].toString() != '')
 	{
 		strHtml +=
 			'<h4 id="TitlePicture" class="list-group-item-heading trans-innerHTML">Title Picture</h4>' +
 			'<p class="list-group-item-text">';
-		var picUrl = pictureData[modalId][0].toString();
+		var picUrl = ObjectPictureData[modalId][0].toString();
 		var pfadToTitlePicThumb = 'img_upload/' + modalId + '/thumb_Title/' + picUrl;
 		var pfadToTitlePicBig = 'img_upload/' + modalId + '/big_Title/' + picUrl;
 		strHtml +=
@@ -342,15 +327,15 @@ function loadContentOfModal(longModalId, loadingPage)
 	}
 	$('#ModalListItemGroupTitlePicture')[0].innerHTML = strHtml;
 	strHtml = '';
-	if (pictureData[modalId][3].toString() != '')
+	if (ObjectPictureData[modalId][3].toString() != '')
 	{
 		strHtml +=
 			'<h4 id="PictureGallery" class="list-group-item-heading trans-innerHTML">Picture Gallery</h4>' +
 			'<p class="list-group-item-text">';
 		var lastColumn = 0;
-		for (var i = 0; i < pictureData[modalId][3].length; i++)
+		for (var i = 0; i < ObjectPictureData[modalId][3].length; i++)
 		{
-			var picUrl = pictureData[modalId][3][i];
+			var picUrl = ObjectPictureData[modalId][3][i];
 			var pfadToGalleryPicThumb = 'img_upload/' + modalId + '/thumb_Gallery/' + picUrl;
 			var pfadToGalleryPicBig = 'img_upload/' + modalId + '/big_Gallery/' + picUrl;
 			var row = parseInt(i / 4);
@@ -416,11 +401,11 @@ function loadContentOfModal(longModalId, loadingPage)
 		$('#ModalListItemGroupGallery').addClass('hide');
 	}
 	$('#ModalListItemGroupGallery')[0].innerHTML = strHtml;
-	$('#ModalComment')[0].innerHTML = reportData[indexOfObjectInReportData].commentBox;
+	$('#ModalComment')[0].innerHTML = ArrayReportData[indexOfObjectInReportData].commentBox;
 	strHtml = '';
-	if (ownUser[0] != undefined)
+	if (ObjectOwnUser != undefined)
 	{
-		if (ownUser[0].MemberRole >= 1 || ownUser[0].Id == reportData[indexOfObjectInReportData].userId)
+		if (ObjectOwnUser.MemberRole >= 1 || ObjectOwnUser.Id == ArrayReportData[indexOfObjectInReportData].userId)
 		{
 			strHtml +=
 				'<button type="button" class="btn btn-danger pull-left" onclick="deleteReport(' + modalId + ', ' + indexOfObjectInReportData + ');">' +
@@ -455,15 +440,15 @@ function fillInformationFieldsView()
 			'<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>' +
 			'<span id="ReportNoChange" class="trans-innerHTML">No changes were made.</span>' +
 		'</div>';
-	for (var i = 0; i < arrayTitle.length; i++)
+	for (var i = 0; i < ArrayTitle.length; i++)
 	{
 		strHtml +=
 			'<div class="row">' +
 				'<div class="col-md-3">' +
-					'<label class="trans-innerHTML-array">' + arrayTitle[i] + '</label>' +
+					'<label class="trans-innerHTML-array">' + ArrayTitle[i] + '</label>' +
 				'</div>' +
 				'<div class="col-md-9">' +
-					arrayContent[i] +
+					ArrayContent[i] +
 				'</div>' +
 			'</div>';
 	}
@@ -478,11 +463,11 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 	// Felder Bearbeitungsmodus
 	var strHtml = '';
 	strHtml +=
-		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[0] + '</label>' +
+		'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[0] + '</label>' +
 		'<div class="form-group">' +
 			'<div class="input-group">' +
 				'<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>' +
-				'<input class="form-control trans-placeholder" name="ReportName" id="ReportName" maxlength="255" placeholder="Title of report*" value="' + arrayContent[0] + '" required />' +
+				'<input class="form-control trans-placeholder" name="ReportName" id="ReportName" maxlength="255" placeholder="Title of report*" value="' + ArrayContent[0] + '" required />' +
 				'<span class="input-group-addon">' +
 					'<a name="ToolTipReportName" data-toggle="tooltip" data-placement="top" title="Please enter a title for your report." class="trans-name-title">' +
 						'<i class="glyphicon glyphicon-question-sign"></i>' +
@@ -491,11 +476,11 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 			'</div>' +
 		'</div>';
 	strHtml +=
-		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[1] + '</label>' +
+		'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[1] + '</label>' +
 		'<div class="form-group">' +
 			'<div class="input-group">' +
 				'<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>' +
-				'<input class="form-control trans-placeholder" name="NickName" id="NickName" maxlength="255" placeholder="NickName (author of report)*" value="' + arrayContent[1] + '" required />' +
+				'<input class="form-control trans-placeholder" name="NickName" id="NickName" maxlength="255" placeholder="NickName (author of report)*" value="' + ArrayContent[1] + '" required />' +
 				'<span class="input-group-addon">' +
 					'<a name="ToolTipNickName" data-toggle="tooltip" data-placement="top" title="Please enter a NickName. The NickName will be shown as author of your report." class="trans-name-title">' +
 						'<i class="glyphicon glyphicon-question-sign"></i>' +
@@ -504,11 +489,11 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 			'</div>' +
 		'</div>';
 	strHtml +=
-		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[2] + '</label>' +
+		'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[2] + '</label>' +
 		'<div class="form-group">' +
 			'<div class="input-group">' +
 				'<span class="input-group-addon"><i class="glyphicon glyphicon-flag"></i></span>' +
-				'<select class="form-control" name="dropDownListCountries" id="dropDownListCountries" required></select>' +
+				'<select class="form-control" name="DropDownListCountries" id="DropDownListCountries" required></select>' +
 				'<span class="input-group-addon">' +
 					'<a name="ToolTipDestinationCountry" data-toggle="tooltip" data-placement="top" title="Please select your destination-country." class="trans-name-title">' +
 						'<i class="glyphicon glyphicon-question-sign"></i>' +
@@ -517,11 +502,11 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 			'</div>' +
 		'</div>';
 	strHtml +=
-		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[3] + '</label>' +
+		'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[3] + '</label>' +
 		'<div class="form-group">' +
 			'<div class="input-group">' +
 				'<span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>' +
-				'<input class="form-control trans-placeholder" name="InputCity" id="InputCity" maxlength="255" placeholder="Destination-City*" value="' + arrayContent[3] + '" required />' +
+				'<input class="form-control trans-placeholder" name="InputCity" id="InputCity" maxlength="255" placeholder="Destination-City*" value="' + ArrayContent[3] + '" required />' +
 				'<span class="input-group-addon">' +
 					'<a name="ToolTipDestinationCity" data-toggle="tooltip" data-placement="top" title="Please enter your destination-city." class="trans-name-title">' +
 						'<i class="glyphicon glyphicon-question-sign"></i>' +
@@ -530,11 +515,11 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 			'</div>' +
 		'</div>';
 	strHtml +=
-		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[4] + '</label>' +
+		'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[4] + '</label>' +
 		'<div class="form-group">' +
 			'<div class="input-group">' +
 				'<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>' +
-				'<input class="form-control trans-placeholder" style="background: white;" name="DateRange" id="DateRange" placeholder="Travel-Period*" value="' + arrayContent[4] + '" readonly />' +
+				'<input class="form-control trans-placeholder" style="background: white;" name="DateRange" id="DateRange" placeholder="Travel-Period*" value="' + ArrayContent[4] + '" readonly />' +
 				'<span class="input-group-addon">' +
 					'<a name="ToolTipDateRange" data-toggle="tooltip" data-placement="top" title="Please select startdate and enddate of your travel." class="trans-name-title">' +
 						'<i class="glyphicon glyphicon-question-sign"></i>' +
@@ -543,11 +528,11 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 			'</div>' +
 		'</div>';
 	strHtml +=
-		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[5] + '</label>' +
+		'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[5] + '</label>' +
 		'<div class="form-group">' +
 			'<div class="input-group">' +
 				'<span class="input-group-addon"><i class="glyphicon glyphicon-thumbs-up"></i></span>' +
-				'<input class="form-control trans-placeholder" name="InputHighlight" id="InputHighlight" maxlength="255" placeholder="Your personal highlights*" value="' + arrayContent[5] + '" required />' +
+				'<input class="form-control trans-placeholder" name="InputHighlight" id="InputHighlight" maxlength="255" placeholder="Your personal highlights*" value="' + ArrayContent[5] + '" required />' +
 				'<span class="input-group-addon">' +
 					'<a name="ToolTipHighlight" data-toggle="tooltip" data-placement="top" title="Please enter your personal highlights." class="trans-name-title">' +
 						'<i class="glyphicon glyphicon-question-sign"></i>' +
@@ -556,11 +541,11 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 			'</div>' +
 		'</div>';
 	strHtml +=
-		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[6] + '</label>' +
+		'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[6] + '</label>' +
 		'<div class="form-group">' +
 			'<div class="input-group">' +
 				'<span class="input-group-addon"><i class="glyphicon glyphicon-warning-sign"></i></span>' +
-				'<input class="form-control trans-placeholder" name="InputAttention" id="InputAttention" maxlength="255" placeholder="What must be considered?*" value="' + arrayContent[6] + '" required />' +
+				'<input class="form-control trans-placeholder" name="InputAttention" id="InputAttention" maxlength="255" placeholder="What must be considered?*" value="' + ArrayContent[6] + '" required />' +
 				'<span class="input-group-addon">' +
 					'<a name="InputAttention" data-toggle="tooltip" data-placement="top" title="What must be considered?" class="trans-name-title">' +
 						'<i class="glyphicon glyphicon-question-sign"></i>' +
@@ -569,11 +554,11 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 			'</div>' +
 		'</div>';
 	strHtml +=
-		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[7] + '</label>' +
+		'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[7] + '</label>' +
 		'<div class="form-group">' +
 			'<div class="input-group">' +
 				'<span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>' +
-				'<input class="form-control trans-placeholder" name="Lecture" id="Lecture" maxlength="255" placeholder="Attended lectures" value="' + arrayContent[7] + '" />' +
+				'<input class="form-control trans-placeholder" name="Lecture" id="Lecture" maxlength="255" placeholder="Attended lectures" value="' + ArrayContent[7] + '" />' +
 				'<span class="input-group-addon">' +
 					'<a name="ToolTipLecture" data-toggle="tooltip" data-placement="top" title="Please enter your attended lectures." class="trans-name-title">' +
 						'<i class="glyphicon glyphicon-question-sign"></i>' +
@@ -582,11 +567,11 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 			'</div>' +
 		'</div>';
 	strHtml +=
-		'<label class="trans-innerHTML-arrayEdit">' + arrayTitleEdit[8] + '</label>' +
+		'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[8] + '</label>' +
 		'<div class="form-group">' +
 			'<div class="input-group">' +
 				'<span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>' +
-				'<input class="form-control trans-placeholder" name="Internship" id="Internship" maxlength="255" placeholder="Attended internships" value="' + arrayContent[8] + '" />' +
+				'<input class="form-control trans-placeholder" name="Internship" id="Internship" maxlength="255" placeholder="Attended internships" value="' + ArrayContent[8] + '" />' +
 				'<span class="input-group-addon">' +
 					'<a name="ToolTipInternship" data-toggle="tooltip" data-placement="top" title="Please enter your attended internship." class="trans-name-title">' +
 						'<i class="glyphicon glyphicon-question-sign"></i>' +
@@ -608,10 +593,10 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 // richtiges Land zu Beginn ausgewählt
 function selectCorrectCountry(id)
 {
-	$('#dropDownListCountries option[value=""]').remove();
-	$('#dropDownListCountries option').filter(function()
+	$('#DropDownListCountries option[value=""]').remove();
+	$('#DropDownListCountries option').filter(function()
 	{
-		return $(this).val() == reportData[id].country;
+		return $(this).val() == ArrayReportData[id].country;
 	}).prop('selected', true);
 }
 
@@ -625,7 +610,7 @@ function buttonGeneralInformationConfirm(id, userIdOfReport)
 		reportId: id,
 		ReportName: document.formModalGeneralInformationEdit.ReportName.value,
 		NickName: document.formModalGeneralInformationEdit.NickName.value,
-		dropDownListCountries: document.formModalGeneralInformationEdit.dropDownListCountries.value,
+		DropDownListCountries: document.formModalGeneralInformationEdit.DropDownListCountries.value,
 		InputCity: document.formModalGeneralInformationEdit.InputCity.value,
 		DateRange: document.formModalGeneralInformationEdit.DateRange.value,
 		InputHighlight: document.formModalGeneralInformationEdit.InputHighlight.value,
@@ -645,7 +630,7 @@ function buttonGeneralInformationConfirm(id, userIdOfReport)
 	});
 	$.ajaxSetup({async: true});
 	getReportData();
-	createIdArray();
+	createArrayId();
 	fillReportTable();
 	buttonGeneralInformationCancel(success);
 }
@@ -683,15 +668,15 @@ function deleteReport(Id, indexOfObjectInReportData)
 		{
 			action: "deleteReport",
 			reportIdToDelete: Id,
-			userIdOfReport: reportData[indexOfObjectInReportData].userId
+			userIdOfReport: ArrayReportData[indexOfObjectInReportData].userId
 		}
 		$.ajaxSetup({async: false});
 		$.post('php/manageBackend.php', data);
 		$.ajaxSetup({async: true});
 		getReportData();
-		createIdArray();
+		createArrayId();
 		fillReportTable();
-		$("#modalReport").modal("hide");
+		$("#ModalReport").modal("hide");
 		window.history.pushState('', '', '?');
 	}
 }
@@ -700,6 +685,7 @@ function deleteReport(Id, indexOfObjectInReportData)
 function closeModal()
 {
 	window.history.pushState('', '', '?');
+	$('#ModalSuccessAlert').addClass('hide');
 	getReportData();
 	prepareReportData();
 	changeLanguage();
@@ -719,7 +705,7 @@ function initializeDateRangePicker()
 			$(this).val(picker.startDate.format('DD.MM.YYYY') + ' - ' + picker.endDate.format('DD.MM.YYYY'));
 		});
 	});
-	$('#modalReport').scroll(function() {
+	$('#ModalReport').scroll(function() {
 		if ($('.daterangepicker')[0].style.cssText.indexOf('block') != -1)
 		{
 			$('.cancelBtn.btn.btn-danger').click();
@@ -738,21 +724,21 @@ function getCountryInCorrectLanguage(id, additionalString)
 	var indexOfCountry = 0;
 	if (additionalString != 'originalData')
 	{
-		indexOfCountry = $.inArray(reportData[id].country, countryIso);
+		indexOfCountry = $.inArray(ArrayReportData[id].country, ArrayCountryIso);
 	}
 	else
 	{
-		indexOfCountry = $.inArray(reportDataOriginal[id].country, countryIso);
+		indexOfCountry = $.inArray(ArrayReportDataOriginal[id].country, ArrayCountryIso);
 	}
-	var currentLanguageIndex = $('#language')[0].selectedIndex;
+	var currentLanguageIndex = $('#Language')[0].selectedIndex;
 	if (currentLanguageIndex)
 	{
-		var lang = objectLanguages.LanguageShort[currentLanguageIndex];
-		strHtml += countryData[indexOfCountry].translations[lang];
+		var lang = ObjectLanguages.LanguageShort[currentLanguageIndex];
+		strHtml += ArrayCountryData[indexOfCountry].translations[lang];
 	}
 	else
 	{
-		strHtml += countryData[indexOfCountry].name;
+		strHtml += ArrayCountryData[indexOfCountry].name;
 	}
 	return strHtml;
 }

@@ -7,16 +7,15 @@ session_start(); // starten der PHP-Session
 $_post = filter_input_array(INPUT_POST); // es werden nur POST-Variablen akzeptiert, damit nicht mittels Link (get-vars) Anderungen an DB vorgenommen werden können
 $_tmp = array();
 $_tmp['commentBox'] = '';
-if (isset($_post['commentBox']))
+if (!isset($_post['commentBox']))
+{
+	$_post = replaceChars($_post);
+}
+else
 {
 	$_tmp['commentBox'] = $_post['commentBox'];
-}
-// $_post = array_map ( 'htmlspecialchars' , $_post );
-$_post = replaceChars($_post);
-if (isset($_post['commentBox']))
-{
+	$_post = replaceChars($_post);
 	$_post['commentBox'] = $_tmp['commentBox'];
-	// $_post['commentBox'] = replaceChars($_post['commentBox']);
 }
 $action = $_post['action'];
 if (!$conn->connect_error)
@@ -62,9 +61,8 @@ if (!$conn->connect_error)
 		{
 			$Id = $_SESSION['StAusAuf_Id'];
 			$result = $conn->query("SELECT `Id`, `UserName`, `MemberRole` FROM `login` WHERE Id='$Id'");
-			$output = array();
 			$output = $result->fetch_all(MYSQLI_ASSOC);
-			echo json_encode($output);
+			echo json_encode($output[0]);
 			break;
 		}
 		case 'getOwnEmail':
@@ -255,14 +253,14 @@ if (!$conn->connect_error)
 				$reportId = $_post['reportId'];
 				$ReportName = $_post['ReportName'];
 				$NickName = $_post['NickName'];
-				$dropDownListCountries = $_post['dropDownListCountries'];
+				$DropDownListCountries = $_post['DropDownListCountries'];
 				$InputCity = $_post['InputCity'];
 				$DateRange = $_post['DateRange'];
 				$InputHighlight = $_post['InputHighlight'];
 				$InputAttention = $_post['InputAttention'];
 				$Lecture = $_post['Lecture'];
 				$Internship = $_post['Internship'];
-				$conn->query("UPDATE `reports` SET `reportName`='$ReportName', `nickName`='$NickName', `country`='$dropDownListCountries', `city`='$InputCity', `dateRange`='$DateRange', `highlight`='$InputHighlight', `attention`='$InputAttention', `lecture`='$Lecture', `internship`='$Internship' WHERE `Id`='$reportId';");
+				$conn->query("UPDATE `reports` SET `reportName`='$ReportName', `nickName`='$NickName', `country`='$DropDownListCountries', `city`='$InputCity', `dateRange`='$DateRange', `highlight`='$InputHighlight', `attention`='$InputAttention', `lecture`='$Lecture', `internship`='$Internship' WHERE `Id`='$reportId';");
 				if ($conn->affected_rows > 0)
 				{
 					echo 'Update erfolgreich';
@@ -293,7 +291,6 @@ if (!$conn->connect_error)
 			if ($_SESSION['StAusAuf_memberRole'] >= 1)
 			{
 				$result = $conn->query("SELECT `Id`, `UserName`, `MemberRole`, `Email` FROM `login` ORDER BY UserName ASC;");
-				$output = array();
 				$output = $result->fetch_all(MYSQLI_ASSOC);
 				echo json_encode($output);
 			}

@@ -1,13 +1,13 @@
 /* Developer: Leo Brandenburg */
 // Voraussetzung für alle eigenen .js-Dateien
 
-var objectLanguages = null;
+var ObjectLanguages = null;
 var currentSelectedCountry = '';
 
 $(document).ready(function() {
     try // für den Fall der Fälle, weil direkt aufs DOM durchgegriffen wird
     {
-        objectLanguages = getLanguages();
+        ObjectLanguages = getLanguages();
         prepareLanguageSelection();
         // Vorteil der Ausführung: das JSON wird auch schon beim PageLoad geladen, falls HTML-Quellcode im Original nicht angepasst wurde
         // Nachteil: Wenn HTML-Quellcode aktuell (das sollte er immer sein) ==> Performance-Verlust
@@ -55,18 +55,18 @@ function getLanguages()
 function prepareLanguageSelection(modal)
 {
     var strHtml = '';
-    for (var key in objectLanguages.LanguageShort)
+    for (var key in ObjectLanguages.LanguageShort)
     {
-        strHtml += '<option value="' + objectLanguages.LanguageShort[key] + '">' + objectLanguages.LanguageLong[key] + '</option>';
+        strHtml += '<option value="' + ObjectLanguages.LanguageShort[key] + '">' + ObjectLanguages.LanguageLong[key] + '</option>';
     }
     if (!modal)
     {
-        document.getElementById('language').innerHTML = strHtml;
+        document.getElementById('Language').innerHTML = strHtml;
     }
     else
     {
-        document.getElementById('languageModal').innerHTML = strHtml;
-        document.getElementById('languageModal').selectedIndex = document.getElementById('language').selectedIndex;
+        document.getElementById('LanguageModal').innerHTML = strHtml;
+        document.getElementById('LanguageModal').selectedIndex = document.getElementById('Language').selectedIndex;
     }
 }
 
@@ -75,14 +75,14 @@ function changeLanguage(currentLanguageIndex)
 {
     if (currentLanguageIndex == undefined)
     {
-        currentLanguageIndex = document.getElementById('language').selectedIndex;
+        currentLanguageIndex = document.getElementById('Language').selectedIndex;
     }
     else
     {
-        document.getElementById('language').selectedIndex = currentLanguageIndex;
-        if (document.getElementById('languageModal'))
+        document.getElementById('Language').selectedIndex = currentLanguageIndex;
+        if (document.getElementById('LanguageModal'))
         {
-            document.getElementById('languageModal').selectedIndex = currentLanguageIndex;
+            document.getElementById('LanguageModal').selectedIndex = currentLanguageIndex;
         }
     }
     translateEachElement(currentLanguageIndex);
@@ -99,14 +99,14 @@ function changeLanguage(currentLanguageIndex)
     if ($_GET().Id != undefined)
     {
         var modalId = $_GET().Id;
-        var indexOfObjectInReportData = $.inArray(modalId, idArray);
+        var indexOfObjectInReportData = $.inArray(modalId, ArrayId);
         document.getElementById('OneReportCountry').innerHTML = getCountryInCorrectLanguage(indexOfObjectInReportData);
     }
 
     // createReport
-    if (document.getElementById('dropDownListCountries'))
+    if (document.getElementById('DropDownListCountries'))
     {
-        var currentSelectedLanguage = objectLanguages.LanguageShort[currentLanguageIndex];
+        var currentSelectedLanguage = ObjectLanguages.LanguageShort[currentLanguageIndex];
         createDropDownListCountries(currentSelectedLanguage);
     }
 }
@@ -116,38 +116,38 @@ function translateEachElement(currentLanguageIndex)
 {
     for (var i = 0; i < $('.trans-innerHTML').length; i++)
     {
-        $('.trans-innerHTML')[i].innerHTML = objectLanguages[$('.trans-innerHTML')[i].id][currentLanguageIndex];
+        $('.trans-innerHTML')[i].innerHTML = ObjectLanguages[$('.trans-innerHTML')[i].id][currentLanguageIndex];
     }
     for (var i = 0; i < $('.trans-placeholder').length; i++)
     {
-        $('.trans-placeholder')[i].placeholder = objectLanguages[$('.trans-placeholder')[i].id][currentLanguageIndex];
+        $('.trans-placeholder')[i].placeholder = ObjectLanguages[$('.trans-placeholder')[i].id][currentLanguageIndex];
     }
     for (var i = 0; i < $('.trans-innerHTML-array').length; i++)
     {
-        $('.trans-innerHTML-array')[i].innerHTML = objectLanguages.ArrayTitle[currentLanguageIndex][i];
+        $('.trans-innerHTML-array')[i].innerHTML = ObjectLanguages.ArrayTitle[currentLanguageIndex][i];
     }
     for (var i = 0; i < $('.trans-innerHTML-arrayEdit').length; i++)
     {
-        $('.trans-innerHTML-arrayEdit')[i].innerHTML = objectLanguages.ArrayTitleEdit[currentLanguageIndex][i];
+        $('.trans-innerHTML-arrayEdit')[i].innerHTML = ObjectLanguages.ArrayTitleEdit[currentLanguageIndex][i];
     }
     for (var i = 0; i < $('.trans-name-placeholder').length; i++)
     {
-        $('.trans-name-placeholder')[i].placeholder = objectLanguages[$('.trans-name-placeholder')[i].name][currentLanguageIndex];
+        $('.trans-name-placeholder')[i].placeholder = ObjectLanguages[$('.trans-name-placeholder')[i].name][currentLanguageIndex];
     }
     for (var i = 0; i < $('.trans-name-title').length; i++)
     {
-        $('.trans-name-title')[i].title = objectLanguages[$('.trans-name-title')[i].name][currentLanguageIndex];
+        $('.trans-name-title')[i].title = ObjectLanguages[$('.trans-name-title')[i].name][currentLanguageIndex];
     }
     for (var i = 0; i < $('.trans-id-title').length; i++)
     {
-        $('.trans-id-title')[i].title = objectLanguages[$('.trans-id-title')[i].id][currentLanguageIndex];
+        $('.trans-id-title')[i].title = ObjectLanguages[$('.trans-id-title')[i].id][currentLanguageIndex];
     }
     for (var i = 0; i < $('.trans-upload-placeholder').length; i++)
     {
-        $('.trans-upload-placeholder')[i]['data-msg-placeholder'] = objectLanguages[$('.trans-upload-placeholder')[i].id][currentLanguageIndex];
+        $('.trans-upload-placeholder')[i]['data-msg-placeholder'] = ObjectLanguages[$('.trans-upload-placeholder')[i].id][currentLanguageIndex];
         try
         {
-            $('.file-caption-name')[i].placeholder = objectLanguages[$('.trans-upload-placeholder')[i].id][currentLanguageIndex];
+            $('.file-caption-name')[i].placeholder = ObjectLanguages[$('.trans-upload-placeholder')[i].id][currentLanguageIndex];
         }
         catch(e)
         {
@@ -184,6 +184,23 @@ function incrementViews(element)
 	$.ajaxSetup({async: true});
 }
 
+// gibt die eigene Id mit UserName zurück
+function getOwnUser()
+{
+	$.ajaxSetup({async: false});
+	var data =
+	{
+		action: "getOwnUser"
+	}
+	$.ajaxSetup({async: false});
+	$.post('php/manageBackend.php', data)
+	.always(function(data)
+	{
+		ObjectOwnUser = data;
+	});
+	$.ajaxSetup({async: true});
+}
+
 // holt Country-Data aus einer externen API
 function getCountryData()
 {
@@ -192,7 +209,7 @@ function getCountryData()
 	$.post('js/countryApi.json') // in case extern API goes offline
 	.always(function(data)
 	{
-		countryData = data;
+		ArrayCountryData = data;
 	});
 	$.ajaxSetup({async: true});
 	createDropDownListCountries();
@@ -210,24 +227,24 @@ function sortCountryList(dropDownList)
 // kreiert oder updatet die dropDownList der Länder
 function createDropDownListCountries(language)
 {
-	if (countryData)
+	if (ArrayCountryData)
 	{
 		language = language || '';
-		var numberCountries = countryData.length;
-		currentSelectedCountry = $('#dropDownListCountries').val();
-		$('#dropDownListCountries').empty();
+		var numberCountries = ArrayCountryData.length;
+		currentSelectedCountry = $('#DropDownListCountries').val();
+		$('#DropDownListCountries').empty();
 		for (var i = 0; i < numberCountries; i++)
 		{
 			if (language == 'br' || language == 'de' || language == 'es' || language == 'fa' || language == 'fr' || language == 'hr' || language == 'it' || language == 'ja' || language == 'nl' || language == 'pl')
 			{
-				$('#dropDownListCountries').append('<option value="' + countryData[i].alpha2Code +'">' + countryData[i].translations[language] + '</option>');
+				$('#DropDownListCountries').append('<option value="' + ArrayCountryData[i].alpha2Code +'">' + ArrayCountryData[i].translations[language] + '</option>');
 			}
 			else
 			{
-				$('#dropDownListCountries').append('<option value="' + countryData[i].alpha2Code +'">' + countryData[i].name + '</option>');
+				$('#DropDownListCountries').append('<option value="' + ArrayCountryData[i].alpha2Code +'">' + ArrayCountryData[i].name + '</option>');
 			}
 		}
-		sortCountryList('#dropDownListCountries');
+		sortCountryList('#DropDownListCountries');
 		setCurrentSelectedItem();
 	}
 	else
@@ -244,13 +261,13 @@ function setCurrentSelectedItem()
 {
 	if (currentSelectedCountry == null || currentSelectedCountry == '')
 	{
-		var currentLanguageIndex = document.getElementById('language').selectedIndex;
-		var pleaseSelect = objectLanguages.DestinationCountry[currentLanguageIndex];
-		$('#dropDownListCountries').prepend('<option value="" selected="selected">' + pleaseSelect + '</option>');
+		var currentLanguageIndex = document.getElementById('Language').selectedIndex;
+		var pleaseSelect = ObjectLanguages.DestinationCountry[currentLanguageIndex];
+		$('#DropDownListCountries').prepend('<option value="" selected="selected">' + pleaseSelect + '</option>');
 	}
 	else
 	{
-		$('#dropDownListCountries option').filter(function()
+		$('#DropDownListCountries option').filter(function()
 		{
 			return $(this).val() == currentSelectedCountry;
 		}).prop('selected', true);

@@ -40,7 +40,7 @@
 				</div>
 				<div class="col-md-3 text-right">
 					<form method="post" action="">
-						<a data-toggle="modal" data-target="#modalProfile" class="btn btn-primary" onclick="modifyModalProfile();">
+						<a data-toggle="modal" data-target="#ModalProfile" class="btn btn-primary" onclick="modifyModalProfile();">
 							<span class="glyphicon glyphicon-user"></span> <span id="Profile" class="trans-innerHTML">Profile</span>
 						</a>
 						<button type="submit" name="logout" class="btn btn-danger">
@@ -55,7 +55,7 @@
 				<div class="col-md-9"></div>
 				<div class="col-md-3">
 					<div class="form-group">
-						<select class="form-control" id="language" onchange="changeLanguage(this.selectedIndex);"></select>
+						<select class="form-control" id="Language" onchange="changeLanguage(this.selectedIndex);"></select>
 					</div>
 				</div>
 			</div>
@@ -63,10 +63,10 @@
 		<div class="center-block own-box">
 			<noscript>Please activate JavaScript</noscript>
 			<form method="post" action="." name="formCreateReport" class="form-horizontal" onsubmit="return checkInputFormCreateReport()" enctype="multipart/form-data">
-				<div class="form-group" id="div-ReportName" ng-class="{'has-error': formCreateReport.ReportName.$invalid, 'has-success': formCreateReport.ReportName.$valid}">
+				<div class="form-group" id="DivReportName" ng-class="{'has-error': formCreateReport.ReportName.$invalid, 'has-success': formCreateReport.ReportName.$valid}">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-						<input class="form-control trans-placeholder" name="ReportName" id="ReportName" ng-model="ReportName" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-ReportName', true)" maxlength="255" placeholder="Title of report*" autofocus required />
+						<input class="form-control trans-placeholder" name="ReportName" id="ReportName" ng-model="ReportName" onblur="checkInputAndChangeClassOfDiv(this.id, 'DivReportName', true)" maxlength="255" placeholder="Title of report*" autofocus required />
 						<span class="input-group-addon">
 							<a name="ToolTipReportName" data-toggle="tooltip" data-placement="top" title="Please enter a title for your report." class="trans-name-title">
 								<i class="glyphicon glyphicon-question-sign"></i>
@@ -74,10 +74,10 @@
 						</span>
 					</div>
 				</div>
-				<div class="form-group" id="div-NickName" ng-class="{'has-error': formCreateReport.NickName.$invalid, 'has-success': formCreateReport.NickName.$valid}">
+				<div class="form-group" id="DivNickName" ng-class="{'has-error': formCreateReport.NickName.$invalid, 'has-success': formCreateReport.NickName.$valid}">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-						<input class="form-control trans-placeholder" name="NickName" id="NickName" ng-model="NickName" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-NickName', true)" maxlength="255" placeholder="NickName (author of report)*" ng-required="{{true" />
+						<input class="form-control trans-placeholder" name="NickName" id="NickName" ng-model="NickName" onblur="checkInputAndChangeClassOfDiv(this.id, 'DivNickName', true)" maxlength="255" placeholder="NickName (author of report)*" ng-required="{{true" />
 						<span class="input-group-addon">
 							<a name="ToolTipNickName" data-toggle="tooltip" data-placement="top" title="Please enter a NickName. The NickName will be shown as author of your report." class="trans-name-title">
 								<i class="glyphicon glyphicon-question-sign"></i>
@@ -88,10 +88,10 @@
 				<!-- Reiseland -->
 				<!-- http://www.toolzzz.net/de/countrySelect.htm -->
 				<!-- https://restcountries.eu/ -->
-				<div class="form-group" id="div-Country">
+				<div class="form-group" id="DivCountry">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-flag"></i></span>
-						<select class="form-control" id="dropDownListCountries" ng-required="{{true" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Country', true)" onchange="checkInputAndChangeClassOfDiv(this.id, 'div-Country', true)">
+						<select class="form-control" id="DropDownListCountries" ng-required="{{true" onblur="checkInputAndChangeClassOfDiv(this.id, 'DivCountry', true)" onchange="checkInputAndChangeClassOfDiv(this.id, 'DivCountry', true)">
 						</select>
 						<span class="input-group-addon">
 							<a name="ToolTipDestinationCountry" data-toggle="tooltip" data-placement="top" title="Please select your destination-country." class="trans-name-title">
@@ -100,11 +100,11 @@
 						</span>
 					</div>
 				</div>
-				<div class="form-group hide" id="div-City" ng-class="{'has-error': formCreateReport.City.$invalid, 'has-success': formCreateReport.City.$valid}"> <!-- ng-show="Country" -->
+				<div class="form-group hide" id="DivCity" ng-class="{'has-error': formCreateReport.City.$invalid, 'has-success': formCreateReport.City.$valid}"> <!-- ng-show="Country" -->
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
-						<input class="form-control trans-placeholder" name="City" id="InputCity" ng-model="City" list="dataListCity" ng-required="{{true" maxlength="255" placeholder="Destination-City*" />
-						<datalist id="dataListCity">
+						<input class="form-control trans-placeholder" name="City" id="InputCity" ng-model="City" list="DataListCity" ng-required="{{true" maxlength="255" placeholder="Destination-City*" />
+						<datalist id="DataListCity">
 						</datalist>
 						<span class="input-group-addon">
 							<a name="ToolTipDestinationCity" data-toggle="tooltip" data-placement="top" title="Please enter your destination-city." class="trans-name-title">
@@ -113,12 +113,12 @@
 						</span>
 					</div>
 				</div>
-				<div class="form-group" id="div-Date" ng-class="{'has-error': formCreateReport.DateRange.$invalid, 'has-success': formCreateReport.DateRange.$valid}">
+				<div class="form-group" id="DivDate" ng-class="{'has-error': formCreateReport.DateRange.$invalid, 'has-success': formCreateReport.DateRange.$valid}">
 					<div class="input-group">
 						<span class="input-group-addon">
 							<span class="glyphicon glyphicon-calendar"></span>
 						</span>
-						<input class="form-control trans-placeholder" style="background: white;" name="DateRange" id="DateRange" ng-model="DateRange" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Date', true)" placeholder="Travel-Period*" readonly />
+						<input class="form-control trans-placeholder" style="background: white;" name="DateRange" id="DateRange" ng-model="DateRange" onblur="checkInputAndChangeClassOfDiv(this.id, 'DivDate', true)" placeholder="Travel-Period*" readonly />
 						<span class="input-group-addon">
 							<a name="ToolTipDateRange" data-toggle="tooltip" data-placement="top" title="Please select startdate and enddate of your travel." class="trans-name-title">
 								<i class="glyphicon glyphicon-question-sign"></i>
@@ -126,10 +126,10 @@
 						</span>
 					</div>
 				</div>
-				<div class="form-group" id="div-Highlight" ng-class="{'has-error': formCreateReport.Highlight.$invalid, 'has-success': formCreateReport.Highlight.$valid}">
+				<div class="form-group" id="DivHighlight" ng-class="{'has-error': formCreateReport.Highlight.$invalid, 'has-success': formCreateReport.Highlight.$valid}">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-thumbs-up"></i></span>
-						<input class="form-control trans-placeholder" name="Highlight" id="InputHighlight" ng-model="Highlight" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Highlight', true)" ng-required="{{true" ngMinlength="1" maxlength="255" placeholder="Your personal highlights*" />
+						<input class="form-control trans-placeholder" name="Highlight" id="InputHighlight" ng-model="Highlight" onblur="checkInputAndChangeClassOfDiv(this.id, 'DivHighlight', true)" ng-required="{{true" ngMinlength="1" maxlength="255" placeholder="Your personal highlights*" />
 						<span class="input-group-addon">
 							<a name="ToolTipHighlight" data-toggle="tooltip" data-placement="top" title="Please enter your personal highlights." class="trans-name-title">
 								<i class="glyphicon glyphicon-question-sign"></i>
@@ -137,10 +137,10 @@
 						</span>
 					</div>
 				</div>
-				<div class="form-group" id="div-Attention" ng-class="{'has-error': formCreateReport.Attention.$invalid, 'has-success': formCreateReport.Attention.$valid}">
+				<div class="form-group" id="DivAttention" ng-class="{'has-error': formCreateReport.Attention.$invalid, 'has-success': formCreateReport.Attention.$valid}">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-warning-sign"></i></span>
-						<input class="form-control trans-placeholder" name="Attention" id="InputAttention" ng-model="Attention" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Attention', true)" ng-required="{{true" maxlength="255" placeholder="What must be considered?*" />
+						<input class="form-control trans-placeholder" name="Attention" id="InputAttention" ng-model="Attention" onblur="checkInputAndChangeClassOfDiv(this.id, 'DivAttention', true)" ng-required="{{true" maxlength="255" placeholder="What must be considered?*" />
 						<span class="input-group-addon">
 							<a name="InputAttention" data-toggle="tooltip" data-placement="top" title="What must be considered?" class="trans-name-title">
 								<i class="glyphicon glyphicon-question-sign"></i>
@@ -148,10 +148,10 @@
 						</span>
 					</div>
 				</div>
-				<div class="form-group" id="div-Lecture" ng-class="{'has-error': formCreateReport.Lecture.$invalid, 'has-success': formCreateReport.Lecture.$valid}">
+				<div class="form-group" id="DivLecture" ng-class="{'has-error': formCreateReport.Lecture.$invalid, 'has-success': formCreateReport.Lecture.$valid}">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
-						<input class="form-control trans-placeholder" name="Lecture" id="Lecture" ng-model="Lecture" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Lecture', false)" onkeyup="checkInputAndChangeClassOfDiv(this.id, 'div-Lecture', false)" maxlength="255" placeholder="Attended lectures" />
+						<input class="form-control trans-placeholder" name="Lecture" id="Lecture" ng-model="Lecture" onblur="checkInputAndChangeClassOfDiv(this.id, 'DivLecture', false)" onkeyup="checkInputAndChangeClassOfDiv(this.id, 'DivLecture', false)" maxlength="255" placeholder="Attended lectures" />
 						<span class="input-group-addon">
 							<a name="ToolTipLecture" data-toggle="tooltip" data-placement="top" title="Please enter your attended lectures." class="trans-name-title">
 								<i class="glyphicon glyphicon-question-sign"></i>
@@ -159,10 +159,10 @@
 						</span>
 					</div>
 				</div>
-				<div class="form-group" id="div-Internship" ng-class="{'has-error': formCreateReport.Internship.$invalid, 'has-success': formCreateReport.Internship.$valid}">
+				<div class="form-group" id="DivInternship" ng-class="{'has-error': formCreateReport.Internship.$invalid, 'has-success': formCreateReport.Internship.$valid}">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
-						<input class="form-control trans-placeholder" name="Internship" id="Internship" ng-model="Internship" onblur="checkInputAndChangeClassOfDiv(this.id, 'div-Internship', false)" onkeyup="checkInputAndChangeClassOfDiv(this.id, 'div-Internship', false)" maxlength="255" placeholder="Attended internships" />
+						<input class="form-control trans-placeholder" name="Internship" id="Internship" ng-model="Internship" onblur="checkInputAndChangeClassOfDiv(this.id, 'DivInternship', false)" onkeyup="checkInputAndChangeClassOfDiv(this.id, 'DivInternship', false)" maxlength="255" placeholder="Attended internships" />
 						<span class="input-group-addon">
 							<a name="ToolTipInternship" data-toggle="tooltip" data-placement="top" title="Please enter your attended internship." class="trans-name-title">
 								<i class="glyphicon glyphicon-question-sign"></i>
@@ -183,7 +183,7 @@
 				<div  class="form-group">
 					<label id="LabelCommentBox" class="trans-innerHTML">Comment-Box - enough space for you to share with us more details <img src="sceditor/emoticons/wink.png" /></label>
 					<!-- placeholder does not work with sceditor -> reason: they implemented a fake-div -->
-					<textarea id="textarea_textreport" class="form-control" style="width: 100px; height: 350px" name="textreport"></textarea>
+					<textarea class="form-control" style="width: 100px; height: 350px" name="textreport"></textarea>
 				</div>
 				<div class="form-group">
 					<button id="ButtonSubmitForm" type="submit" class="btn btn-success">
@@ -193,18 +193,18 @@
 			</form>
 		</div>
 		<!-- Modal-Textbox Kommentarbox -->
-		<div class="modal fade" id="modal_textarea_textreport" tabindex="-1" role="dialog" aria-labelledby="modal_textarea_textreport_ThisIsTheHeadline">
+		<div class="modal fade" id="ModalTextareaTextreport" tabindex="-1" role="dialog">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="focus_textarea_textreport()"><span aria-hidden="true">&times;</span></button>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="focusTextareaTextreport()"><span aria-hidden="true">&times;</span></button>
 					</div>
 					<div class="modal-body">
 						<span id="FillCommentBox" class="trans-innerHTML">Please fill in the comment-box. <img src="sceditor/emoticons/smile.png" /></span>
 					</div>
 					<div class="modal-footer">
 						<div class="form-group">
-							<button type="button" class="btn btn-warning" data-dismiss="modal" onclick="focus_textarea_textreport()">
+							<button type="button" class="btn btn-warning" data-dismiss="modal" onclick="focusTextareaTextreport()">
 								<span class="glyphicon glyphicon glyphicon-thumbs-up"></span> <span id="IWillDoIt" class="trans-innerHTML">Ok, I will do it.</span>
 							</button>
 						</div>
@@ -213,12 +213,12 @@
 			</div>
 		</div>
 		<!-- Modal-Profile -->
-		<div class="modal fade" id="modalProfile" role="dialog" aria-labelledby="Profile">
+		<div class="modal fade" id="ModalProfile" role="dialog" aria-labelledby="Profile">
 			<div class="modal-dialog modal-lg" role="document">
 				<div class="modal-content">
-					<form method="post" action="" id="formModalProfile" name="formModalProfile" onsubmit="return checkInputFormModalProfile()">
+					<form method="post" action="" id="FormModalProfile" name="FormModalProfile" onsubmit="return checkInputFormModalProfile()">
 						<div class="modal-header">
-							<!-- <button type="button" ng-click="ownReset(formModalProfile)" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+							<!-- <button type="button" ng-click="ownReset(FormModalProfile)" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
 							<h4 class="modal-title trans-innerHTML" id="Profile">Profile</h4>
 						</div>
 						<div class="modal-body">
@@ -226,11 +226,11 @@
 								<div class="col-md-9"></div>
 								<div class="col-md-3">
 									<div class="form-group">
-										<select class="form-control" id="languageModal" onchange="changeLanguage(this.selectedIndex);"></select>
+										<select class="form-control" id="LanguageModal" onchange="changeLanguage(this.selectedIndex);"></select>
 									</div>
 								</div>
 							</div>
-							<div class="form-group" id="modal-div-Email" ng-class="{'has-error': formModalProfile.ModalEmail.$invalid && formModalProfile.ModalEmail.$touched , 'has-success': formModalProfile.ModalEmail.$valid && formModalProfile.ModalEmail.$touched}">
+							<div class="form-group" ng-class="{'has-error': FormModalProfile.ModalEmail.$invalid && FormModalProfile.ModalEmail.$touched , 'has-success': FormModalProfile.ModalEmail.$valid && FormModalProfile.ModalEmail.$touched}">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
 									<input class="form-control trans-placeholder" name="ModalEmail" id="ModalEmail" ng-model="ModalEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Enter your e-mail address" autofocus maxlength="255" />
@@ -242,20 +242,20 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<button id="modalButtonEditPw" type="button" class="btn btn-info" onclick="buttonChangePassword();">
+								<button id="ModalButtonEditPw" type="button" class="btn btn-info" onclick="buttonChangePassword();">
 									<span class="glyphicon glyphicon-pencil"></span> <span id="ChangePassword" class="trans-innerHTML">Change Password</span>
 								</button>
 							</div>
 							<div id="div-changePw" class="hide">
 								<div class="form-group">
-									<button id="modalButtonEditPwCancel" type="button" class="btn btn-info" onclick="buttonChangePasswordCancel();">
+									<button id="ModalButtonEditPwCancel" type="button" class="btn btn-info" onclick="buttonChangePasswordCancel();">
 										<span class="glyphicon glyphicon-remove"></span> <span id="Cancel" class="trans-innerHTML">Cancel</span>
 									</button>
 								</div>
-								<div class="form-group" id="modal-div-OldPw">
+								<div class="form-group" id="ModalDivOldPw">
 									<div class="input-group">
 										<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-										<input type="password" class="form-control trans-placeholder" name="ModalOldPw" id="ModalOldPw" ng-model="ModalOldPw" onblur="inputNotEmpty(this.id, 'modal-div-OldPw')" onkeyup="inputNotEmpty(this.id, 'modal-div-OldPw')" maxlength="255" placeholder="Old password" />
+										<input type="password" class="form-control trans-placeholder" name="ModalOldPw" id="ModalOldPw" ng-model="ModalOldPw" onblur="inputNotEmpty(this.id, 'ModalDivOldPw')" onkeyup="inputNotEmpty(this.id, 'ModalDivOldPw')" maxlength="255" placeholder="Old password" />
 										<span class="input-group-addon">
 											<a name="ToolTipModalOldPw" data-toggle="tooltip" data-placement="top" title="Please enter your old password." class="trans-name-title">
 												<i class="glyphicon glyphicon-question-sign"></i>
@@ -263,7 +263,7 @@
 										</span>
 									</div>
 								</div>
-								<div class="form-group" id="modal-div-NewPw">
+								<div class="form-group" id="ModalDivNewPw">
 									<div class="input-group">
 										<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 										<input type="password" class="form-control trans-placeholder" name="ModalNewPw" id="ModalNewPw" ng-model="ModalNewPw" maxlength="255" placeholder="New Password" />
@@ -274,7 +274,7 @@
 										</span>
 									</div>
 								</div>
-								<div class="form-group" id="modal-div-NewPwConfirm">
+								<div class="form-group" id="ModalDivNewPwConfirm">
 									<div class="input-group">
 										<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 										<input type="password" class="form-control trans-placeholder" name="ModalNewPwConfirm" id="ModalNewPwConfirm" ng-model="ModalNewPwConfirm" maxlength="255" placeholder="Confirm new passowrd" />
@@ -286,31 +286,31 @@
 									</div>
 								</div>
 							</div>
-							<div id='FormModalProfileDivSuccess' class="alert alert-success hide trans-innerHTML">
+							<div id="FormModalProfileDivSuccess" class="alert alert-success hide trans-innerHTML">
 								<b>Success!</b> The profile has been updated successfully.
 							</div>
-							<div id='FormModalProfileDivErrorUpdate' class="alert alert-danger hide trans-innerHTML"> <!-- tritt praktisch nie auf -->
+							<div id="FormModalProfileDivErrorUpdate" class="alert alert-danger hide trans-innerHTML"> <!-- tritt praktisch nie auf -->
 								<b>Error!</b> The profile could not be updated.
 							</div>
-							<div id='FormModalProfileDivErrorWrongPw' class="alert alert-danger hide trans-innerHTML">
+							<div id="FormModalProfileDivErrorWrongPw" class="alert alert-danger hide trans-innerHTML">
 								<b>Error!</b> Old password is wrong.
 							</div>
-							<div id='DivErrorPwNoMatch' class="alert alert-danger hide trans-innerHTML">
+							<div id="DivErrorPwNoMatch" class="alert alert-danger hide trans-innerHTML">
 								<b>Error!</b> New passwords do not match.
 							</div>
-							<div id='ErrorDb' class="alert alert-danger hide trans-innerHTML">
+							<div id="ErrorDb" class="alert alert-danger hide trans-innerHTML">
 								<b>Error!</b> Database is not available.
 							</div>
 						</div>
 						<div class="modal-footer">
 							<div class="form-group">
-								<button id="modalCancel" type="button" ng-click="ownReset(formModalProfile)" class="btn btn-danger" data-dismiss="modal">
+								<button id="ModalCancel" type="button" ng-click="ownReset(FormModalProfile)" class="btn btn-danger" data-dismiss="modal">
 									<span class="glyphicon glyphicon-remove"></span> <span id="Cancel" class="trans-innerHTML">Cancel</span>
 								</button>
-								<button id="modalSave" type="submit" class="btn btn-success">
+								<button id="ModalSave" type="submit" class="btn btn-success">
 									<span class="glyphicon glyphicon-ok"></span> <span id="Confirm" class="trans-innerHTML">Confirm</span>
 								</button>
-								<button id="modalClose" type="button" ng-click="ownReset(formModalProfile)" class="btn btn-primary hide" data-dismiss="modal">
+								<button id="ModalClose" type="button" ng-click="ownReset(FormModalProfile)" class="btn btn-primary hide" data-dismiss="modal">
 									<span class="glyphicon glyphicon-ok-sign"></span> <span id="Close" class="trans-innerHTML">Close</span>
 								</button>
 							</div>

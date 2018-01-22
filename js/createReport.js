@@ -1,7 +1,7 @@
 ﻿/* Developer: Leo Brandenburg */
 // globale Variablen
 var originalOwnEmail = '';
-var countryData = null;
+var ArrayCountryData = null;
 // var sortedCountryData = null;
 var currentSelectedLanguage = '';
 // var msDropDownCountries = '';
@@ -9,12 +9,12 @@ var affectedIdWhenUpload = '';
 
 // zum Laden der Seite ausführen
 $(document).ready(function(){
-	$('#div-ReportName, #div-NickName, #div-Date, #div-Highlight, #div-Attention, #div-Lecture, #div-Internship').removeClass('has-success has-error');
+	$('#DivReportName, #DivNickName, #DivDate, #DivHighlight, #DivAttention, #DivLecture, #DivInternship').removeClass('has-success has-error');
 	initializeFileInput();
 	getOwnEmail();
 	$('#ModalNewPw, #ModalNewPwConfirm').keyup(checkPasswordMatch).blur(checkPasswordMatch);
 	getCountryData();
-	$('#dropDownListCountries').change(changeCountry);
+	$('#DropDownListCountries').change(changeCountry);
 	incrementViews('createReport');
 });
 
@@ -77,7 +77,7 @@ $(function() {
     "buttonClasses": "btn",
     "cancelClass": "btn-danger"
 	}, function() {
-		$('#div-Date').addClass('has-success').removeClass('has-error');
+		$('#DivDate').addClass('has-success').removeClass('has-error');
 		$('input[name="DateRange"]').on('apply.daterangepicker', function(ev, picker) {
 			$(this).val(picker.startDate.format('DD.MM.YYYY') + ' - ' + picker.endDate.format('DD.MM.YYYY'));
 		});
@@ -91,54 +91,54 @@ function checkInputFormCreateReport()
 	var NickName = document.formCreateReport.NickName.value;
 	if (NickName == "")
 	{
-		$('#div-NickName').addClass('has-error').removeClass('has-success');
+		$('#DivNickName').addClass('has-error').removeClass('has-success');
 		document.formCreateReport.NickName.focus();
 		return false;
 	}
-	var Country = document.formCreateReport.dropDownListCountries.value;
+	var Country = document.formCreateReport.DropDownListCountries.value;
 	if (Country == "")
 	{
-		$('#div-Country').addClass('has-error').removeClass('has-success');
-		document.formCreateReport.dropDownListCountries.focus();
+		$('#DivCountry').addClass('has-error').removeClass('has-success');
+		document.formCreateReport.DropDownListCountries.focus();
 		return false;
 	}
 	var city = document.formCreateReport.City.value;
 	if (city == "")
 	{
-		$('#div-City').addClass('has-error').removeClass('has-success');
+		$('#DivCity').addClass('has-error').removeClass('has-success');
 		document.formCreateReport.City.focus();
 		return false;
 	}
 	var dateRange = document.formCreateReport.DateRange.value;
 	if (dateRange == "")
 	{
-		$('#div-Date').addClass('has-error').removeClass('has-success');
+		$('#DivDate').addClass('has-error').removeClass('has-success');
 		document.formCreateReport.DateRange.focus();
 		return false;
 	}
 	var highlight = document.formCreateReport.Highlight.value;
 	if (highlight == "")
 	{
-		$('#div-Highlight').addClass('has-error').removeClass('has-success');
+		$('#DivHighlight').addClass('has-error').removeClass('has-success');
 		document.formCreateReport.Highlight.focus();
 		return false;
 	}
 	var attention = document.formCreateReport.Attention.value;
 	if (attention == "")
 	{
-		$('#div-Attention').addClass('has-error').removeClass('has-success');
+		$('#DivAttention').addClass('has-error').removeClass('has-success');
 		document.formCreateReport.Attention.focus();
 		return false;
 	}
-	var frame_textreport = window.frames[0].document.body.innerHTML;
-	if (frame_textreport.length <= 11)
+	var frameTextreport = window.frames[0].document.body.innerHTML;
+	if (frameTextreport.length <= 11)
 	{
-		$('#modal_textarea_textreport').modal('show');
+		$('#ModalTextareaTextreport').modal('show');
 		window.frames[0].document.body.focus();
 		return false;
 	}
 	$('#ButtonSubmitForm').attr('disabled', true);
-	var success = saveFormReportInDb(NickName, Country, city, dateRange, highlight, attention, frame_textreport);
+	var success = saveFormReportInDb(NickName, Country, city, dateRange, highlight, attention, frameTextreport);
 	if (success == 'ReportSpeicherung erfolgreich')
 	{
 		uploadFilesTitle(affectedIdWhenUpload);
@@ -153,7 +153,7 @@ function checkInputFormCreateReport()
 }
 
 // speichert das Formular in der Datenbank
-function saveFormReportInDb(NickName, Country, city, dateRange, highlight, attention, frame_textreport)
+function saveFormReportInDb(NickName, Country, city, dateRange, highlight, attention, frameTextreport)
 {
 	var returnValue = 'ReportSpeicherung fehlgeschlagen';
 	var ReportName = document.formCreateReport.ReportName.value;
@@ -173,7 +173,7 @@ function saveFormReportInDb(NickName, Country, city, dateRange, highlight, atten
 		'attention': attention,
 		'lecture': Lecture,
 		'internship': Internship,
-		'commentBox': frame_textreport
+		'commentBox': frameTextreport
 	};
 	$.ajaxSetup({async: false});
 	$.post('php/manageBackend.php', data)
@@ -278,11 +278,11 @@ function checkInputAndChangeClassOfDiv(para_input, para_div, para_required)
 // land in dropDownList geändert
 function changeCountry()
 {
-	var input_field = $('#dropDownListCountries').val();
-	$('#dropDownListCountries option[value=""]').remove();
-	if ($('#div-City').hasClass('hide'))
+	var input_field = $('#DropDownListCountries').val();
+	$('#DropDownListCountries option[value=""]').remove();
+	if ($('#DivCity').hasClass('hide'))
 	{
-		$('#div-City').addClass('has-error').removeClass('hide has-success');
+		$('#DivCity').addClass('has-error').removeClass('hide has-success');
 	}
 	document.formCreateReport.City.focus();
 	var data =
@@ -297,10 +297,10 @@ function changeCountry()
 		if (data.responseText != 'noDatabase')
 		{
 			var dataLength = data.length;
-			$('#dataListCity').empty();
+			$('#DataListCity').empty();
 			for (var i = 0; i < dataLength; i++)
 			{
-				$('#dataListCity').append('<option value="' + data[i].city_ascii + '"/>');
+				$('#DataListCity').append('<option value="' + data[i].city_ascii + '"/>');
 			}
 		}
 	});
@@ -322,7 +322,7 @@ function inputNotEmpty(para_input, para_div)
 }
 
 // nach Hinweis, Textarea auszufüllen
-function focus_textarea_textreport()
+function focusTextareaTextreport()
 {
 	window.frames[0].document.body.focus();
 }
@@ -332,13 +332,13 @@ function changeCountryClass()
 {
 	if (document.formCreateReport.Country.value != "")
 	{
-		$('#div-Country').addClass('has-success').removeClass('has-error');
+		$('#DivCountry').addClass('has-success').removeClass('has-error');
 		document.getElementById('countries_msdd').style.borderColor = "#3c763d";
 		document.formCreateReport.City.focus();
 	}
 	else
 	{
-		$('#div-Country').addClass('has-error').removeClass('has-success');
+		$('#DivCountry').addClass('has-error').removeClass('has-success');
 		document.getElementById('countries_msdd').style.borderColor = "#a94442";
 	}
 }
@@ -360,10 +360,10 @@ myApp.controller('angModCreateReport', function($scope) {
 	{
 		form.$setUntouched();
 		form.$setPristine();
-		$('#FormModalProfileDivSuccess, #FormModalProfileDivErrorUpdate, #FormModalProfileDivErrorWrongPw, #DivErrorPwNoMatch, #ErrorDb, #modalClose, #div-changePw').addClass('hide');
-		$('#modalCancel, #modalSave, #modalButtonEditPw').removeClass('hide');
-		$('#modal-div-OldPw, #modal-div-NewPw, #modal-div-NewPwConfirm').removeClass('has-success has-error');
-		document.getElementById('formModalProfile').reset();
+		$('#FormModalProfileDivSuccess, #FormModalProfileDivErrorUpdate, #FormModalProfileDivErrorWrongPw, #DivErrorPwNoMatch, #ErrorDb, #ModalClose, #div-changePw').addClass('hide');
+		$('#ModalCancel, #ModalSave, #ModalButtonEditPw').removeClass('hide');
+		$('#ModalDivOldPw, #ModalDivNewPw, #ModalDivNewPwConfirm').removeClass('has-success has-error');
+		document.getElementById('FormModalProfile').reset();
 		document.getElementById('ModalEmail').value = originalOwnEmail;
 	};
 });
@@ -392,15 +392,15 @@ function checkInputFormModalProfile()
 				if (data.responseText == 'Profil Aktualisierung erfolgreich')
 				{
 					originalOwnEmail = emailAddress;
-					$('#FormModalProfileDivErrorUpdate, #FormModalProfileDivErrorWrongPw, #DivErrorPwNoMatch, #ErrorDb, #modalButtonEditPw, #modalButtonEditPwCancel, #modalCancel, #modalSave').addClass('hide');
-					$('#FormModalProfileDivSuccess, #modalClose').removeClass('hide');
-					$('#modal-div-OldPw').addClass('has-success').removeClass('has-error');
+					$('#FormModalProfileDivErrorUpdate, #FormModalProfileDivErrorWrongPw, #DivErrorPwNoMatch, #ErrorDb, #ModalButtonEditPw, #ModalButtonEditPwCancel, #ModalCancel, #ModalSave').addClass('hide');
+					$('#FormModalProfileDivSuccess, #ModalClose').removeClass('hide');
+					$('#ModalDivOldPw').addClass('has-success').removeClass('has-error');
 				}
 				else if (data.responseText == 'Altes Passwort falsch')
 				{
 					$('#ErrorDb').addClass('hide');
 					$('#FormModalProfileDivErrorWrongPw').removeClass('hide');
-					$('#modal-div-OldPw').addClass('has-error').removeClass('has-success');
+					$('#ModalDivOldPw').addClass('has-error').removeClass('has-success');
 				}
 				else if (data.responseText == 'Profil Aktualisierung fehlgeschlagen') // tritt auf, wenn das Passwort auf das selbige geändert wurde
 				{
@@ -434,8 +434,8 @@ function checkInputFormModalProfile()
 			if (data.responseText == 'Email Aktualisierung erfolgreich')
 			{
 				originalOwnEmail = emailAddress;
-				$('#FormModalProfileDivErrorUpdate, #FormModalProfileDivErrorWrongPw, #DivErrorPwNoMatch, #ErrorDb, #modalButtonEditPw, #modalButtonEditPwCancel, #modalCancel, #modalSave').addClass('hide');
-				$('#FormModalProfileDivSuccess, #modalClose').removeClass('hide');
+				$('#FormModalProfileDivErrorUpdate, #FormModalProfileDivErrorWrongPw, #DivErrorPwNoMatch, #ErrorDb, #ModalButtonEditPw, #ModalButtonEditPwCancel, #ModalCancel, #ModalSave').addClass('hide');
+				$('#FormModalProfileDivSuccess, #ModalClose').removeClass('hide');
 			}
 			else if (data.responseText == 'Email Aktualisierung fehlgeschlagen') // tritt praktisch nie auf
 			{
@@ -456,16 +456,16 @@ function checkInputFormModalProfile()
 // onclick auf change Password
 function buttonChangePassword()
 {
-	$('#modalButtonEditPw').addClass('hide');
-	$('#modalButtonEditPwCancel, #div-changePw').removeClass('hide');
+	$('#ModalButtonEditPw').addClass('hide');
+	$('#ModalButtonEditPwCancel, #div-changePw').removeClass('hide');
 	$('#ModalOldPw').focus();
 }
 
 // onclick auf cancel change Password
 function buttonChangePasswordCancel()
 {
-	$('#modalButtonEditPwCancel, #FormModalProfileDivErrorWrongPw, #div-changePw').addClass('hide');
-	$('#modalButtonEditPw').removeClass('hide');
+	$('#ModalButtonEditPwCancel, #FormModalProfileDivErrorWrongPw, #div-changePw').addClass('hide');
+	$('#ModalButtonEditPw').removeClass('hide');
 }
 
 // überprüft, ob die neuen Passwörter gleich sind
@@ -477,13 +477,13 @@ function checkPasswordMatch(forced)
 	if (newPw && newPw == newPwConfirm)
 	{
 		$('#DivErrorPwNoMatch').addClass('hide');
-		$('#modal-div-NewPw, #modal-div-NewPwConfirm').addClass('has-success').removeClass('has-error');
+		$('#ModalDivNewPw, #ModalDivNewPwConfirm').addClass('has-success').removeClass('has-error');
 		returnValue = true;
 	}
 	else if (!newPw && !newPwConfirm)
 	{
 		$('#DivErrorPwNoMatch').addClass('hide');
-		$('#modal-div-NewPw, #modal-div-NewPwConfirm').addClass('has-error').removeClass('has-success');
+		$('#ModalDivNewPw, #ModalDivNewPwConfirm').addClass('has-error').removeClass('has-success');
 	}
 	else
 	{
@@ -491,12 +491,12 @@ function checkPasswordMatch(forced)
 		if (forced == true)
 		{
 			$('#DivErrorPwNoMatch').removeClass('hide');
-			$('#modal-div-NewPw, #modal-div-NewPwConfirm').addClass('has-error').removeClass('has-success');
+			$('#ModalDivNewPw, #ModalDivNewPwConfirm').addClass('has-error').removeClass('has-success');
 		}
 		else
 		{
 			// $('#DivErrorPwNoMatch').addClass('hide'); // Grund: wegen der Enter-Taste würde die Fehlermeldung sofort wieder verschwinden
-			$('#modal-div-NewPw, #modal-div-NewPwConfirm').removeClass('has-success has-error');
+			$('#ModalDivNewPw, #ModalDivNewPwConfirm').removeClass('has-success has-error');
 		}
 	}
 	return returnValue;
