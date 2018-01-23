@@ -65,7 +65,7 @@ function buildDefaultRow(rowId)
 		strHtml += '<td>' + ArrayUserData[rowId].Id + '</td>';
 		strHtml += '<td>' + ArrayUserData[rowId].UserName + '</td>';
 		strHtml += '<td>********</td>';
-		strHtml += '<td>' + giveMemberRoleName(ArrayUserData[rowId].MemberRole) + '</td>';
+		strHtml += '<td>' + getMemberRoleName(ArrayUserData[rowId].MemberRole) + '</td>';
 		strHtml += '<td>' + ArrayUserData[rowId].Email + '</td>';
 		if (ObjectOwnUser.MemberRole >= ArrayUserData[rowId].MemberRole)
 		{
@@ -96,18 +96,6 @@ function buildDefaultRow(rowId)
 		}
 	strHtml += '</tr>';
 	return strHtml;
-}
-
-// zeigt das Passwort, wenn man in das Feld klickt
-function showPassword(Id)
-{
-	document.getElementById(Id).type = 'text';
-}
-
-// verbirgt das Passwort, wenn man aus dem Feld rausklickt
-function hidePassword(Id)
-{
-	document.getElementById(Id).type = 'password';
 }
 
 // Reihe zum Bearbeiten
@@ -166,6 +154,18 @@ function buildEditRow(rowId)
 	return strHtml;
 }
 
+// zeigt das Passwort, wenn man in das Feld klickt
+function showPassword(Id)
+{
+	document.getElementById(Id).type = 'text';
+}
+
+// verbirgt das Passwort, wenn man aus dem Feld rausklickt
+function hidePassword(Id)
+{
+	document.getElementById(Id).type = 'password';
+}
+
 // zeigt Form für neuen User
 function showFormNewUser()
 {
@@ -176,7 +176,7 @@ function showFormNewUser()
 	var selectOptions = '';
 	for (var i = 0; i <= ownMemberRole; i++)
 	{
-		selectOptions += '<option value="' + i + '">' + giveMemberRoleName(i) + '</option>';
+		selectOptions += '<option value="' + i + '">' + getMemberRoleName(i) + '</option>';
 	}
 	document.getElementById('MemberRoleSelection').innerHTML = selectOptions;
 	$('#FormUserName').focus();
@@ -363,7 +363,7 @@ function deleteUser(Id)
 }
 
 // gibt die MemberRolle in Klartext aus
-function giveMemberRoleName(memberRole)
+function getMemberRoleName(memberRole)
 {
 	returnValue = 'Error';
 	switch(memberRole)

@@ -18,6 +18,20 @@ $(document).ready(function(){
 	incrementViews('createReport');
 });
 
+// holt Country-Data aus einer API
+function getCountryData()
+{
+	$.ajaxSetup({async: false});
+	// $.get('https://restcountries.eu/rest/v2/all') // for less traffic but more dependency
+	$.post('js/countryApi.json') // in case extern API goes offline
+	.always(function(data)
+	{
+		ArrayCountryData = data;
+	});
+	$.ajaxSetup({async: true});
+	createDropDownListCountries();
+}
+
 // setzt E-Mail ins Modal ein, falls vorhanden und in DB hinterlegt
 function getOwnEmail()
 {

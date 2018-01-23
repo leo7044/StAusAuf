@@ -201,20 +201,6 @@ function getOwnUser()
 	$.ajaxSetup({async: true});
 }
 
-// holt Country-Data aus einer externen API
-function getCountryData()
-{
-	$.ajaxSetup({async: false});
-	// $.get('https://restcountries.eu/rest/v2/all') // for less traffic but more dependency
-	$.post('js/countryApi.json') // in case extern API goes offline
-	.always(function(data)
-	{
-		ArrayCountryData = data;
-	});
-	$.ajaxSetup({async: true});
-	createDropDownListCountries();
-}
-
 // sortiert dropDownList 
 function sortCountryList(dropDownList)
 {

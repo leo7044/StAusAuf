@@ -14,7 +14,7 @@ $(document).ready(function()
 {
 	getGetParas();
 	getOwnUser();
-	getCountryData();
+	getCountryDataAndPrepareIso();
 	getPictureData();
 	getReportData();
 	createArrayId();
@@ -32,8 +32,8 @@ function createArrayId()
 	}
 };
 
-// holt Country-Data aus einer externen API
-function getCountryData()
+// holt Country-Data aus einer API
+function getCountryDataAndPrepareIso()
 {
 	$.ajaxSetup({async: false});
 	// $.get('https://restcountries.eu/rest/v2/all') // for less traffic but more dependency
@@ -270,7 +270,7 @@ function loadContentOfModal(longModalId, loadingPage)
 		{
 			strHtml +=
 			'<div class="form-group">' +
-				'<button type="button" class="btn btn-info" onclick="buttonGeneralInformationEdit(' + indexOfObjectInReportData + ');">' +
+				'<button type="button" class="btn btn-info" onclick="editGeneralInformation(' + indexOfObjectInReportData + ');">' +
 					'<span class="glyphicon glyphicon-pencil"></span> <span id="Edit" class="trans-innerHTML">Edit</span>' +
 				'</button>' +
 			'</div>';
@@ -283,13 +283,13 @@ function loadContentOfModal(longModalId, loadingPage)
 			'</p>' +
 		'</div>';
 	strHtml +=
-		'<form method="post" action="" name="formModalGeneralInformationEdit" onsubmit="return buttonGeneralInformationConfirm(' + modalId + ', ' + ArrayReportData[indexOfObjectInReportData].userId + ')">' +
+		'<form method="post" action="" name="formModalGeneralInformationEdit" onsubmit="return saveGeneralInformation(' + modalId + ', ' + ArrayReportData[indexOfObjectInReportData].userId + ')">' +
 			'<div id="modalButtonEditView" class="hide">' +
 				'<div class="row">' +
 					'<div class="col-md-1"></div>' +
 					'<div class="col-md-11">' +
 						'<div class="form-group">' +
-							'<button type="button" class="btn btn-danger" onclick="return buttonGeneralInformationCancel();">' +
+							'<button type="button" class="btn btn-danger" onclick="return cancelGeneralInformation();">' +
 								'<span class="glyphicon glyphicon-remove"></span> <span id="Cancel" class="trans-innerHTML">Cancel</span>' +
 							'</button>&nbsp;' +
 							'<button type="submit" class="btn btn-success">' +
@@ -456,7 +456,7 @@ function fillInformationFieldsView()
 }
 
 // editiert Bericht
-function buttonGeneralInformationEdit(indexOfObjectInReportData)
+function editGeneralInformation(indexOfObjectInReportData)
 {
 	$('#modalButtonBasicView').addClass('hide');
 	$('#modalButtonEditView').removeClass('hide');
@@ -585,7 +585,7 @@ function buttonGeneralInformationEdit(indexOfObjectInReportData)
 		'</div>';
 	$('#informationFieldsEdit')[0].innerHTML = strHtml;
 	initializeDateRangePicker();
-	getCountryData();
+	getCountryDataAndPrepareIso();
 	changeLanguage();
 	selectCorrectCountry(indexOfObjectInReportData);
 }
@@ -601,7 +601,7 @@ function selectCorrectCountry(id)
 }
 
 // speichert Bericht in aktualisierter Form
-function buttonGeneralInformationConfirm(id, userIdOfReport)
+function saveGeneralInformation(id, userIdOfReport)
 {
 	var data =
 	{
@@ -632,11 +632,11 @@ function buttonGeneralInformationConfirm(id, userIdOfReport)
 	getReportData();
 	createArrayId();
 	fillReportTable();
-	buttonGeneralInformationCancel(success);
+	cancelGeneralInformation(success);
 }
 
 // setzt Felder in Ausgangsstand zurück
-function buttonGeneralInformationCancel(success)
+function cancelGeneralInformation(success)
 {
 	$('#modalButtonBasicView').removeClass('hide');
 	$('#modalButtonEditView').addClass('hide');
