@@ -41,6 +41,12 @@ else if (isset($_REQUEST['admin']))
 		logout();
 	}
 }
+else if (isset($_REQUEST['logout']))
+{
+	unset($_SESSION['StAusAuf_Id']);
+	unset($_SESSION['StAusAuf_memberRole']);
+	include_once('html/viewReports.html');
+}
 else
 {
 	include_once('html/viewReports.html');
