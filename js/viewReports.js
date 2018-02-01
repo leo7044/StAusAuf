@@ -20,6 +20,10 @@ $(document).ready(function()
 	createArrayId();
 	fillReportTable();
 	incrementViews('viewReports');
+	if (ObjectOwnUser != undefined)
+	{
+		$('#ButtonLogout').removeClass('hide');
+	}
 })
 
 // erstellt Id-Array um ArrayId und RealId zu suchen
