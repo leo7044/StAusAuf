@@ -5,7 +5,7 @@ $(document).ready(function() {
 	initializeForm();
 });
 
-// initialisiert das Formular (richtige ZielPage)
+// initialisiert das Formular (richtige Weiterleitungsseite)
 function initializeForm()
 {
 	if ($_GET().createReport)
@@ -46,7 +46,7 @@ function initializeForm()
 	}
 }
 
-//Login
+// 
 function login(loginSite)
 {
 	var returnValue = false;

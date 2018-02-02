@@ -12,6 +12,7 @@ var ArrayCountryIso = null;
 
 $(document).ready(function()
 {
+	window.history.pushState('', '', '?');
 	getGetParas();
 	getOwnUser();
 	getCountryDataAndPrepareIso();
@@ -26,7 +27,7 @@ $(document).ready(function()
 	}
 })
 
-// erstellt Id-Array um ArrayId und RealId zu suchen
+// erstellt Id-Array um den Index einer Id eines Reiseberichts ermitteln zu können
 function createArrayId()
 {
 	ArrayId = new Array();
@@ -36,7 +37,7 @@ function createArrayId()
 	}
 };
 
-// holt Country-Data aus einer API
+// speichert alle 10 Übersetzungen aller 250 möglichen Reiseländer aus einer API in einem Array
 function getCountryDataAndPrepareIso()
 {
 	$.ajaxSetup({async: false});
@@ -54,7 +55,7 @@ function getCountryDataAndPrepareIso()
 	}
 }
 
-// speichert PictureData in Array
+// speichert die Pfade aller hochgeladenen Bilder in einem Array
 function getPictureData()
 {
 	var data =
@@ -77,7 +78,7 @@ function getPictureData()
 	$.ajaxSetup({async: true});
 }
 
-// lädt Daten aus der DB
+// lädt Reportdaten aus der Datenbank in ein Array
 function getReportData()
 {
 	var data =
@@ -93,7 +94,7 @@ function getReportData()
 	$.ajaxSetup({async: true});
 }
 
-// verändert die ReportDaten, wenn gesucht wird oder gesucht wurde
+// verändert das Array der Reportdaten, wenn gesucht wird oder gesucht wurde
 function prepareReportData()
 {
 	var searchStr = $('#SearchReport')[0].value;
@@ -114,7 +115,7 @@ function prepareReportData()
 	changeLanguage();
 }
 
-// iteriert durch ReportStrings und sucht nach String
+// iteriert durch die einzelnen Strings jeden Berichts und sucht nach übergebenem String
 function proveIfSearchStringExists(indexOfReport, searchStr)
 {
 	var longStr = '';
@@ -134,7 +135,7 @@ function proveIfSearchStringExists(indexOfReport, searchStr)
 	return returnValue;
 }
 
-// fällt die ReportTable beim onLoad
+// füllt die Übersichtstabelle beim Seitenaufruf
 function fillReportTable()
 {
 	if (ArrayReportData.responseText != 'noDatabase')
@@ -243,7 +244,7 @@ function fillReportTable()
 	}
 }
 
-// lädt den Content fürs Modal
+// lädt den Inhalt fürs Modal, der einen speziellen Bericht anzeigt
 function loadContentOfModal(longModalId, loadingPage)
 {
 	loadingPage = loadingPage || false;
@@ -431,7 +432,7 @@ function loadContentOfModal(longModalId, loadingPage)
 	changeLanguage();
 }
 
-// befüllt generelle Informationen in der Betrachtungsebene
+// befüllt im Betrachtungsmodus den Bericht mit allgemeinen Informationen
 function fillInformationFieldsView()
 {
 	var strHtml = '';
@@ -459,7 +460,7 @@ function fillInformationFieldsView()
 	$('#informationFieldsView')[0].innerHTML = strHtml;
 }
 
-// editiert Bericht
+// wechselt in den Bearbeitungsmodus
 function editGeneralInformation(indexOfObjectInReportData)
 {
 	$('#modalButtonBasicView').addClass('hide');
@@ -594,7 +595,7 @@ function editGeneralInformation(indexOfObjectInReportData)
 	selectCorrectCountry(indexOfObjectInReportData);
 }
 
-// richtiges Land zu Beginn ausgewählt
+// das eingetragene Reiseland des Berichts wird beim Generieren der Auswahlliste als Default-Wert ausgewählt
 function selectCorrectCountry(id)
 {
 	$('#DropDownListCountries option[value=""]').remove();
@@ -604,7 +605,7 @@ function selectCorrectCountry(id)
 	}).prop('selected', true);
 }
 
-// speichert Bericht in aktualisierter Form
+// speichert den Bericht in aktualisierter Form
 function saveGeneralInformation(id, userIdOfReport)
 {
 	var data =
@@ -639,7 +640,7 @@ function saveGeneralInformation(id, userIdOfReport)
 	cancelGeneralInformation(success);
 }
 
-// setzt Felder in Ausgangsstand zurück
+// wechselt vom Bearbeitungsmodus zurück in den Betrachtungsmodus
 function cancelGeneralInformation(success)
 {
 	$('#modalButtonBasicView').removeClass('hide');
@@ -663,7 +664,7 @@ function cancelGeneralInformation(success)
 	return false;
 }
 
-// löscht Bericht
+// löscht einen Bericht
 function deleteReport(Id, indexOfObjectInReportData)
 {
 	if (confirm('Are you sure you want to delete this report?'))
@@ -685,7 +686,7 @@ function deleteReport(Id, indexOfObjectInReportData)
 	}
 }
 
-// wird beim Schließen des ReportModals aufgerufen, um die url in der Addresszeile zu ändern
+// wird beim Schließen eines Berichts aufgerufen, um die URL in der Adressezeile zu ändern
 function closeModal()
 {
 	window.history.pushState('', '', '?');
@@ -695,7 +696,7 @@ function closeModal()
 	changeLanguage();
 }
 
-// DateRangePicker
+// initialisiert den DateRangePicker
 function initializeDateRangePicker()
 {
 	$('input[name="DateRange"]').daterangepicker({

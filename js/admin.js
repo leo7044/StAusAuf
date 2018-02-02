@@ -12,7 +12,7 @@ $(document).ready(function()
 	fillViewTables();
 })
 
-// holtUserDaten aus der DB
+// um alle Benutzer in der Tabelle darzustellen, werden alle Informationen (bis auf Passwörter) zu allen Benutzern abgefragt
 function getUserFromDB()
 {
 	var data =
@@ -29,7 +29,7 @@ function getUserFromDB()
 	buildHtmlForUserTable();
 }
 
-// erzeugt die komplette Tabelle
+// erzeugt die komplette Tabelle, in der alle Benutzer zu sehen sind
 function buildHtmlForUserTable()
 {
 	if (ArrayUserData.responseText != 'noDatabase')
@@ -48,7 +48,7 @@ function buildHtmlForUserTable()
 	}
 }
 
-// erzeugt eine Rolle
+// erzeugt eine Zeile in der Tabelle, in der jeweils ein Benutzer abgebildet wird
 function buildOneRow(rowId)
 {
 	var strHtml = '';
@@ -57,7 +57,7 @@ function buildOneRow(rowId)
 	return strHtml;
 }
 
-// Reihe zum Editieren
+// erzeugt Zeile zum Betrachten
 function buildDefaultRow(rowId)
 {
 	var strHtml = '';
@@ -98,7 +98,7 @@ function buildDefaultRow(rowId)
 	return strHtml;
 }
 
-// Reihe zum Bearbeiten
+// erzeugt Zeile im Bearbeitungsmodus
 function buildEditRow(rowId)
 {
 	var strHtml = '';
@@ -154,7 +154,7 @@ function buildEditRow(rowId)
 	return strHtml;
 }
 
-// zeigt das Passwort, wenn man in das Feld klickt
+// macht das Passwort sichtbar, wenn man in das Feld klickt
 function showPassword(Id)
 {
 	document.getElementById(Id).type = 'text';
@@ -166,7 +166,7 @@ function hidePassword(Id)
 	document.getElementById(Id).type = 'password';
 }
 
-// zeigt Form für neuen User
+// macht das Formular für die Erstellung eines neuen Benutzers sichtbar
 function showFormNewUser()
 {
 	$('#DivFormButtonNewUser').addClass('hide');
@@ -183,7 +183,7 @@ function showFormNewUser()
 	$('#FormPassword')[0].value = generateRandomPassword();
 }
 
-// verbirgt Form für neuen User
+// verbirgt das Formular für die Erstellung eines neuen Benutzers
 function hideFormNewUser()
 {
 	$('#DivFormButtonNewUser').removeClass('hide');
@@ -192,7 +192,7 @@ function hideFormNewUser()
 	return false;
 }
 
-// setzt Form zurück
+// setzt das Formular für die Erstellung eines neuen Benutzers zurück
 function resetFormNewUser()
 {
 	$('#DivFormPassword').removeClass('has-success has-error');
@@ -221,7 +221,7 @@ function generateRandomPassword()
 	return password;
 }
 
-// kopiert das Password in den Arbeitsspeicher
+// kopiert das Password in die Zwischenablage
 function copyPwToClipboard()
 {
 	showPassword('FormPassword');
@@ -231,7 +231,7 @@ function copyPwToClipboard()
 	// hidePassword('FormPassword');
 }
 
-// kreiert einen neuen User
+// legt einen neuen Benutzer in der Datenbank an
 function createNewUser()
 {
 	// im BackEnd speichern
@@ -274,14 +274,14 @@ function createNewUser()
 	return false;
 }
 
-// User bearbeiten
+// wechselt in den Bearbeitungsmodus
 function editUser(Id)
 {
 	$('#' + Id + '_actionDefault').addClass('hide');
 	$('#' + Id + '_actionEdit').removeClass('hide');
 }
 
-// User speichern
+// speichert Änderungen an einem Benutzer in der Datenbank
 function updateUser(Id, rowId)
 {
 	// ArrayUserData updaten
@@ -337,7 +337,7 @@ function updateUser(Id, rowId)
 	}
 }
 
-// setzt User auf Ursprungszustand (ArrayUserData) zurück - Achtung: ArrayUserData in saveUser müssen aktuell gehalten werden, weil updateUser auch auf resetUser aufbaut
+// wechselt aus dem Bearbeitungsmodus in den Betrachtungsmodus (ArrayUserData) zurück - Achtung: ArrayUserData in saveUser müssen aktuell gehalten werden, weil updateUser auch auf resetUser aufbaut
 function resetUser(Id, rowId)
 {
 	document.getElementById(Id + '_actionDefault').outerHTML = buildDefaultRow(rowId);
@@ -345,7 +345,7 @@ function resetUser(Id, rowId)
 	changeLanguage();
 }
 
-// löscht User
+// löscht Benutzer aus der Datenbank
 function deleteUser(Id)
 {
 	if (confirm('Are you sure you want to delete the user?'))
@@ -362,7 +362,7 @@ function deleteUser(Id)
 	}
 }
 
-// gibt die MemberRolle in Klartext aus
+// gibt die Benutzerrolle anhand des Zahlenwertes in Klartext aus
 function getMemberRoleName(memberRole)
 {
 	returnValue = 'Error';
@@ -377,7 +377,7 @@ function getMemberRoleName(memberRole)
 	return returnValue;
 }
 
-// befüllt View-Tabellen
+// befüllt die Besucher-Statistik-Tabelle
 function fillViewTables()
 {
 	var arrayViews = getViews();
@@ -405,7 +405,7 @@ function fillViewTables()
 	changeLanguage();
 }
 
-// holt Daten für View
+// fragt aus der Datenbank alle Besucher-Statistiken ab
 function getViews()
 {
 	var arrayViews = null;
@@ -423,7 +423,7 @@ function getViews()
 	return arrayViews;
 }
 
-// leitet den USer zu einem anderen Link weiter
+// leitet den User zu einem anderen Link weiter
 function forwardToLink(link, id)
 {
 	window.location = './?' + link + '=' + id;

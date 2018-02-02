@@ -32,7 +32,7 @@ function getCountryData()
 	createDropDownListCountries();
 }
 
-// setzt E-Mail ins Modal ein, falls vorhanden und in DB hinterlegt
+// fragt die eigene E-Mail-Adresse - falls vorhanden - aus der Datenbank ab und fügt diese ins Modal für das Ändern der eigenen Benutzerinformationen ein
 function getOwnEmail()
 {
 	var data =
@@ -52,7 +52,7 @@ function getOwnEmail()
 	$.ajaxSetup({async: true});
 }
 
-// initialisiert die beiden Input-Felder für das hochladen von Bildern
+// initialisiert die beiden Input-Felder für das Hochladen von Bildern
 function initializeFileInput()
 {
 	$("#FileInputUploadTitle").fileinput({ // FileUploadTitle
@@ -100,6 +100,7 @@ $(function() {
 
 // checks transmitted formular-values
 // it is necessary for DatePicker because Date-Picker is readonly - the rest is for colors
+// überprüft die eingegebenen Daten, dass alle Felder ausgefüllt sind
 function checkInputFormCreateReport()
 {
 	var NickName = document.formCreateReport.NickName.value;
@@ -166,7 +167,7 @@ function checkInputFormCreateReport()
 	}
 }
 
-// speichert das Formular in der Datenbank
+// speichert die eigegebenen Daten des Formulars in der Datenbank
 function saveFormReportInDb(NickName, Country, city, dateRange, highlight, attention, frameTextreport)
 {
 	var returnValue = 'ReportSpeicherung fehlgeschlagen';
@@ -214,7 +215,7 @@ function saveFormReportInDb(NickName, Country, city, dateRange, highlight, atten
 	return returnValue;
 }
 
-// lädt Title-Bild mittels AJAX hoch
+// lädt Titel-Bild mittels AJAX hoch
 function uploadFilesTitle(id)
 {
 	var returnValue = false;
@@ -244,7 +245,7 @@ function uploadFilesTitle(id)
 	return returnValue;
 }
 
-// lädt Gallery mittels AJAX hoch
+// lädt Bilder für die Galerie mittels AJAX hoch
 function uploadFilesGallery(id)
 {
 	var returnValue = false;
@@ -274,7 +275,7 @@ function uploadFilesGallery(id)
 	return returnValue;
 }
 
-// ändert die css-Klasse eines Inputs, falls erforderlich
+// ändert die .css-Klasse eines Inputs, falls erforderlich
 function checkInputAndChangeClassOfDiv(para_input, para_div, para_required)
 {
 	var input_field = document.getElementById(para_input).value;
@@ -289,7 +290,7 @@ function checkInputAndChangeClassOfDiv(para_input, para_div, para_required)
 	}
 }
 
-// land in dropDownList geändert
+// wird ein Land in der Auswahlliste gewählt, werden alle dazu passenden in der Datenbank gespeicherten Städte geladen und als DataList vorgeschlagen
 function changeCountry()
 {
 	var input_field = $('#DropDownListCountries').val();
@@ -321,7 +322,7 @@ function changeCountry()
 	$.ajaxSetup({async: true});
 }
 
-//input-field ist nicht leer
+// ändert die .css-Klasse, falls ein Input-Feld leer ist
 function inputNotEmpty(para_input, para_div)
 {
 	var input_field = document.getElementById(para_input).value;
@@ -335,13 +336,13 @@ function inputNotEmpty(para_input, para_div)
 	}
 }
 
-// nach Hinweis, Textarea auszufüllen
+// fokussiert den Text-Cursor in die TextArea für den Freitext
 function focusTextareaTextreport()
 {
 	window.frames[0].document.body.focus();
 }
 
-// verändert die css-Klasse von Country
+// verändert die .css-Klasse des Country-Input-Feldes
 function changeCountryClass()
 {
 	if (document.formCreateReport.Country.value != "")
@@ -357,7 +358,7 @@ function changeCountryClass()
 	}
 }
 
-// BB-Codes
+// initialisiert die BB-Codes für den Freitext-Editor
 $(function() {
 	$("textarea").sceditor({
 		plugins: "bbcode",
@@ -382,7 +383,7 @@ myApp.controller('angModCreateReport', function($scope) {
 	};
 });
 
-//Eingaben ModalProfile überprüfgen
+// die Eingaben des Formulars zum Ändern der eigenen Benutzerdaten werden überprüft
 function checkInputFormModalProfile()
 {
 	var emailAddress = document.getElementById('ModalEmail').value;
@@ -467,7 +468,7 @@ function checkInputFormModalProfile()
 	return false;
 }
 
-// onclick auf change Password
+// der div-Container zum Ändern des Passwortes wird angezeigt
 function buttonChangePassword()
 {
 	$('#ModalButtonEditPw').addClass('hide');
@@ -475,14 +476,14 @@ function buttonChangePassword()
 	$('#ModalOldPw').focus();
 }
 
-// onclick auf cancel change Password
+// der div-Container zum Ändern des Passwortes wird verborgen
 function buttonChangePasswordCancel()
 {
 	$('#ModalButtonEditPwCancel, #FormModalProfileDivErrorWrongPw, #div-changePw').addClass('hide');
 	$('#ModalButtonEditPw').removeClass('hide');
 }
 
-// überprüft, ob die neuen Passwörter gleich sind
+// überprüft die beiden neuen eingegebenen Passwörter auf Gleichheit
 function checkPasswordMatch(forced)
 {
 	var returnValue = false;
@@ -520,7 +521,7 @@ function checkPasswordMatch(forced)
 // für Übersetzungen
 // =============================================
 
-// wird beim Öffnen des Profil-Modals ausgeführt
+// modifiziert das Formulars zum Ändern der eigenen Benutzerdaten beim Öffnen
 function modifyModalProfile()
 {
 	prepareLanguageSelection(true);

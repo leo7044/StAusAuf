@@ -20,7 +20,7 @@ $(document).ready(function() {
     }
 });
 
-// GET-Paras
+// alle URL-GET-Parameter werden in einem Objekt gespeichert
 function getGetParas()
 {
     var s = window.location.search.substring(1).split('&');
@@ -34,7 +34,7 @@ function getGetParas()
     window.$_GET = function(name){return name ? c[name] : c;}
 }
 
-// Sprachen aus Sprachdatei laden
+// alle Übersetzungen werden aus der Sprachdatei geladen
 function getLanguages()
 {
 	var returnValue = null;
@@ -70,7 +70,7 @@ function prepareLanguageSelection(modal)
     }
 }
 
-// wird beim Wechseln einer Sprache aufgerufen
+// organisiert die vollständige Übersetzung aller Text-Elemente
 function changeLanguage(currentLanguageIndex)
 {
     if (currentLanguageIndex == undefined)
@@ -111,7 +111,7 @@ function changeLanguage(currentLanguageIndex)
     }
 }
 
-// translates each Element with special classes
+// übersetzt jedes Text-Element, welche spezielle Klassen enthält
 function translateEachElement(currentLanguageIndex)
 {
     for (var i = 0; i < $('.trans-innerHTML').length; i++)
@@ -159,7 +159,7 @@ function translateEachElement(currentLanguageIndex)
     }
 }
 
-// erhöht die Zahl der Besucher um 1
+// erhöht die Zahl der Besucher des aufgerufenen Berichts oder der Seite um 1
 function incrementViews(element)
 {
     var data = null;
@@ -201,7 +201,7 @@ function getOwnUser()
 	$.ajaxSetup({async: true});
 }
 
-// sortiert dropDownList 
+// sortiert die Auswahlliste der Länder 
 function sortCountryList(dropDownList)
 {
 	$(dropDownList).html($(dropDownList).children('option').sort(function (x, y)
@@ -210,7 +210,7 @@ function sortCountryList(dropDownList)
 	}));
 }
 
-// kreiert oder updatet die dropDownList der Länder
+// kreiert oder aktualisiert die Auswahlliste der Länder
 function createDropDownListCountries(language)
 {
 	if (ArrayCountryData)

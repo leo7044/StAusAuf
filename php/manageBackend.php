@@ -68,7 +68,7 @@ if (!$conn->connect_error)
 		case 'getOwnEmail':
 		{
 			$Id = $_SESSION['StAusAuf_Id'];
-			$email = getOwnEmail($conn, $Id);
+			$email = getOwnEmailResponse($conn, $Id);
 			if ($email)
 			{
 				echo $email;
@@ -85,7 +85,7 @@ if (!$conn->connect_error)
 			$oldPw = md5($_post['oldPw']);
 			$newPw = md5($_post['newPw']);
 			$email = $_post['email'];
-			$response = updateProfile($conn, $Id, $oldPw, $newPw, $email);
+			$response = updateProfileResponse($conn, $Id, $oldPw, $newPw, $email);
 			if ($response == "success Change")
 			{
 				echo 'Profil Aktualisierung erfolgreich';
@@ -104,7 +104,7 @@ if (!$conn->connect_error)
 		{
 			$Id = $_SESSION['StAusAuf_Id'];
 			$email = $_post['email'];
-			$Id = updateEmail($conn, $Id, $email);
+			$Id = updateEmailResponse($conn, $Id, $email);
 			if ($Id)
 			{
 				echo 'Email Aktualisierung erfolgreich';
@@ -444,7 +444,7 @@ function replaceChars($str)
 	return $str;
 }
 
-// überprüft immer wieder die MemberRole
+// überprüft die Benutzerrolle des eingeloggten Benutzers
 function setMemberRole($conn)
 {
 	$Id = $_SESSION['StAusAuf_Id'];
@@ -455,7 +455,7 @@ function setMemberRole($conn)
 	}
 }
 
-// login checken (existiert UserName mit PW in DB?)
+// überprüft, ob Benutzername und Passwort in der Datenbank existiert
 function checkLogin($conn, $UserName, $Password)
 {
 	$result = $conn->query("SELECT `Id`, `MemberRole` FROM `login` WHERE `UserName`='$UserName' AND `Password`='$Password';");
@@ -469,8 +469,8 @@ function checkLogin($conn, $UserName, $Password)
 	return $MemberRole;
 }
 
-// get Mailaddress
-function getOwnEmail($conn, $Id)
+// gibt die eigene Emailadresse wieder aus
+function getOwnEmailResponse($conn, $Id)
 {
 	$result = $conn->query("SELECT `Email` FROM `login` WHERE `Id`='$Id';");
 	$email = "";
@@ -481,8 +481,8 @@ function getOwnEmail($conn, $Id)
 	return $email;
 }
 
-// update Email
-function updateEmail($conn, $Id, $email)
+// gibt eine Id aus, die bei Erfolg größer als 0 ist
+function updateEmailResponse($conn, $Id, $email)
 {
 	$conn->query("UPDATE `login` SET `Email`='$email' WHERE `Id`='$Id';");
 	$result = $conn->query("SELECT `Id` FROM `login` WHERE `Id`='$Id';");
@@ -494,8 +494,8 @@ function updateEmail($conn, $Id, $email)
 	return $tmpId;
 }
 
-// update Profile
-function updateProfile($conn, $Id, $oldPw, $newPw, $email)
+// gibt eine Meldung aus, ob bei der Speicherung Änderungen vorgenommen wurden
+function updateProfileResponse($conn, $Id, $oldPw, $newPw, $email)
 {
 	$returnValue = "wrongOldPw";
 	$conn->query("UPDATE `login` SET `Password`='$newPw', `Email`='$email' WHERE `Id`='$Id' AND `Password`='$oldPw';");
@@ -519,7 +519,7 @@ function updateProfile($conn, $Id, $oldPw, $newPw, $email)
 	return $returnValue;
 }
 
-// verkleinert ggf. hochgeladene Bilder
+// verkleinert bei zu großer Auflösung hochgeladene Bilder
 function resizeImage($filePath, $maxWidth, $maxHeight)
 {
 	$imageInfo = getimagesize($filePath); 
