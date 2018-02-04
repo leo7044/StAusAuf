@@ -394,23 +394,9 @@ if (!$conn->connect_error)
 		{
 			$userAnswer = array();
 			$result = $conn->query("SELECT * FROM `stats` ORDER BY `page` ASC;");
-			$viewsPage = array();
-			$i = 0;
-			while ($zeile = $result->fetch_assoc())
-			{
-				$viewsPage[$i] = $zeile;
-				$i++;
-			}
-			$userAnswer[0] = $viewsPage;
+			$userAnswer[0] = $result->fetch_all(MYSQLI_ASSOC);;
 			$result = $conn->query("SELECT `Id`, `reportName`, `views` FROM `reports` ORDER BY `Id` ASC;");
-			$viewsReport = array();
-			$i = 0;
-			while ($zeile = $result->fetch_assoc())
-			{
-				$viewsReport[$i] = $zeile;
-				$i++;
-			}
-			$userAnswer[1] = $viewsReport;
+			$userAnswer[1] = $result->fetch_all(MYSQLI_ASSOC);;
 			echo json_encode($userAnswer);
 			break;
 		}

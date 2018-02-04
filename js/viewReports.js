@@ -12,7 +12,6 @@ var ArrayCountryIso = null;
 
 $(document).ready(function()
 {
-	window.history.pushState('', '', '?');
 	getGetParas();
 	getOwnUser();
 	getCountryDataAndPrepareIso();
@@ -155,7 +154,15 @@ function fillReportTable()
 				}
 				$("#ModalReport").modal("show");
 			}
-			catch(e){/* Id existiert nicht */};
+			catch(e)
+			{
+				/* Id existiert nicht */
+				window.history.pushState('', '', '?');
+			};
+		}
+		else
+		{
+			window.history.pushState('', '', '?');
 		}
 		var lastColumn = 0;
 		for (var i = 0; i < ArrayReportData.length; i++)
