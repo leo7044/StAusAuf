@@ -153,6 +153,7 @@ function checkInputFormCreateReport()
 		return false;
 	}
 	$('#ButtonSubmitForm').attr('disabled', true);
+	$('#DivErrorUpload').addClass('hide');
 	var success = saveFormReportInDb(NickName, Country, city, dateRange, highlight, attention, frameTextreport);
 	if (success == 'ReportSpeicherung erfolgreich')
 	{
@@ -163,6 +164,8 @@ function checkInputFormCreateReport()
 	}
 	else
 	{
+		$('#DivErrorUpload').removeClass('hide');
+		$('#ButtonSubmitForm').attr('disabled', false);
 		return false;
 	}
 }

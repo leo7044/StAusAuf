@@ -185,6 +185,10 @@
 					<!-- placeholder does not work with sceditor -> reason: they implemented a fake-div -->
 					<textarea class="form-control" style="width: 100px; height: 350px" name="textreport"></textarea>
 				</div>
+				<div id="DivErrorUpload" class="alert alert-danger alert-dismissable fade in hide">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+					<span id="ErrorUpload" class="trans-innerHTML"><b>Error!</b> The report was not uploaded successfully.</span>
+				</div>
 				<div class="form-group">
 					<button id="ButtonSubmitForm" type="submit" class="btn btn-success">
 						<span class="glyphicon glyphicon-plus-sign"></span> <span id="UploadReport" class="trans-innerHTML">Upload report</span>

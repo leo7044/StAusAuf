@@ -10,6 +10,7 @@
 	"FormLoginDivErrorPw":["<b>Login failed!</b> Wrong Username or Password.","<b>Anmeldung fehlgeschlagen!</b> Falscher Benutzername oder Passwort."],
 	"FormLoginDivErrorPermission":["<b>Login failed!</b> You do not have the permission to login.","<b>Anmeldung fehlgeschlagen!</b> Sie haben nicht die Berechtigungen, sich einzuloggen."],
 	"ErrorDb":["<b>Error!</b> Database is not available.","<b>Fehler!</b> Datenbank nicht verfügbar."],
+	"ErrorUpload":["<b>Error!</b> The report was not uploaded successfully.","<b>Fehler!</b> Der Bericht wurde nicht erfolgreich hochgeladen."],
 
 	"ViewReportsHeader":["HWR experience reports","HWR Reiseberichte"],
 	"ReportSaved":["Your report has been successfully saved.","Ihr Bericht wurde erfolgreich gespeichert."],

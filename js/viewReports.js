@@ -475,120 +475,174 @@ function editGeneralInformation(indexOfObjectInReportData)
 	// Felder Bearbeitungsmodus
 	var strHtml = '';
 	strHtml +=
-		'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[0] + '</label>' +
-		'<div class="form-group">' +
-			'<div class="input-group">' +
-				'<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>' +
-				'<input class="form-control trans-placeholder" name="ReportName" id="ReportName" maxlength="255" placeholder="Title of report*" value="' + ArrayContent[0] + '" required />' +
-				'<span class="input-group-addon">' +
-					'<a name="ToolTipReportName" data-toggle="tooltip" data-placement="top" title="Please enter a title for your report." class="trans-name-title">' +
-						'<i class="glyphicon glyphicon-question-sign"></i>' +
-					'</a>' +
-				'</span>' +
+		'<div class="row">' +
+			'<div class="col-md-2">' +
+				'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[0] + '</label>' +
+			'</div>' +
+			'<div class="col-md-10">' +
+				'<div class="form-group">' +
+					'<div class="input-group">' +
+						'<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>' +
+						'<input class="form-control trans-placeholder" name="ReportName" id="ReportName" maxlength="255" placeholder="Title of report*" value="' + ArrayContent[0] + '" required />' +
+						'<span class="input-group-addon">' +
+							'<a name="ToolTipReportName" data-toggle="tooltip" data-placement="top" title="Please enter a title for your report." class="trans-name-title">' +
+								'<i class="glyphicon glyphicon-question-sign"></i>' +
+							'</a>' +
+						'</span>' +
+					'</div>' +
+				'</div>' +
 			'</div>' +
 		'</div>';
 	strHtml +=
-		'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[1] + '</label>' +
-		'<div class="form-group">' +
-			'<div class="input-group">' +
-				'<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>' +
-				'<input class="form-control trans-placeholder" name="NickName" id="NickName" maxlength="255" placeholder="NickName (author of report)*" value="' + ArrayContent[1] + '" required />' +
-				'<span class="input-group-addon">' +
-					'<a name="ToolTipNickName" data-toggle="tooltip" data-placement="top" title="Please enter a NickName. The NickName will be shown as author of your report." class="trans-name-title">' +
-						'<i class="glyphicon glyphicon-question-sign"></i>' +
-					'</a>' +
-				'</span>' +
+		'<div class="row">' +
+			'<div class="col-md-2">' +
+				'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[1] + '</label>' +
+			'</div>' +
+			'<div class="col-md-10">' +
+				'<div class="form-group">' +
+					'<div class="input-group">' +
+						'<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>' +
+						'<input class="form-control trans-placeholder" name="NickName" id="NickName" maxlength="255" placeholder="NickName (author of report)*" value="' + ArrayContent[1] + '" required />' +
+						'<span class="input-group-addon">' +
+							'<a name="ToolTipNickName" data-toggle="tooltip" data-placement="top" title="Please enter a NickName. The NickName will be shown as author of your report." class="trans-name-title">' +
+								'<i class="glyphicon glyphicon-question-sign"></i>' +
+							'</a>' +
+						'</span>' +
+					'</div>' +
+				'</div>' +
 			'</div>' +
 		'</div>';
 	strHtml +=
-		'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[2] + '</label>' +
-		'<div class="form-group">' +
-			'<div class="input-group">' +
-				'<span class="input-group-addon"><i class="glyphicon glyphicon-flag"></i></span>' +
-				'<select class="form-control" name="DropDownListCountries" id="DropDownListCountries" required></select>' +
-				'<span class="input-group-addon">' +
-					'<a name="ToolTipDestinationCountry" data-toggle="tooltip" data-placement="top" title="Please select your destination-country." class="trans-name-title">' +
-						'<i class="glyphicon glyphicon-question-sign"></i>' +
-					'</a>' +
-				'</span>' +
+		'<div class="row">' +
+			'<div class="col-md-2">' +
+				'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[2] + '</label>' +
+			'</div>' +
+			'<div class="col-md-10">' +
+				'<div class="form-group">' +
+					'<div class="input-group">' +
+						'<span class="input-group-addon"><i class="glyphicon glyphicon-flag"></i></span>' +
+						'<select class="form-control" name="DropDownListCountries" id="DropDownListCountries" required></select>' +
+						'<span class="input-group-addon">' +
+							'<a name="ToolTipDestinationCountry" data-toggle="tooltip" data-placement="top" title="Please select your destination-country." class="trans-name-title">' +
+								'<i class="glyphicon glyphicon-question-sign"></i>' +
+							'</a>' +
+						'</span>' +
+					'</div>' +
+				'</div>' +
 			'</div>' +
 		'</div>';
 	strHtml +=
-		'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[3] + '</label>' +
-		'<div class="form-group">' +
-			'<div class="input-group">' +
-				'<span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>' +
-				'<input class="form-control trans-placeholder" name="InputCity" id="InputCity" maxlength="255" placeholder="Destination-City*" value="' + ArrayContent[3] + '" required />' +
-				'<span class="input-group-addon">' +
-					'<a name="ToolTipDestinationCity" data-toggle="tooltip" data-placement="top" title="Please enter your destination-city." class="trans-name-title">' +
-						'<i class="glyphicon glyphicon-question-sign"></i>' +
-					'</a>' +
-				'</span>' +
+		'<div class="row">' +
+			'<div class="col-md-2">' +
+				'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[3] + '</label>' +
+			'</div>' +
+			'<div class="col-md-10">' +
+				'<div class="form-group">' +
+					'<div class="input-group">' +
+						'<span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>' +
+						'<input class="form-control trans-placeholder" name="InputCity" id="InputCity" maxlength="255" placeholder="Destination-City*" value="' + ArrayContent[3] + '" required />' +
+						'<span class="input-group-addon">' +
+							'<a name="ToolTipDestinationCity" data-toggle="tooltip" data-placement="top" title="Please enter your destination-city." class="trans-name-title">' +
+								'<i class="glyphicon glyphicon-question-sign"></i>' +
+							'</a>' +
+						'</span>' +
+					'</div>' +
+				'</div>' +
 			'</div>' +
 		'</div>';
 	strHtml +=
-		'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[4] + '</label>' +
-		'<div class="form-group">' +
-			'<div class="input-group">' +
-				'<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>' +
-				'<input class="form-control trans-placeholder" style="background: white;" name="DateRange" id="DateRange" placeholder="Travel-Period*" value="' + ArrayContent[4] + '" readonly />' +
-				'<span class="input-group-addon">' +
-					'<a name="ToolTipDateRange" data-toggle="tooltip" data-placement="top" title="Please select startdate and enddate of your travel." class="trans-name-title">' +
-						'<i class="glyphicon glyphicon-question-sign"></i>' +
-					'</a>' +
-				'</span>' +
+		'<div class="row">' +
+			'<div class="col-md-2">' +
+				'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[4] + '</label>' +
+			'</div>' +
+			'<div class="col-md-10">' +
+				'<div class="form-group">' +
+					'<div class="input-group">' +
+						'<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>' +
+						'<input class="form-control trans-placeholder" style="background: white;" name="DateRange" id="DateRange" placeholder="Travel-Period*" value="' + ArrayContent[4] + '" readonly />' +
+						'<span class="input-group-addon">' +
+							'<a name="ToolTipDateRange" data-toggle="tooltip" data-placement="top" title="Please select startdate and enddate of your travel." class="trans-name-title">' +
+								'<i class="glyphicon glyphicon-question-sign"></i>' +
+							'</a>' +
+						'</span>' +
+					'</div>' +
+				'</div>' +
 			'</div>' +
 		'</div>';
 	strHtml +=
-		'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[5] + '</label>' +
-		'<div class="form-group">' +
-			'<div class="input-group">' +
-				'<span class="input-group-addon"><i class="glyphicon glyphicon-thumbs-up"></i></span>' +
-				'<input class="form-control trans-placeholder" name="InputHighlight" id="InputHighlight" maxlength="255" placeholder="Your personal highlights*" value="' + ArrayContent[5] + '" required />' +
-				'<span class="input-group-addon">' +
-					'<a name="ToolTipHighlight" data-toggle="tooltip" data-placement="top" title="Please enter your personal highlights." class="trans-name-title">' +
-						'<i class="glyphicon glyphicon-question-sign"></i>' +
-					'</a>' +
-				'</span>' +
+		'<div class="row">' +
+			'<div class="col-md-2">' +
+				'<label	class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[5] + '</label>' +
+			'</div>' +
+			'<div class="col-md-10">' +
+				'<div class="form-group">' +
+					'<div class="input-group">' +
+						'<span class="input-group-addon"><i class="glyphicon glyphicon-thumbs-up"></i></span>' +
+						'<input class="form-control trans-placeholder" name="InputHighlight" id="InputHighlight" maxlength="255" placeholder="Your personal highlights*" value="' + ArrayContent[5] + '" required />' +
+						'<span class="input-group-addon">' +
+							'<a name="ToolTipHighlight" data-toggle="tooltip" data-placement="top" title="Please enter your personal highlights." class="trans-name-title">' +
+								'<i class="glyphicon glyphicon-question-sign"></i>' +
+							'</a>' +
+						'</span>' +
+					'</div>' +
+				'</div>' +
 			'</div>' +
 		'</div>';
 	strHtml +=
-		'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[6] + '</label>' +
-		'<div class="form-group">' +
-			'<div class="input-group">' +
-				'<span class="input-group-addon"><i class="glyphicon glyphicon-warning-sign"></i></span>' +
-				'<input class="form-control trans-placeholder" name="InputAttention" id="InputAttention" maxlength="255" placeholder="What must be considered?*" value="' + ArrayContent[6] + '" required />' +
-				'<span class="input-group-addon">' +
-					'<a name="InputAttention" data-toggle="tooltip" data-placement="top" title="What must be considered?" class="trans-name-title">' +
-						'<i class="glyphicon glyphicon-question-sign"></i>' +
-					'</a>' +
-				'</span>' +
+		'<div class="row">' +
+			'<div class="col-md-2">' +
+				'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[6] + '</label>' +
+			'</div>' +
+			'<div class="col-md-10">' +
+				'<div class="form-group">' +
+					'<div class="input-group">' +
+						'<span class="input-group-addon"><i class="glyphicon glyphicon-warning-sign"></i></span>' +
+						'<input class="form-control trans-placeholder" name="InputAttention" id="InputAttention" maxlength="255" placeholder="What must be considered?*" value="' + ArrayContent[6] + '" required />' +
+						'<span class="input-group-addon">' +
+							'<a name="InputAttention" data-toggle="tooltip" data-placement="top" title="What must be considered?" class="trans-name-title">' +
+								'<i class="glyphicon glyphicon-question-sign"></i>' +
+							'</a>' +
+						'</span>' +
+					'</div>' +
+				'</div>' +
 			'</div>' +
 		'</div>';
 	strHtml +=
-		'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[7] + '</label>' +
-		'<div class="form-group">' +
-			'<div class="input-group">' +
-				'<span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>' +
-				'<input class="form-control trans-placeholder" name="Lecture" id="Lecture" maxlength="255" placeholder="Attended lectures" value="' + ArrayContent[7] + '" />' +
-				'<span class="input-group-addon">' +
-					'<a name="ToolTipLecture" data-toggle="tooltip" data-placement="top" title="Please enter your attended lectures." class="trans-name-title">' +
-						'<i class="glyphicon glyphicon-question-sign"></i>' +
-					'</a>' +
-				'</span>' +
+		'<div class="row">' +
+			'<div class="col-md-2">' +
+				'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[7] + '</label>' +
+			'</div>' +
+			'<div class="col-md-10">' +
+				'<div class="form-group">' +
+					'<div class="input-group">' +
+						'<span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>' +
+						'<input class="form-control trans-placeholder" name="Lecture" id="Lecture" maxlength="255" placeholder="Attended lectures" value="' + ArrayContent[7] + '" />' +
+						'<span class="input-group-addon">' +
+							'<a name="ToolTipLecture" data-toggle="tooltip" data-placement="top" title="Please enter your attended lectures." class="trans-name-title">' +
+								'<i class="glyphicon glyphicon-question-sign"></i>' +
+							'</a>' +
+						'</span>' +
+					'</div>' +
+				'</div>' +
 			'</div>' +
 		'</div>';
 	strHtml +=
-		'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[8] + '</label>' +
-		'<div class="form-group">' +
-			'<div class="input-group">' +
-				'<span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>' +
-				'<input class="form-control trans-placeholder" name="Internship" id="Internship" maxlength="255" placeholder="Attended internships" value="' + ArrayContent[8] + '" />' +
-				'<span class="input-group-addon">' +
-					'<a name="ToolTipInternship" data-toggle="tooltip" data-placement="top" title="Please enter your attended internship." class="trans-name-title">' +
-						'<i class="glyphicon glyphicon-question-sign"></i>' +
-					'</a>' +
-				'</span>' +
+		'<div class="row">' +
+			'<div class="col-md-2">' +
+				'<label class="trans-innerHTML-arrayEdit">' + ArrayTitleEdit[8] + '</label>' +
+			'</div>' +
+			'<div class="col-md-10">' +
+				'<div class="form-group">' +
+					'<div class="input-group">' +
+						'<span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>' +
+						'<input class="form-control trans-placeholder" name="Internship" id="Internship" maxlength="255" placeholder="Attended internships" value="' + ArrayContent[8] + '" />' +
+						'<span class="input-group-addon">' +
+							'<a name="ToolTipInternship" data-toggle="tooltip" data-placement="top" title="Please enter your attended internship." class="trans-name-title">' +
+								'<i class="glyphicon glyphicon-question-sign"></i>' +
+							'</a>' +
+						'</span>' +
+					'</div>' +
+				'</div>' +
 			'</div>' +
 		'</div>';
 	strHtml +=
