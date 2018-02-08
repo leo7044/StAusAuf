@@ -46,7 +46,7 @@ function initializeForm()
 	}
 }
 
-// 
+// übermittelt Login-Daten an Datenbank; anhand des Rückgabewertes wird bei Erfolg die Weiterleitung eingeleitet oder bei Misserfolg eine aussagekräftige Fehlermeldung ausgegeben
 function login(loginSite)
 {
 	var returnValue = false;
